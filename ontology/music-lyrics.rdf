@@ -34,6 +34,40 @@
         <rdfs:range rdf:resource="https://w3id.org/polifonia/ontology/core/MusicTimeInterval"/>
         <rdfs:label xml:lang="en">has music time interval</rdfs:label>
     </owl:ObjectProperty>
+    
+
+
+    <!-- https://w3id.org/polifonia/ontologymusic-lyrics/hasWritter -->
+
+    <owl:ObjectProperty rdf:about="https://w3id.org/polifonia/ontologymusic-lyrics/hasWritter">
+        <rdfs:subPropertyOf rdf:resource="https://w3id.org/polifonia/ontology/core/hasAgent"/>
+        <owl:inverseOf rdf:resource="https://w3id.org/polifonia/ontologymusic-lyrics/isWritterOf"/>
+        <rdfs:domain rdf:resource="https://w3id.org/polifonia/ontology/music-meta/Text"/>
+        <rdfs:range rdf:resource="https://w3id.org/polifonia/ontology/music-meta/Musician"/>
+        <rdfs:comment xml:lang="en">The relation between a piece of Text and a Musician</rdfs:comment>
+        <rdfs:label xml:lang="en">has writter</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://w3id.org/polifonia/ontologymusic-lyrics/isSungBy -->
+
+    <owl:ObjectProperty rdf:about="https://w3id.org/polifonia/ontologymusic-lyrics/isSungBy">
+        <rdfs:domain rdf:resource="https://w3id.org/polifonia/ontology/music-meta/TextFragment"/>
+        <rdfs:range rdf:resource="https://w3id.org/polifonia/ontology/music-meta/Musician"/>
+        <rdfs:comment xml:lang="en">The relation between a Text Fragment and a Musician</rdfs:comment>
+        <rdfs:label xml:lang="en">is sung by</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://w3id.org/polifonia/ontologymusic-lyrics/isWritterOf -->
+
+    <owl:ObjectProperty rdf:about="https://w3id.org/polifonia/ontologymusic-lyrics/isWritterOf">
+        <rdfs:subPropertyOf rdf:resource="https://w3id.org/polifonia/ontology/core/isAgentOf"/>
+        <rdfs:comment xml:lang="en">The relation between a Musician and a piece of Text</rdfs:comment>
+        <rdfs:label xml:lang="en">is writter of</rdfs:label>
+    </owl:ObjectProperty>
 </rdf:RDF>
 
 
