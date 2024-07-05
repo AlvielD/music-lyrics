@@ -12,6 +12,7 @@
      xmlns:terms="http://purl.org/dc/terms/">
     <owl:Ontology rdf:about="https://w3id.org/polifonia/ontologymusic-lyrics">
         <owl:imports rdf:resource="https://w3id.org/polifonia/ontology/music-meta/1.0/"/>
+        <owl:imports rdf:resource="https://w3id.org/polifonia/ontology/source/1.0/"/>
     </owl:Ontology>
     
 
@@ -33,6 +34,28 @@
         <rdfs:domain rdf:resource="https://w3id.org/polifonia/ontology/music-meta/TextFragment"/>
         <rdfs:range rdf:resource="https://w3id.org/polifonia/ontology/core/MusicTimeInterval"/>
         <rdfs:label xml:lang="en">has music time interval</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://w3id.org/polifonia/ontologymusic-lyrics/hasSource -->
+
+    <owl:ObjectProperty rdf:about="https://w3id.org/polifonia/ontologymusic-lyrics/hasSource">
+        <rdfs:domain rdf:resource="https://w3id.org/polifonia/ontology/music-meta/Lyrics"/>
+        <rdfs:range rdf:resource="https://w3id.org/polifonia/ontology/source/Source"/>
+        <rdfs:comment xml:lang="en">Relation between Lyrics and their Source</rdfs:comment>
+        <rdfs:label xml:lang="en">has source</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://w3id.org/polifonia/ontologymusic-lyrics/hasSource -->
+
+    <owl:ObjectProperty rdf:about="https://w3id.org/polifonia/ontologymusic-lyrics/hasSource">
+        <rdfs:domain rdf:resource="https://w3id.org/polifonia/ontology/music-meta/Lyrics"/>
+        <rdfs:range rdf:resource="https://w3id.org/polifonia/ontology/source/Source"/>
+        <rdfs:comment xml:lang="en">Relation between Lyrics and their Source</rdfs:comment>
+        <rdfs:label xml:lang="en">has source</rdfs:label>
     </owl:ObjectProperty>
     
 
