@@ -1,5 +1,11 @@
 import config.genius_config as config
 import requests
+import re
+
+from lyricsgenius import Genius
+
+# Initialize the Genius API client
+genius = Genius(config.ACCESS_TOKEN)
 
 def search_song(song_title, song_artist):
     """Search for a song on Genius and return the first result
@@ -41,3 +47,40 @@ def get_song_langugage(song_title, song_artist):
 
     metadata = get_song_metadata(song_id)['response']
     return metadata['song']['language']
+
+
+# Function to clean the lyrics from lyricsgenius
+def clean_lyrics(lyrics):
+    # Check for "You might also like" followed by a '[' without a newline
+    lyrics_cleaned = re.sub(r'You might also like(?=\[)', '\n', lyrics)
+
+    # Ensure there is a newline before any '['
+    lyrics_cleaned = re.sub(r'(?<!\n)\[', '\n[', lyrics_cleaned)
+
+    # Reduce consecutive newlines to a single newline
+    lyrics_cleaned = re.sub(r'\n+', '\n', lyrics_cleaned)
+
+    return lyrics_cleaned.strip()
+
+
+def scrape_song_lyrics(song_title, artist_name):
+    # Search for the song by title and artist
+    song = genius.search_song(song_title, artist_name)
+    
+    if song:
+        # Clean lyrics to remove "You might also like" issue
+        cleaned_lyrics = clean_lyrics(song.lyrics)
+
+        # Prepare the song data
+        song_data = {
+            'title': song.title,
+            'artist': song.artist,
+            'lyrics': cleaned_lyrics
+            #song_writers TODO
+        }
+        
+        print(f"Lyrics scraped succesfully")
+        return song_data
+    else:
+        print(f"Lyrics for '{song_title}' by {artist_name} not found.")
+        return False

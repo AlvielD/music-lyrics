@@ -96,6 +96,78 @@ class LyricsAnnot:
 
         with open(f'./saved/{self.song_id}.json', 'w') as file:
             json.dump(data, file, indent=4)
+
+
+    # TODO: Check this method (sometimes it skips lines)
+    def add_section_info(self, genius_data):
+
+        merged_annotations = []
+
+        # Initialize variables to track current paragraph and its content
+        current_paragraph_name = None
+        current_paragraph_content = None
+        current_paragraph_start_time = None
+        current_paragraph_end_time = None
+        
+        # Iterate through annotation lines
+        for line in self.annotations:
+            line_text = line['line']
+            line_start_time = line['time_index'][0]
+            line_end_time = line['time_index'][1]
+            
+            # Check if current line belongs to the current paragraph
+            if current_paragraph_content and line_text in current_paragraph_content:
+                # Add line information to current paragraph
+                lines = {
+                    'line': line_text,
+                    'time_index': [line_start_time, line_end_time],
+                    'time_duration': line_end_time - line_start_time
+                }
+                merged_annotations[-1]['lines'].append(lines)
+                
+                # Update current paragraph end time
+                current_paragraph_end_time = line_end_time
+            else:
+                # If current line doesn't belong to current paragraph, finalize current paragraph
+                if current_paragraph_name:
+                    merged_annotations[-1]['time_index'] = [current_paragraph_start_time, current_paragraph_end_time]
+                
+                # Move to a new paragraph section
+                for paragraph_name, paragraph_info in genius_data.items():
+                    paragraph_content = paragraph_info['content']
+                    singer = paragraph_info['singer']
+                    
+                    # Check if current line starts a new paragraph
+                    if paragraph_content.startswith(line_text):
+                        # Initialize new paragraph
+                        current_paragraph_name = paragraph_name
+                        current_paragraph_content = paragraph_content
+                        current_paragraph_start_time = line_start_time
+                        current_paragraph_end_time = line_end_time
+                        
+                        # Add new annotation for the paragraph
+                        annotation_data = {
+                            'paragraph': current_paragraph_name,
+                            'time_index': [current_paragraph_start_time, current_paragraph_end_time],
+                            'time_duration': current_paragraph_end_time - current_paragraph_start_time,
+                            'singer': singer,
+                            'lines': [{
+                                'line': line_text,
+                                'time_index': [line_start_time, line_end_time],
+                                'time_duration': line_end_time - line_start_time
+                            }]
+                        }
+                        
+                        merged_annotations.append(annotation_data)
+                        
+                        break  # Stop searching for paragraph after finding match
+
+        # Finalize last paragraph if any
+        if current_paragraph_name:
+            merged_annotations[-1]['time_index'] = [current_paragraph_start_time, current_paragraph_end_time]
+        
+        # Prepare merged data structure
+        self.annotations = merged_annotations
         
 
     def print_song(self):
