@@ -143,9 +143,9 @@ class LyricsAnnot:
                 for paragraph_name, paragraph_info in genius_data.items():
                     paragraph_content = paragraph_info['content']
                     singer = paragraph_info['singer']
-                    
+                                    
                     # Check if current line starts a new paragraph
-                    if paragraph_content.startswith(line_text):
+                    if paragraph_content.lower().startswith(line_text.lower()):
                         # Initialize new paragraph
                         current_paragraph_name = paragraph_name
                         current_paragraph_content = paragraph_content
@@ -166,13 +166,14 @@ class LyricsAnnot:
                         }
                         
                         merged_annotations.append(annotation_data)
+
                         
                         break  # Stop searching for paragraph after finding match
 
         # Finalize last paragraph if any
         if current_paragraph_name:
             merged_annotations[-1]['time_index'] = [current_paragraph_start_time, current_paragraph_end_time]
-        
+            
         # Prepare merged data structure
         self.annotations = merged_annotations
         
