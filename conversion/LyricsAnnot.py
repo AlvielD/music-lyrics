@@ -136,9 +136,10 @@ class LyricsAnnot:
             line_text = line['line']
             line_start_time = line['time_index'][0]
             line_end_time = line['time_index'][1]
+
             
             # Check if current line belongs to the current paragraph
-            if current_paragraph_content and line_text in current_paragraph_content:
+            if current_paragraph_content and line_text.lower() in current_paragraph_content.lower():
                 # Add line information to current paragraph
                 lines = {
                     'line': line_text,
@@ -182,7 +183,6 @@ class LyricsAnnot:
                         
                         merged_annotations.append(annotation_data)
 
-                        
                         break  # Stop searching for paragraph after finding match
 
         # Finalize last paragraph if any
