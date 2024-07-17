@@ -1,7 +1,7 @@
 import utils
 import json
 import SpotiScraper as SpotiScraper
-from pprint import pprint
+import pprint
 
 class LyricsAnnot:
     _last_id = 0
@@ -28,6 +28,22 @@ class LyricsAnnot:
             self.song_duration = None
 
         self.annotations = []
+
+
+    def __str__(self) -> str:
+        annot = "META-DATA\n"
+        annot += "------------------------\n"
+        annot += f"ID:\t{self.song_id}\n"
+        annot += f"Title:\t{self.title}\n"
+        annot += f"Artist:\t{self.artist}\n"
+        annot += f"Lang:\t{self.language}\n"
+        annot += f"Duration:\t{self.song_duration}\n\n"
+
+        annot += "ANNOTATIONS\n"
+        annot += "------------------------\n"
+        annot += pprint.pformat(self.annotations)
+
+        return annot
 
     
     def set_song_metadata(self, title, artist):
@@ -105,7 +121,6 @@ class LyricsAnnot:
             json.dump(data, file, indent=4)
 
 
-    # TODO: Check this method (sometimes it skips lines)
     def add_section_info(self, genius_data):
 
         merged_annotations = []
@@ -175,18 +190,26 @@ class LyricsAnnot:
         
         # Prepare merged data structure
         self.annotations = merged_annotations
-        
 
-    def print_song(self):
-        print("META-DATA")
-        print("------------------------")
-        print(f"ID:\t{self.song_id}")
-        print(f"Title:\t{self.title}")
-        print(f"Artist:\t{self.artist}")
-        print(f"Lang:\t{self.language}")
-        print(f"Duration:\t{self.song_duration}\n")
 
-        print("ANNOTATIONS")
-        print("------------------------")
-        pprint(self.annotations)
 
+# Individual testing
+if __name__ == '__main__':
+    
+    # Read the data from a JSON file
+    file_path = './data/DAMP_MVP/sing_300x30x2/ES/ESLyrics/3364824_3364824.json'
+    with open(file_path) as file:
+        data = json.load(file)
+
+    # Create the instance of lyrics annotations
+    title = 'Perro fiel'
+    artist = 'Shakira'
+
+    annot = LyricsAnnot(title, artist)
+    print("Lyrics annotation initialized with the following song:")
+    print(annot)
+
+    # Build the annotations from the audio-aligned data in json file
+    annot.build_annotations(data, 'DAMP')
+    print("Lyrics annotation built with the following information:")
+    print(annot)
