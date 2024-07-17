@@ -1,5 +1,7 @@
 import config.genius_config as config
+import pprint
 import re
+import requests
 
 from lyricsgenius import Genius
 
@@ -18,19 +20,28 @@ class GeniusCompiler:
     
 
     def get_lyrics(self, song_title, song_artist):
-        # Search for the song on Genius
+        """Scraped lyrics from a song using its title and primary artist name
+
+        Args:
+            song_title (str): song's title
+            song_artist (str): artist's name
+
+        Returns:
+            dict: cleaned lyrics of the song along with some information.
+        """
         song = self.genius.search_song(song_title, song_artist)
 
         if song:
             # Clean lyrics to remove "You might also like" issue
             lyrics = self.__clean_lyrics(song.lyrics)
+            writer_artists = self.get_writer_artists(song.id)
 
             # Prepare the song data
             song_data = {
                 'title': song.title,
                 'artist': song.artist,
-                'lyrics': lyrics
-                #song_writers TODO
+                'lyrics': lyrics,
+                'song_writers': writer_artists
             }
             
             print(f"Lyrics scraped successfully")
@@ -40,6 +51,23 @@ class GeniusCompiler:
 
         return song_data
     
+
+    def get_writer_artists(self, song_id):
+        """Get song's writers by its ID
+
+        Args:
+            song_id (str): ID of the song
+
+        Returns:
+            array: each of the artists' name involved in the writing of the song
+        """
+        song_url = f'{config.BASE_URL}/songs/{song_id}'
+        response = requests.get(song_url, headers=config.HEADERS)
+        data = response.json()
+        writer_artists = [artist['name'] for artist in data['response']['song']['writer_artists']]
+
+        return writer_artists
+
 
     def split_by_section(self, genius_data):
 
@@ -96,3 +124,20 @@ class GeniusCompiler:
             genius_paragraphs = False
 
         return genius_paragraphs
+    
+
+if __name__ == '__main__':
+    
+    title = 'Blinding Lights'
+    artist = 'The Weeknd'
+
+    # Create an instance of our compiler and scrape the lyrics from Genius
+    compiler = GeniusCompiler()
+    genius_data = compiler.get_lyrics(title, artist)
+
+    pprint.pprint(genius_data)
+
+    # Get the sections of the song from the scraped data
+    paragraphs = compiler.split_by_section(genius_data)
+
+    pprint.pprint(paragraphs)
