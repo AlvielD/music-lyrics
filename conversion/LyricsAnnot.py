@@ -71,8 +71,14 @@ class LyricsAnnot:
                     self.annotations = annotations
                     print("Annotations built succesfully!")
                 elif dataset == 'DALI':
-                    # TODO: Add here procedure to build DALI annotations
-                    pass
+                    entry = data['annotations']['annot']['lines']
+                    annotations = [{
+                        'line': entry[i]['text'],
+                        'time_index': [entry[i]['time'][0], entry[i]['time'][1]],
+                        'time_duration': entry[i]['time'][1] - entry[i]['time'][0]} for i in range(len(entry))]
+                    
+                    self.annotations = annotations
+                    print("Annotations built succesfully!")
                 else:
                     print("Dataset not supported. Annotations were not built.")
             else:
