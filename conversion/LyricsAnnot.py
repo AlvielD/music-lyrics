@@ -1,31 +1,32 @@
-import utils
 import json
-import SpotiScraper as SpotiScraper
 import pprint
 
+from SpotiScraper import SpotiScraper
+from GeniusCompiler import GeniusCompiler
+
 class LyricsAnnot:
+    # PRIVATE ATTRIBUTES
     _last_id = 0
     _id_len = 8
-
-    # Maximum value for the given length in hexadecimal
     _max_id = int("F" * _id_len, 16)
 
-    _spoti_client = SpotiScraper.SpotiScraper()
+    _spoti_client = SpotiScraper()
+    _genius_compiler = GeniusCompiler()
 
-    def __init__(self, title = None, artist = None):
+
+    def __init__(self, title, artist):
         # Meta-data attributes
-        self.song_id = self.build_id()
+        self.song_id = self.__build_id()
         self.title = title
         self.artist = artist
 
-        # Define attributes dependant on title and singer
-        if title and artist:
-            self.language = utils.get_song_language(title, artist)
-            #self.song_writers = LyricsAnnot._spoti_client.get_song_writers(title, artist)
-            self.song_duration = LyricsAnnot._spoti_client.get_song_duration(title, artist)
-        else:
-            self.language = None
-            self.song_duration = None
+        # Define attributes dependant on external sources
+        song_id = LyricsAnnot._genius_compiler.search_song(self.title, self.artist).id
+        metadata = LyricsAnnot._genius_compiler.get_song_metadata(song_id)
+
+        self.language = metadata['language']
+        self.writer_artists = metadata['writer_artists']
+        self.song_duration = LyricsAnnot._spoti_client.get_song_duration(title, artist)
 
         self.annotations = []
 
@@ -37,6 +38,7 @@ class LyricsAnnot:
         annot += f"Title:\t{self.title}\n"
         annot += f"Artist:\t{self.artist}\n"
         annot += f"Lang:\t{self.language}\n"
+        annot += f"Writer Artists:\t{self.writer_artists}\n"
         annot += f"Duration:\t{self.song_duration}\n\n"
 
         annot += "ANNOTATIONS\n"
@@ -45,15 +47,8 @@ class LyricsAnnot:
 
         return annot
 
-    
-    def set_song_metadata(self, title, artist):
-        self.title = title
-        self.artist = artist
-        self.language = utils.get_song_language(title, artist)
-        self.song_duration = LyricsAnnot._spoti_client.get_song_duration(title, artist)
 
-
-    def build_id(self):
+    def __build_id(self):
         """Build the id of the song from the class attributes
 
         Raises:
@@ -72,6 +67,15 @@ class LyricsAnnot:
 
     
     def build_annotations(self, data, dataset = 'DAMP'):
+        """Add audio-aligned data from the data provided in json format
+
+        Args:
+            data (dict): json data read from file
+            dataset (str, optional): dataset from which the data was read, some fields may vary. Defaults to 'DAMP'.
+
+        Returns:
+            bool: whether the audio-aligned data was succesfully added
+        """
         try:
             if data:
                 if dataset == 'DAMP':
@@ -121,8 +125,23 @@ class LyricsAnnot:
             json.dump(data, file, indent=4)
 
 
-    def add_section_info(self, genius_data):
+    def add_section_info(self):
+        """Adds information about song sections (chorus, verse, ...) to the current annotations.
+        """
+        lyrics = LyricsAnnot._genius_compiler.get_lyrics(self.title, self.artist)
+        paragraphs = LyricsAnnot._genius_compiler.split_by_section(lyrics, self.artist)
+        self.annotations = self.__merge_annotations(paragraphs)
 
+
+    def __merge_annotations(self, paragraphs):
+        """Merges the current annotations with the paragraphs information provided
+
+        Args:
+            paragraphs (_type_): sections information scraped from Genius API
+
+        Returns:
+            array: enhanced annotations with sections information.
+        """
         merged_annotations = []
 
         # Initialize variables to track current paragraph and its content
@@ -156,7 +175,7 @@ class LyricsAnnot:
                     merged_annotations[-1]['time_index'] = [current_paragraph_start_time, current_paragraph_end_time]
                 
                 # Move to a new paragraph section
-                for paragraph_name, paragraph_info in genius_data.items():
+                for paragraph_name, paragraph_info in paragraphs.items():
                     paragraph_content = paragraph_info['content']
                     singer = paragraph_info['singer']
                                     
@@ -189,17 +208,14 @@ class LyricsAnnot:
         if current_paragraph_name:
             merged_annotations[-1]['time_index'] = [current_paragraph_start_time, current_paragraph_end_time]
             
-        # Prepare merged data structure
-        self.annotations = merged_annotations
+        return merged_annotations
 
 
-
-# Individual testing
 if __name__ == '__main__':
     
     # Read the data from a JSON file
     file_path = './data/DAMP_MVP/sing_300x30x2/ES/ESLyrics/3364824_3364824.json'
-    with open(file_path) as file:
+    with open(file_path, encoding='utf-8') as file:
         data = json.load(file)
 
     # Create the instance of lyrics annotations
@@ -207,10 +223,7 @@ if __name__ == '__main__':
     artist = 'Shakira'
 
     annot = LyricsAnnot(title, artist)
-    print("Lyrics annotation initialized with the following song:")
-    print(annot)
-
-    # Build the annotations from the audio-aligned data in json file
     annot.build_annotations(data, 'DAMP')
-    print("Lyrics annotation built with the following information:")
+    annot.add_section_info()
+
     print(annot)
