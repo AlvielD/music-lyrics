@@ -1,6 +1,8 @@
 import json
 import pprint
 
+import pylcs
+
 from SpotiScraper import SpotiScraper
 from GeniusCompiler import GeniusCompiler
 
@@ -121,7 +123,7 @@ class LyricsAnnot:
             'annotations': self.annotations
         }
 
-        with open(f'./saved/{self.song_id}.json', 'w') as file:
+        with open(f'./conversion/saved/{self.song_id}.json', 'w', encoding='utf-8') as file:
             json.dump(data, file, indent=4)
 
 
@@ -155,10 +157,12 @@ class LyricsAnnot:
             line_text = line['line']
             line_start_time = line['time_index'][0]
             line_end_time = line['time_index'][1]
-
             
             # Check if current line belongs to the current paragraph
-            if current_paragraph_content and line_text.lower() in current_paragraph_content.lower():
+            if current_paragraph_content:
+                doc_score = pylcs.lcs_string_length(line_text.lower(), current_paragraph_content.lower()) / len(line_text)
+                #print(f"SCORE BETWEEN {line_text} AND {current_paragraph_content}: {doc_score}")
+            if current_paragraph_content and doc_score > 0.6:
                 # Add line information to current paragraph
                 lines = {
                     'line': line_text,
@@ -226,4 +230,4 @@ if __name__ == '__main__':
     annot.build_annotations(data, 'DAMP')
     annot.add_section_info()
 
-    print(annot)
+    annot.save_to_json()
