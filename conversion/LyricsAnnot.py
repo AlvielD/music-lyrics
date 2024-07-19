@@ -91,7 +91,7 @@ class LyricsAnnot:
                         'time_duration': self.song_duration - data[-1]['t']})
                     
                     self.annotations = annotations
-                    print("Annotations built succesfully!")
+                    print("Annotations built successfully!")
                 elif dataset == 'DALI':
                     entry = data['annotations']['annot']['lines']
                     annotations = [{
@@ -100,7 +100,7 @@ class LyricsAnnot:
                         'time_duration': entry[i]['time'][1] - entry[i]['time'][0]} for i in range(len(entry))]
                     
                     self.annotations = annotations
-                    print("Annotations built succesfully!")
+                    print("Annotations built successfully!")
                 else:
                     print("Dataset not supported. Annotations were not built.")
             else:
@@ -123,7 +123,7 @@ class LyricsAnnot:
             'annotations': self.annotations
         }
 
-        with open(f'./conversion/saved/{self.song_id}.json', 'w', encoding='utf-8') as file:
+        with open(f'./saved/{self.song_id}.json', 'w', encoding='utf-8') as file:
             json.dump(data, file, indent=4)
 
 
@@ -177,19 +177,26 @@ class LyricsAnnot:
                 # If current line doesn't belong to current paragraph, finalize current paragraph
                 if current_paragraph_name:
                     merged_annotations[-1]['time_index'] = [current_paragraph_start_time, current_paragraph_end_time]
+
+                match = False
                 
                 # Move to a new paragraph section
                 for paragraph_name, paragraph_info in paragraphs.items():
                     paragraph_content = paragraph_info['content']
                     singer = paragraph_info['singer']
-                                    
+
+                   
                     # Check if current line starts a new paragraph
-                    if paragraph_content.lower().startswith(line_text.lower()):
+                    if startswith_similar(paragraph_content, line_text):
+                        match = True
+
                         # Initialize new paragraph
                         current_paragraph_name = paragraph_name
                         current_paragraph_content = paragraph_content
                         current_paragraph_start_time = line_start_time
                         current_paragraph_end_time = line_end_time
+
+                        #print('Match found!')
                         
                         # Add new annotation for the paragraph
                         annotation_data = {
@@ -207,12 +214,48 @@ class LyricsAnnot:
                         merged_annotations.append(annotation_data)
 
                         break  # Stop searching for paragraph after finding match
+                if match == False:
+                    #print('No match found. The line has been added to the current paragraph by default.')
+                    lines = {
+                        'line': line_text,
+                        'time_index': [line_start_time, line_end_time],
+                        'time_duration': line_end_time - line_start_time
+                    }
+                    merged_annotations[-1]['lines'].append(lines)
 
         # Finalize last paragraph if any
         if current_paragraph_name:
             merged_annotations[-1]['time_index'] = [current_paragraph_start_time, current_paragraph_end_time]
             
         return merged_annotations
+    
+
+def startswith_similar(paragraph_content, line_text, threshold=0.6):
+    """
+    Checks if the paragraph content starts similarly to the line text with a given similarity threshold.
+    
+    Args:
+        paragraph_content (str): The content of the paragraph.
+        line_text (str): The text to compare with the start of the paragraph.
+        threshold (float): The similarity threshold above which the strings are considered to start similarly.
+        
+    Returns:
+        bool: True if the start of the paragraph is similar to the line text based on the threshold, False otherwise.
+    """
+    # Convert both strings to lower case for case-insensitive comparison
+    paragraph_content = paragraph_content.lower()
+    line_text = line_text.lower()
+    
+    # Compare only the beginning of the paragraph content up to the length of the line text
+    start_content = paragraph_content[:len(line_text)]
+    
+    # Calculate the similarity score using LCS
+    similarity_score = pylcs.lcs_string_length(line_text, start_content) / len(line_text)
+
+    #print(similarity_score)
+    
+    # Check if the similarity score meets the threshold
+    return similarity_score >= threshold
 
 
 if __name__ == '__main__':
