@@ -66,6 +66,7 @@ class LyricsAnnot:
         LyricsAnnot._last_id += 1
 
         return song_id
+    
 
     
     def build_annotations(self, data, dataset = 'DAMP'):
@@ -151,17 +152,26 @@ class LyricsAnnot:
         current_paragraph_content = None
         current_paragraph_start_time = None
         current_paragraph_end_time = None
-        
-        # Iterate through annotation lines
+
+        # Initialize the index of the last matched paragraph
+        last_matched_index = -1
+
+        # Convert paragraphs to a list of items for indexed access
+        paragraphs_list = list(paragraphs.items())
+
+         # Iterate through annotation lines
         for line in self.annotations:
             line_text = line['line']
             line_start_time = line['time_index'][0]
             line_end_time = line['time_index'][1]
+
+            #print(line_text)
             
             # Check if current line belongs to the current paragraph
             if current_paragraph_content:
                 doc_score = pylcs.lcs_string_length(line_text.lower(), current_paragraph_content.lower()) / len(line_text)
                 #print(f"SCORE BETWEEN {line_text} AND {current_paragraph_content}: {doc_score}")
+
             if current_paragraph_content and doc_score > 0.6:
                 # Add line information to current paragraph
                 lines = {
@@ -179,13 +189,16 @@ class LyricsAnnot:
                     merged_annotations[-1]['time_index'] = [current_paragraph_start_time, current_paragraph_end_time]
 
                 match = False
-                
+        
                 # Move to a new paragraph section
-                for paragraph_name, paragraph_info in paragraphs.items():
+                index = last_matched_index + 1
+                if index < len(paragraphs_list):
+                    paragraph_name, paragraph_info = paragraphs_list[index]
                     paragraph_content = paragraph_info['content']
                     singer = paragraph_info['singer']
 
-                   
+                    #print(f"Match with {paragraph_name}?")
+
                     # Check if current line starts a new paragraph
                     if startswith_similar(paragraph_content, line_text):
                         match = True
@@ -213,8 +226,10 @@ class LyricsAnnot:
                         
                         merged_annotations.append(annotation_data)
 
-                        break  # Stop searching for paragraph after finding match
-                if match == False:
+                        # Update last matched index
+                        last_matched_index = index
+
+                if not match or index == len(paragraphs_list):
                     #print('No match found. The line has been added to the current paragraph by default.')
                     lines = {
                         'line': line_text,
@@ -253,7 +268,7 @@ def startswith_similar(paragraph_content, line_text, threshold=0.6):
     similarity_score = pylcs.lcs_string_length(line_text, start_content) / len(line_text)
 
     #print(similarity_score)
-    
+
     # Check if the similarity score meets the threshold
     return similarity_score >= threshold
 
