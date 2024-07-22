@@ -61,7 +61,7 @@ class GeniusCompiler:
         data = requests.get(song_url, headers=config.HEADERS).json()
         song_data = data['response']['song']
         
-        writer_artists = [artist['name'] for artist in song_data['writer_artists']]
+        writer_artists = [artist['name'] for artist in song_data['writer_artists']] if song_data['writer_artists'] else [song_data['primary_artist']['name']]
 
         metadata = {
             'genius_id': song_id,
