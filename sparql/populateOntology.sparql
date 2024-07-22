@@ -1,0 +1,9 @@
+PREFIX mm: <https://w3id.org/polifonia/ontology/music-meta/>
+PREFIX core: <https://w3id.org/polifonia/ontology/core/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT DISTINCT ?musicEnsembleMember ?musicEnsembleMemberRole
+WHERE { ?musicEnsembleMember mm:isMemberOfMusicEnsembleInvolvedIn ?musicEnsembleMembership .
+?musicEnsembleMembership rdf:type mm:MusicEnsembleMembership ;
+core:involvesRole ?musicEnsembleMemberRole .
+}

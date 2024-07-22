@@ -61,7 +61,7 @@ class GeniusCompiler:
         data = requests.get(song_url, headers=config.HEADERS).json()
         song_data = data['response']['song']
         
-        writer_artists = [artist['name'] for artist in song_data['writer_artists']]
+        writer_artists = [artist['name'] for artist in song_data['writer_artists']] if song_data['writer_artists'] else [song_data['primary_artist']['name']]
 
         metadata = {
             'genius_id': song_id,
@@ -150,7 +150,9 @@ class GeniusCompiler:
                 paragraph_name_base = paragraph_name[:numeric_suffix_match.start()].strip() if numeric_suffix_match else paragraph_name
 
                 # Translate paragraph name to English
+                print(paragraph_name_base)
                 paragraph_name_base = self.translate_to_english(paragraph_name_base)
+                print(paragraph_name_base)
 
                 # Ensure paragraph name matches standard sections
                 original_paragraph_name = paragraph_name_base
@@ -160,7 +162,7 @@ class GeniusCompiler:
                 paragraph_name = f"{paragraph_name_base.title()} {numeric_suffix}".strip()
 
                 # Print a message if paragraph name is not part of standard sections
-                if paragraph_name_base.lower() not in (section.lower() for section in standard_sections):
+                if (paragraph_name_base.lower() not in (section.lower() for section in standard_sections)) and verbose:
                     print(f"Warning: Paragraph name '{original_paragraph_name}' is not a standard section name.")
 
                 # Check the next line to see if it's content or another section header

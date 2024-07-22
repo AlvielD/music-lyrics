@@ -11,6 +11,7 @@ class LyricsAnnot:
     _last_id = 0
     _id_len = 8
     _max_id = int("F" * _id_len, 16)
+    _id_map = {}
 
     _spoti_client = SpotiScraper()
     _genius_compiler = GeniusCompiler()
@@ -18,7 +19,7 @@ class LyricsAnnot:
 
     def __init__(self, title, artist):
         # Meta-data attributes
-        self.song_id = self.__build_id()
+        self.song_id = self.__build_id(title, artist)
         self.title = title
         self.artist = artist
 
@@ -50,7 +51,7 @@ class LyricsAnnot:
         return annot
 
 
-    def __build_id(self):
+    def __build_id(self, title, artist):
         """Build the id of the song from the class attributes
 
         Raises:
@@ -59,11 +60,20 @@ class LyricsAnnot:
         Returns:
             str: string representation of the song's ID
         """
+        # Check if the song by the same artist already exists
+        key = (title.lower(), artist.lower())
+        if key in LyricsAnnot._id_map:
+            return LyricsAnnot._id_map[key]
+
+        # Generate a new ID if the song does not exist
         if LyricsAnnot._last_id >= LyricsAnnot._max_id:
-            raise ValueError(f"Maximum ID value of {'F' * LyricsAnnot._id_length} reached.")
-        
+            raise ValueError(f"Maximum ID value of {'F' * LyricsAnnot._id_len} reached.")
+
         song_id = f"{LyricsAnnot._last_id:0{LyricsAnnot._id_len}X}"
         LyricsAnnot._last_id += 1
+
+        # Store the generated ID in the dictionary
+        LyricsAnnot._id_map[key] = song_id
 
         return song_id
     
@@ -169,8 +179,11 @@ class LyricsAnnot:
             
             # Check if current line belongs to the current paragraph
             if current_paragraph_content:
-                doc_score = pylcs.lcs_string_length(line_text.lower(), current_paragraph_content.lower()) / len(line_text)
-                #print(f"SCORE BETWEEN {line_text} AND {current_paragraph_content}: {doc_score}")
+                try:
+                    doc_score = pylcs.lcs_string_length(line_text.lower(), current_paragraph_content.lower()) / len(line_text)
+                    #print(f"SCORE BETWEEN {line_text} AND {current_paragraph_content}: {doc_score}")
+                except ZeroDivisionError:
+                    doc_score = 0.0
 
             if current_paragraph_content and doc_score > 0.6:
                 # Add line information to current paragraph
@@ -265,7 +278,10 @@ def startswith_similar(paragraph_content, line_text, threshold=0.6):
     start_content = paragraph_content[:len(line_text)]
     
     # Calculate the similarity score using LCS
-    similarity_score = pylcs.lcs_string_length(line_text, start_content) / len(line_text)
+    try:
+        similarity_score = pylcs.lcs_string_length(line_text, start_content) / len(line_text)
+    except ZeroDivisionError:
+        similarity_score = 0.0
 
     #print(similarity_score)
 
