@@ -73,12 +73,12 @@ class GeniusCompiler:
         return metadata
 
 
-    def translate_to_english(self, text):
+    def translate_to_english(self, text, src_lan):
         translator = Translator()
-        translated = translator.translate(text, dest='en')
+        translated = translator.translate(text, src=src_lan, dest='en')
         return translated.text.title()  # Convert to title format for uniformity
 
-    def split_by_section(self, lyrics, artist, verbose=False):
+    def split_by_section(self, lyrics, artist, src_lan='en', verbose=False):
         """Splits the provided lyrics in sections using the information present on it.
 
         Args:
@@ -150,9 +150,7 @@ class GeniusCompiler:
                 paragraph_name_base = paragraph_name[:numeric_suffix_match.start()].strip() if numeric_suffix_match else paragraph_name
 
                 # Translate paragraph name to English
-                print(paragraph_name_base)
-                paragraph_name_base = self.translate_to_english(paragraph_name_base)
-                print(paragraph_name_base)
+                paragraph_name_base = self.translate_to_english(paragraph_name_base, src_lan)
 
                 # Ensure paragraph name matches standard sections
                 original_paragraph_name = paragraph_name_base
@@ -224,7 +222,5 @@ if __name__ == '__main__':
 
     # Create an instance of our compiler and scrape the lyrics from Genius
     compiler = GeniusCompiler()
-    lyrics = compiler.get_lyrics(title, artist)
-    paragraphs = compiler.split_by_section(lyrics, artist, verbose=True)
-
-    pprint.pprint(type(lyrics))
+    text = compiler.translate_to_english("Verso", src_lan='es')
+    print(text)

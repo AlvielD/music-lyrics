@@ -24,8 +24,10 @@ class LyricsAnnot:
         self.artist = artist
 
         # Define attributes dependant on external sources
-        song_id = LyricsAnnot._genius_compiler.search_song(self.title, self.artist).id
-        metadata = LyricsAnnot._genius_compiler.get_song_metadata(song_id)
+        song = LyricsAnnot._genius_compiler.search_song(self.title, self.artist)
+        if song == None: raise Exception()
+        
+        metadata = LyricsAnnot._genius_compiler.get_song_metadata(song.id)
 
         self.language = metadata['language']
         self.writer_artists = metadata['writer_artists']
@@ -123,7 +125,7 @@ class LyricsAnnot:
             return False
         
 
-    def save_to_json(self):
+    def save_to_json(self, save_path):
         data = {
             'meta': {
                 'song_id': self.song_id,
@@ -134,7 +136,7 @@ class LyricsAnnot:
             'annotations': self.annotations
         }
 
-        with open(f'./saved/{self.song_id}.json', 'w', encoding='utf-8') as file:
+        with open(f'{save_path}/{self.song_id}.json', 'w', encoding='utf-8') as file:
             json.dump(data, file, indent=4)
 
 
@@ -142,7 +144,7 @@ class LyricsAnnot:
         """Adds information about song sections (chorus, verse, ...) to the current annotations.
         """
         lyrics = LyricsAnnot._genius_compiler.get_lyrics(self.title, self.artist)
-        paragraphs = LyricsAnnot._genius_compiler.split_by_section(lyrics, self.artist)
+        paragraphs = LyricsAnnot._genius_compiler.split_by_section(lyrics, self.artist, self.language)
         self.annotations = self.__merge_annotations(paragraphs)
 
 
