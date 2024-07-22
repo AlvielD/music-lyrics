@@ -137,7 +137,7 @@ class LyricsAnnot:
         }
 
         with open(f'{save_path}/{self.song_id}.json', 'w', encoding='utf-8') as file:
-            json.dump(data, file, indent=4)
+            json.dump(data, file, ensure_ascii=False, indent=4)
 
 
     def add_section_info(self):
@@ -295,6 +295,8 @@ if __name__ == '__main__':
     
     # Read the data from a JSON file
     file_path = './data/DAMP_MVP/sing_300x30x2/ES/ESLyrics/3364824_3364824.json'
+    save_path = './conversion/saved'
+
     with open(file_path, encoding='utf-8') as file:
         data = json.load(file)
 
@@ -306,4 +308,4 @@ if __name__ == '__main__':
     annot.build_annotations(data, 'DAMP')
     annot.add_section_info()
 
-    annot.save_to_json()
+    annot.save_to_json(save_path)
