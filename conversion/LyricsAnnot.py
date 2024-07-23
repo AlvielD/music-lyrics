@@ -1,5 +1,6 @@
 import json
 import pprint
+import re
 
 import pylcs
 
@@ -153,9 +154,41 @@ class LyricsAnnot:
     def __check_first_line(self, first_paragraph):
         matches = False
         first_line = self.annotations[0]['line']
-        if pylcs.lcs_string_length(first_line.lower(), first_paragraph['content'].lower()) / len(first_line) > 0.6:
+        _, first_paragraph = first_paragraph        # Discard paragraph
+
+        sim_score = pylcs.lcs_string_length(first_line.lower(), first_paragraph['content'].lower()) / len(first_line)
+
+        if sim_score > 0.6:
             matches = True
         return matches
+    
+
+    def __remove_from_paragraph(self, paragraph, line):
+        # Split the line into words
+        line_words = line.split()
+
+        # Iterate over the words in the line and create a regex pattern
+        pattern = ''
+        for word in line_words:
+            if re.search(re.escape(word), paragraph):
+                pattern += f'{re.escape(word)} '
+            else:
+                break
+
+        # Remove the trailing space
+        pattern = pattern.strip()
+
+        # Find the first matching substring in the paragraph
+        match = re.search(pattern, paragraph)
+
+        if match:
+            matching_substring = match.group(0)
+            
+            # Remove the matching substring from the paragraph
+            new_paragraph = paragraph.replace(matching_substring, '', 1)
+            return new_paragraph
+        else:
+            return paragraph
 
 
 
@@ -182,22 +215,21 @@ class LyricsAnnot:
         # Convert paragraphs to a list of items for indexed access
         paragraphs_list = list(paragraphs.items())
 
+        if not(self.__check_first_line(paragraphs_list[0])):
+            last_matched_index = 0
+
         # Iterate through annotation lines
         for line in self.annotations:
             line_text = line['line']
             line_start_time = line['time_index'][0]
             line_end_time = line['time_index'][1]
-
-            #print(line_text)
             
             # Check if current line belongs to the current paragraph
             if current_paragraph_content:
                 try:
                     doc_score = pylcs.lcs_string_length(line_text.lower(), current_paragraph_content.lower()) / len(line_text)
-                    #print(f"SCORE BETWEEN {line_text} AND {current_paragraph_content}: {doc_score}")
                 except ZeroDivisionError:
                     doc_score = 0.0
-
             if current_paragraph_content and doc_score > 0.6:
                 # Add line information to current paragraph
                 lines = {
@@ -209,11 +241,13 @@ class LyricsAnnot:
                 
                 # Update current paragraph end time
                 current_paragraph_end_time = line_end_time
+
+                # Removed the matched line from the paragraph
+                current_paragraph_content = self.__remove_from_paragraph(line_text, current_paragraph_content)
             else:
                 # If current line doesn't belong to current paragraph, finalize current paragraph
                 if current_paragraph_name:
                     merged_annotations[-1]['time_index'] = [current_paragraph_start_time, current_paragraph_end_time]
-
                 match = False
         
                 # Move to a new paragraph section
@@ -222,20 +256,14 @@ class LyricsAnnot:
                     paragraph_name, paragraph_info = paragraphs_list[index]
                     paragraph_content = paragraph_info['content']
                     singer = paragraph_info['singer']
-
-                    #print(f"Match with {paragraph_name}?")
-
                     # Check if current line starts a new paragraph
                     if startswith_similar(paragraph_content, line_text):
                         match = True
-
                         # Initialize new paragraph
                         current_paragraph_name = paragraph_name
                         current_paragraph_content = paragraph_content
                         current_paragraph_start_time = line_start_time
                         current_paragraph_end_time = line_end_time
-
-                        #print('Match found!')
                         
                         # Add new annotation for the paragraph
                         annotation_data = {
@@ -250,18 +278,14 @@ class LyricsAnnot:
                             }]
                         }
                         merged_annotations.append(annotation_data)
-
                         # Update last matched index
                         last_matched_index = index
                     elif merged_annotations == []:
-                        print(index)
                         # First paragraph not yet initialized, if both lines do not match at first trial then we might be in front of a useless paragraph
                         last_matched_index = index
                         index = last_matched_index + 1
-
                 if not match or index == len(paragraphs_list):
                     if merged_annotations:
-                        #print('No match found. The line has been added to the current paragraph by default.')
                         lines = {
                             'line': line_text,
                             'time_index': [line_start_time, line_end_time],
@@ -269,8 +293,7 @@ class LyricsAnnot:
                         }
                         merged_annotations[-1]['lines'].append(lines)
                     else:
-                        # The line is most likely not useful
-                        pass
+                        pass    # The line is most likely not useful
 
         # Finalize last paragraph if any
         if current_paragraph_name:
@@ -294,7 +317,6 @@ def startswith_similar(paragraph_content, line_text, threshold=0.6):
     # Convert both strings to lower case for case-insensitive comparison
     paragraph_content = paragraph_content.lower()
     line_text = line_text.lower()
-    print(f"Comparing {paragraph_content} with {line_text}")
     
     # Compare only the beginning of the paragraph content up to the length of the line text
     start_content = paragraph_content[:len(line_text)]
@@ -305,7 +327,6 @@ def startswith_similar(paragraph_content, line_text, threshold=0.6):
     except ZeroDivisionError:
         similarity_score = 0.0
 
-    #print(similarity_score)
 
     # Check if the similarity score meets the threshold
     return similarity_score >= threshold
