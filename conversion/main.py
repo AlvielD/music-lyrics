@@ -2,8 +2,6 @@ import json
 import os
 import re
 
-import asyncio
-
 from GeniusCompiler import GeniusCompiler
 from SpotiScraper import SpotiScraper
 from LyricsAnnot import LyricsAnnot
@@ -11,7 +9,7 @@ from LyricsAnnot import LyricsAnnot
 def read_arrangement_file(file_path):
     arrangement_data = {}
 
-    with open(file_path, 'r') as file:
+    with open(file_path, 'r', encoding='utf-8') as file:
         for line in file:
             line = line.strip()
             if ': ' in line:
@@ -23,16 +21,16 @@ def read_arrangement_file(file_path):
     return arrangement_data
 
 
-def parse_artist_names(artist_data):
-    # Define regex pattern to split the artist names by common delimiters
-    pattern = r'\s*&\s*|\s*Ft\.\s*|\s*,\s*'
-    
-    # Split the artist data based on the pattern
-    artists = re.split(pattern, artist_data)
+def parse_title(string):
+    no_parentheses = re.sub(r'\([^)]*\)', '', string)               # Use regular expression to remove text within parentheses
+    cleaned_string = re.sub(r'\s+', ' ', no_parentheses).strip()    # Remove extra spaces that might result from the removal
+    return cleaned_string
 
-    # Remove leading and trailing whitespaces from each artist name
-    artists = [artist.strip() for artist in artists]
-    
+
+def parse_artist_names(string):
+    pattern = r'\s*&\s*|\s*Ft\.\s*|\s*,\s*' # Define regex pattern to split the artist names by common delimiters
+    artists = re.split(pattern, string)     # Split the artist data based on the pattern    
+    artists = [artist.strip() for artist in artists]    # Remove leading and trailing whitespaces from each artist name
     return artists
 
 def main():
@@ -51,7 +49,9 @@ def main():
             try:
                 # Get track metadata from the metadata file
                 track_metadata = read_arrangement_file(f"{toy_DAMP}{dir}/{dir}ArrangementMeta/{metadata_file}")
+                print(track_metadata) # DEBUG
 
+                title = parse_title(track_metadata['Arrangement title'])
                 artists = parse_artist_names(track_metadata['Arrangement artist'])
 
                 file_path = f"{toy_DAMP}{dir}/{dir}Lyrics/{metadata_file.split('.')[0]}.json"
@@ -60,13 +60,13 @@ def main():
                 with open(file_path, encoding='utf-8') as file:
                     data = json.load(file)
 
-                annot = LyricsAnnot(track_metadata['Arrangement title'], artists[0])
+                annot = LyricsAnnot(title, artists[0])
                 annot.build_annotations(data, 'DAMP')
                 annot.add_section_info()
                 print(annot)
                 annot.save_to_json(save_path)
-            except:
-                print("Song not found")
+            except Exception as ex:
+                print(ex)
 
 if __name__ == '__main__':
     main()

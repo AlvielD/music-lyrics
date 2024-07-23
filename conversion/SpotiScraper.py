@@ -12,7 +12,7 @@ class SpotiScraper():
     
 
     def search_song_on_spotify(self, song_title, artist_name):
-        query = f"track:{song_title} artist:{artist_name}"
+        query = f"{song_title} {artist_name}"
         result = self.sp_client.search(q=query, type='track', limit=1)
         return result
 

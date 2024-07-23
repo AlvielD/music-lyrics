@@ -217,10 +217,10 @@ class GeniusCompiler:
 
 if __name__ == '__main__':
     
-    title = 'Blinding Lights'
-    artist = 'The Weeknd'
+    title = 'Ziggy Un Garçon Pas Comme (avec Séparation)'
+    artist = 'Celine Dion'
 
     # Create an instance of our compiler and scrape the lyrics from Genius
     compiler = GeniusCompiler()
-    text = compiler.translate_to_english("Verso", src_lan='es')
+    text = compiler.search_song(title, artist)
     print(text)

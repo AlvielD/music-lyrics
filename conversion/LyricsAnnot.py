@@ -144,8 +144,19 @@ class LyricsAnnot:
         """Adds information about song sections (chorus, verse, ...) to the current annotations.
         """
         lyrics = LyricsAnnot._genius_compiler.get_lyrics(self.title, self.artist)
-        paragraphs = LyricsAnnot._genius_compiler.split_by_section(lyrics, self.artist, self.language)
-        self.annotations = self.__merge_annotations(paragraphs)
+        paragraphs = LyricsAnnot._genius_compiler.split_by_section(lyrics, self.artist, self.language, verbose=True)
+        if paragraphs: 
+            self.annotations = self.__merge_annotations(paragraphs)
+        else: pass
+
+    
+    def __check_first_line(self, first_paragraph):
+        matches = False
+        first_line = self.annotations[0]['line']
+        if pylcs.lcs_string_length(first_line.lower(), first_paragraph['content'].lower()) / len(first_line) > 0.6:
+            matches = True
+        return matches
+
 
 
     def __merge_annotations(self, paragraphs):
@@ -171,7 +182,7 @@ class LyricsAnnot:
         # Convert paragraphs to a list of items for indexed access
         paragraphs_list = list(paragraphs.items())
 
-         # Iterate through annotation lines
+        # Iterate through annotation lines
         for line in self.annotations:
             line_text = line['line']
             line_start_time = line['time_index'][0]
@@ -238,20 +249,28 @@ class LyricsAnnot:
                                 'time_duration': line_end_time - line_start_time
                             }]
                         }
-                        
                         merged_annotations.append(annotation_data)
 
                         # Update last matched index
                         last_matched_index = index
+                    elif merged_annotations == []:
+                        print(index)
+                        # First paragraph not yet initialized, if both lines do not match at first trial then we might be in front of a useless paragraph
+                        last_matched_index = index
+                        index = last_matched_index + 1
 
                 if not match or index == len(paragraphs_list):
-                    #print('No match found. The line has been added to the current paragraph by default.')
-                    lines = {
-                        'line': line_text,
-                        'time_index': [line_start_time, line_end_time],
-                        'time_duration': line_end_time - line_start_time
-                    }
-                    merged_annotations[-1]['lines'].append(lines)
+                    if merged_annotations:
+                        #print('No match found. The line has been added to the current paragraph by default.')
+                        lines = {
+                            'line': line_text,
+                            'time_index': [line_start_time, line_end_time],
+                            'time_duration': line_end_time - line_start_time
+                        }
+                        merged_annotations[-1]['lines'].append(lines)
+                    else:
+                        # The line is most likely not useful
+                        pass
 
         # Finalize last paragraph if any
         if current_paragraph_name:
@@ -275,6 +294,7 @@ def startswith_similar(paragraph_content, line_text, threshold=0.6):
     # Convert both strings to lower case for case-insensitive comparison
     paragraph_content = paragraph_content.lower()
     line_text = line_text.lower()
+    print(f"Comparing {paragraph_content} with {line_text}")
     
     # Compare only the beginning of the paragraph content up to the length of the line text
     start_content = paragraph_content[:len(line_text)]
@@ -294,15 +314,15 @@ def startswith_similar(paragraph_content, line_text, threshold=0.6):
 if __name__ == '__main__':
     
     # Read the data from a JSON file
-    file_path = './data/DAMP_MVP/sing_300x30x2/ES/ESLyrics/3364824_3364824.json'
+    file_path = './data/toy_DAMP/FR/FRLyrics/728723_68818.json'
     save_path = './conversion/saved'
 
     with open(file_path, encoding='utf-8') as file:
         data = json.load(file)
 
     # Create the instance of lyrics annotations
-    title = 'Perro fiel'
-    artist = 'Shakira'
+    title = 'Ziggy Un Garçon Pas Comme'
+    artist = 'Celine Dion'
 
     annot = LyricsAnnot(title, artist)
     annot.build_annotations(data, 'DAMP')
