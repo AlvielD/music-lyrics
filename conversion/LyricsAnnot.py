@@ -2,7 +2,7 @@ import json
 import pprint
 import re
 
-import pylcs
+import utils
 
 from SpotiScraper import SpotiScraper
 from GeniusCompiler import GeniusCompiler
@@ -156,40 +156,11 @@ class LyricsAnnot:
         first_line = self.annotations[0]['line']
         _, first_paragraph = first_paragraph        # Discard paragraph
 
-        sim_score = pylcs.lcs_string_length(first_line.lower(), first_paragraph['content'].lower()) / len(first_line)
+        sim_score = utils.compute_similiarity_score(first_line, first_paragraph['content'])
 
         if sim_score > 0.6:
             matches = True
         return matches
-    
-
-    def __remove_from_paragraph(self, paragraph, line):
-        # Split the line into words
-        line_words = line.split()
-
-        # Iterate over the words in the line and create a regex pattern
-        pattern = ''
-        for word in line_words:
-            if re.search(re.escape(word), paragraph):
-                pattern += f'{re.escape(word)} '
-            else:
-                break
-
-        # Remove the trailing space
-        pattern = pattern.strip()
-
-        # Find the first matching substring in the paragraph
-        match = re.search(pattern, paragraph)
-
-        if match:
-            matching_substring = match.group(0)
-            
-            # Remove the matching substring from the paragraph
-            new_paragraph = paragraph.replace(matching_substring, '', 1)
-            return new_paragraph
-        else:
-            return paragraph
-
 
 
     def __merge_annotations(self, paragraphs):
@@ -226,10 +197,7 @@ class LyricsAnnot:
             
             # Check if current line belongs to the current paragraph
             if current_paragraph_content:
-                try:
-                    doc_score = pylcs.lcs_string_length(line_text.lower(), current_paragraph_content.lower()) / len(line_text)
-                except ZeroDivisionError:
-                    doc_score = 0.0
+                doc_score = utils.compute_similiarity_score(line_text, current_paragraph_content)
             if current_paragraph_content and doc_score > 0.6:
                 # Add line information to current paragraph
                 lines = {
@@ -243,7 +211,8 @@ class LyricsAnnot:
                 current_paragraph_end_time = line_end_time
 
                 # Removed the matched line from the paragraph
-                current_paragraph_content = self.__remove_from_paragraph(line_text, current_paragraph_content)
+                current_paragraph_content = utils.remove_from_paragraph(line_text, current_paragraph_content)
+                print(current_paragraph_content)
             else:
                 # If current line doesn't belong to current paragraph, finalize current paragraph
                 if current_paragraph_name:
@@ -257,11 +226,11 @@ class LyricsAnnot:
                     paragraph_content = paragraph_info['content']
                     singer = paragraph_info['singer']
                     # Check if current line starts a new paragraph
-                    if startswith_similar(paragraph_content, line_text):
+                    if utils.startswith_similar(line_text, paragraph_content):
                         match = True
                         # Initialize new paragraph
                         current_paragraph_name = paragraph_name
-                        current_paragraph_content = paragraph_content
+                        current_paragraph_content = utils.remove_from_paragraph(line_text, paragraph_content)
                         current_paragraph_start_time = line_start_time
                         current_paragraph_end_time = line_end_time
                         
@@ -300,36 +269,6 @@ class LyricsAnnot:
             merged_annotations[-1]['time_index'] = [current_paragraph_start_time, current_paragraph_end_time]
             
         return merged_annotations
-    
-
-def startswith_similar(paragraph_content, line_text, threshold=0.6):
-    """
-    Checks if the paragraph content starts similarly to the line text with a given similarity threshold.
-    
-    Args:
-        paragraph_content (str): The content of the paragraph.
-        line_text (str): The text to compare with the start of the paragraph.
-        threshold (float): The similarity threshold above which the strings are considered to start similarly.
-        
-    Returns:
-        bool: True if the start of the paragraph is similar to the line text based on the threshold, False otherwise.
-    """
-    # Convert both strings to lower case for case-insensitive comparison
-    paragraph_content = paragraph_content.lower()
-    line_text = line_text.lower()
-    
-    # Compare only the beginning of the paragraph content up to the length of the line text
-    start_content = paragraph_content[:len(line_text)]
-    
-    # Calculate the similarity score using LCS
-    try:
-        similarity_score = pylcs.lcs_string_length(line_text, start_content) / len(line_text)
-    except ZeroDivisionError:
-        similarity_score = 0.0
-
-
-    # Check if the similarity score meets the threshold
-    return similarity_score >= threshold
 
 
 if __name__ == '__main__':

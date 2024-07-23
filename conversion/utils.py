@@ -1,86 +1,72 @@
-import config.genius_config as config
-import requests
+import pylcs
 import re
+import unicodedata
 
-from lyricsgenius import Genius
+SPECIAL_CHARS = ["¿", "?", "!", "¡", ":", ";", ",", ".", "\\", "/", "\"", "\'"]
 
-# Initialize the Genius API client
-genius = Genius(config.ACCESS_TOKEN)
-
-def search_song(song_title, song_artist):
-    """Search for a song on Genius and return the first result
-
-    Args:
-        song_title (str): title of the song to be searched
-
-    Returns:
-        dict: information about the first result of the search
-    """
-    search_url = f'{config.BASE_URL}/search'
-    params = {'q': song_title + ' ' + song_artist}
-    response = requests.get(search_url, headers=config.HEADERS, params=params)
-    data = response.json()
-
-    if data['response']['hits']:
-        return data['response']['hits'][0]['result']
-    else:
-        return None
-    
-
-def get_song_metadata(song_id):
-    """Get song's metadata by its Genius ID
-
-    Args:
-        song_id (str): ID of the song
-
-    Returns:
-        dict: metadata of the requested song
-    """
-    song_url = f'{config.BASE_URL}/songs/{song_id}'
-    response = requests.get(song_url, headers=config.HEADERS)
-    return response.json()
+def remove_accents(input_str):
+    normalized_str = unicodedata.normalize('NFD', input_str)
+    return ''.join(c for c in normalized_str if unicodedata.category(c) != 'Mn')
 
 
-def get_song_language(song_title, song_artist):
-    song = search_song(song_title, song_artist)
-    song_id = song['id']
-
-    metadata = get_song_metadata(song_id)['response']
-    return metadata['song']['language']
+def remove_special_chars(input_str):
+    return ''.join(c for c in input_str if c not in SPECIAL_CHARS)
 
 
-# Function to clean the lyrics from lyricsgenius
-def clean_lyrics(lyrics):
-    # Check for "You might also like" followed by a '[' without a newline
-    lyrics_cleaned = re.sub(r'You might also like(?=\[)', '\n', lyrics)
+def compute_similiarity_score(str1, str2):
+    str1 = remove_accents(remove_special_chars(str1))
+    str2 = remove_accents(remove_special_chars(str2))
 
-    # Ensure there is a newline before any '['
-    lyrics_cleaned = re.sub(r'(?<!\n)\[', '\n[', lyrics_cleaned)
+    try:
+        score = pylcs.lcs_string_length(str1.lower(), str2.lower()) / len(str1)
+    except ZeroDivisionError:
+        score = 0.0
 
-    # Reduce consecutive newlines to a single newline
-    lyrics_cleaned = re.sub(r'\n+', '\n', lyrics_cleaned)
-
-    return lyrics_cleaned.strip()
+    return score
 
 
-def scrape_song_lyrics(song_title, artist_name):
-    # Search for the song by title and artist
-    song = genius.search_song(song_title, artist_name)
-    
-    if song:
-        # Clean lyrics to remove "You might also like" issue
-        cleaned_lyrics = clean_lyrics(song.lyrics)
-
-        # Prepare the song data
-        song_data = {
-            'title': song.title,
-            'artist': song.artist,
-            'lyrics': cleaned_lyrics
-            #song_writers TODO
-        }
+def remove_from_paragraph(line, paragraph):
+    # Split the line into words
+    line_words = line.split()
+    # Iterate over the words in the line and create a regex pattern
+    pattern = ''
+    for word in line_words:
+        if re.search(re.escape(word), paragraph):
+            pattern += f'{re.escape(word)} '
+        else:
+            break
+    # Remove the trailing space
+    pattern = pattern.strip()
+    # Find the first matching substring in the paragraph
+    match = re.search(pattern, paragraph)
+    if match:
+        matching_substring = match.group(0)
         
-        print(f"Lyrics scraped successfully")
-        return song_data
+        # Remove the matching substring from the paragraph
+        new_paragraph = paragraph.replace(matching_substring, '', 1)
+        return new_paragraph
     else:
-        print(f"Lyrics for '{song_title}' by {artist_name} not found.")
-        return False
+        return paragraph
+    
+
+def startswith_similar(line, paragraph, threshold=0.6):
+    """
+    Checks if the paragraph content starts similarly to the line text with a given similarity threshold.
+    
+    Args:
+        paragraph_content (str): The content of the paragraph.
+        line_text (str): The text to compare with the start of the paragraph.
+        threshold (float): The similarity threshold above which the strings are considered to start similarly.
+        
+    Returns:
+        bool: True if the start of the paragraph is similar to the line text based on the threshold, False otherwise.
+    """
+    # Compare only the beginning of the paragraph content up to the length of the line text
+    start_content = paragraph[:len(line)]
+    similarity_score = compute_similiarity_score(line, start_content)
+
+    return similarity_score >= threshold
+
+
+if __name__ == '__main__':
+    pass
