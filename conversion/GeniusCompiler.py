@@ -36,7 +36,7 @@ class GeniusCompiler:
             # Clean lyrics to remove "You might also like" issue
             lyrics = self.__clean_lyrics(song.lyrics)
             
-            print(f"Lyrics scraped successfully")
+            #print(f"Lyrics scraped successfully")
         else:
             print(f"Lyrics for '{title}' by {artist} not found.")
             lyrics = False
@@ -223,4 +223,3 @@ if __name__ == '__main__':
     # Create an instance of our compiler and scrape the lyrics from Genius
     compiler = GeniusCompiler()
     text = compiler.search_song(title, artist)
-    print(text)

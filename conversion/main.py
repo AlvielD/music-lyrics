@@ -6,6 +6,8 @@ from GeniusCompiler import GeniusCompiler
 from SpotiScraper import SpotiScraper
 from LyricsAnnot import LyricsAnnot
 
+from tqdm import tqdm
+
 def read_arrangement_file(file_path):
     arrangement_data = {}
 
@@ -42,19 +44,19 @@ def main():
     save_path = "./conversion/saved"
 
     # Save DAMP annotations
-    lan_dirs = os.listdir(toy_DAMP)
+    lan_dirs = os.listdir(DAMP_dir)
     for dir in lan_dirs:
-        metadata_files = os.listdir(f"{toy_DAMP}{dir}/{dir}ArrangementMeta/")
-        for metadata_file in metadata_files:
+        print(f"Creating notations for {dir} language")
+        metadata_files = os.listdir(f"{DAMP_dir}{dir}/{dir}ArrangementMeta/")
+        for i, metadata_file in zip(tqdm(range(len(metadata_files))), metadata_files):
             try:
                 # Get track metadata from the metadata file
-                track_metadata = read_arrangement_file(f"{toy_DAMP}{dir}/{dir}ArrangementMeta/{metadata_file}")
-                print(track_metadata) # DEBUG
+                track_metadata = read_arrangement_file(f"{DAMP_dir}{dir}/{dir}ArrangementMeta/{metadata_file}")
 
                 title = parse_title(track_metadata['Arrangement title'])
                 artists = parse_artist_names(track_metadata['Arrangement artist'])
 
-                file_path = f"{toy_DAMP}{dir}/{dir}Lyrics/{metadata_file.split('.')[0]}.json"
+                file_path = f"{DAMP_dir}{dir}/{dir}Lyrics/{metadata_file.split('.')[0]}.json"
 
                 # Read JSON file
                 with open(file_path, encoding='utf-8') as file:
@@ -62,9 +64,10 @@ def main():
 
                 annot = LyricsAnnot(title, artists[0])
                 annot.build_annotations(data, 'DAMP')
-                annot.add_section_info()
-                print(annot)
-                annot.save_to_json(save_path)
+                success = annot.add_section_info()
+                
+                if success:
+                    annot.save_to_json(save_path)
             except Exception as ex:
                 print(ex)
 

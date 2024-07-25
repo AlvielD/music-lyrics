@@ -39,9 +39,4 @@ if __name__ == '__main__':
 
     scraper = SpotiScraper()
     song = scraper.search_song_on_spotify(title, artist)
-
-    print("SCRAPED SONG FROM SPOTIFY:")
-    pprint.pprint(song)
-
     duration = scraper.get_song_duration(title, artist)
-    print(f"THE SONG IS {duration}s LONG.")

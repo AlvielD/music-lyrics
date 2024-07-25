@@ -20,7 +20,7 @@ class LyricsAnnot:
 
     def __init__(self, title, artist):
         # Meta-data attributes
-        self.song_id = self.__build_id(title, artist)
+        self.song_id = None
         self.title = title
         self.artist = artist
 
@@ -105,7 +105,7 @@ class LyricsAnnot:
                         'time_duration': self.song_duration - data[-1]['t']})
                     
                     self.annotations = annotations
-                    print("Annotations built successfully!")
+                    #print("Annotations built successfully!")
                 elif dataset == 'DALI':
                     entry = data['annotations']['annot']['lines']
                     annotations = [{
@@ -114,7 +114,7 @@ class LyricsAnnot:
                         'time_duration': entry[i]['time'][1] - entry[i]['time'][0]} for i in range(len(entry))]
                     
                     self.annotations = annotations
-                    print("Annotations built successfully!")
+                    #print("Annotations built successfully!")
                 else:
                     print("Dataset not supported. Annotations were not built.")
             else:
@@ -127,6 +127,10 @@ class LyricsAnnot:
         
 
     def save_to_json(self, save_path):
+
+        # Only build id if we are going to save the song
+        self.song_id = self.__build_id(self.title, self.artist)
+
         data = {
             'meta': {
                 'song_id': self.song_id,
@@ -145,18 +149,23 @@ class LyricsAnnot:
         """Adds information about song sections (chorus, verse, ...) to the current annotations.
         """
         lyrics = LyricsAnnot._genius_compiler.get_lyrics(self.title, self.artist)
-        paragraphs = LyricsAnnot._genius_compiler.split_by_section(lyrics, self.artist, self.language, verbose=True)
+        paragraphs = LyricsAnnot._genius_compiler.split_by_section(lyrics, self.artist, self.language)
         if paragraphs: 
             self.annotations = self.__merge_annotations(paragraphs)
-        else: pass
+            if self.annotations:
+                return True
+            else:
+                return False
+        else: 
+            return False
 
     
-    def __check_first_line(self, first_paragraph):
+    def __check_first_line(self, paragraph):
         matches = False
         first_line = self.annotations[0]['line']
-        _, first_paragraph = first_paragraph        # Discard paragraph
+        _, paragraph = paragraph        # Discard paragraph's name
 
-        sim_score = utils.compute_similiarity_score(first_line, first_paragraph['content'])
+        sim_score = utils.compute_similiarity_score(first_line, paragraph['content'])
 
         if sim_score > 0.6:
             matches = True
@@ -187,7 +196,7 @@ class LyricsAnnot:
         paragraphs_list = list(paragraphs.items())
 
         if not(self.__check_first_line(paragraphs_list[0])):
-            last_matched_index = 0
+            return []
 
         # Iterate through annotation lines
         for line in self.annotations:
@@ -212,7 +221,6 @@ class LyricsAnnot:
 
                 # Removed the matched line from the paragraph
                 current_paragraph_content = utils.remove_from_paragraph(line_text, current_paragraph_content)
-                print(current_paragraph_content)
             else:
                 # If current line doesn't belong to current paragraph, finalize current paragraph
                 if current_paragraph_name:
@@ -286,6 +294,7 @@ if __name__ == '__main__':
 
     annot = LyricsAnnot(title, artist)
     annot.build_annotations(data, 'DAMP')
-    annot.add_section_info()
+    success = annot.add_section_info()
 
-    annot.save_to_json(save_path)
+    if success:
+        annot.save_to_json(save_path)
