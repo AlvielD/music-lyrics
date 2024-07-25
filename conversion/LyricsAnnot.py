@@ -196,7 +196,7 @@ class LyricsAnnot:
         paragraphs_list = list(paragraphs.items())
 
         if not(self.__check_first_line(paragraphs_list[0])):
-            return []
+            last_matched_index = 0  # Skip first paragraph of genius lyrics
 
         # Iterate through annotation lines
         for line in self.annotations:

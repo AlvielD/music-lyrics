@@ -1,6 +1,12 @@
 import pylcs
 import re
+import json
+import pprint
 import unicodedata
+import emoji
+import os
+
+from tqdm import tqdm
 
 SPECIAL_CHARS = ["¿", "?", "!", "¡", ":", ";", ",", ".", "\\", "/", "\"", "\'"]
 
@@ -68,5 +74,86 @@ def startswith_similar(line, paragraph, threshold=0.6):
     return similarity_score >= threshold
 
 
+def clean_json(lines):
+
+    n_lines = len(lines)
+
+    front_index = -1
+    for i in range(n_lines):
+        if contains_any_char(lines[i]):
+            front_index = i
+        if i/n_lines > .2:
+            break
+
+    back_index = n_lines
+    for i in range(n_lines-1, -1, -1):
+        if contains_any_char(lines[i]):
+            back_index = i
+        if i/n_lines < .8:
+            break
+
+    print(f"DETECTED FRONT INDEX: {front_index}")
+    print(f"DETECTED BACK INDEX {back_index}")
+
+    return lines[front_index+1:back_index]
+
+
+def contains_any_char(sample):
+    pattern = r"(?i)[#@><_&^=•]|-.*-|follow|upload|song by|thank you|thumbs|\.{4,}"
+    return True if re.search(pattern, sample['l'].lower()) or contains_emoji(sample['l'].lower()) else False
+
+
+def contains_emoji(text):
+    return any(char in emoji.EMOJI_DATA for char in text)
+
+
+def read_arrangement_file(file_path):
+    arrangement_data = {}
+
+    with open(file_path, 'r', encoding='utf-8') as file:
+        for line in file:
+            line = line.strip()
+            if ': ' in line:
+                key, value = line.split(': ', 1)
+                arrangement_data[key] = value
+            else:
+                print(f"Skipping line: {line} (does not contain ': ')")
+
+    return arrangement_data
+
+
+def parse_title(string):
+    no_parentheses = re.sub(r'\([^)]*\)', '', string)               # Use regular expression to remove text within parentheses
+    cleaned_string = re.sub(r'\s+', ' ', no_parentheses).strip()    # Remove extra spaces that might result from the removal
+    return cleaned_string
+
+
+def parse_artist_names(string):
+    pattern = r'\s*&\s*|\s*Ft\.\s*|\s*,\s*' # Define regex pattern to split the artist names by common delimiters
+    artists = re.split(pattern, string)     # Split the artist data based on the pattern    
+    artists = [artist.strip() for artist in artists]    # Remove leading and trailing whitespaces from each artist name
+    return artists
+
+
 if __name__ == '__main__':
-    pass
+
+    toy_DAMP = "./data/toy_DAMP/"
+
+    lan_dirs = os.listdir(toy_DAMP)
+    for dir in lan_dirs:
+        metadata_files = os.listdir(f"{toy_DAMP}{dir}/{dir}ArrangementMeta/")
+        for i, metadata_file in zip(tqdm(range(len(metadata_files))), metadata_files):
+            # Get track metadata from the metadata file
+            track_metadata = read_arrangement_file(f"{toy_DAMP}{dir}/{dir}ArrangementMeta/{metadata_file}")
+
+            title = parse_title(track_metadata['Arrangement title'])
+            artists = parse_artist_names(track_metadata['Arrangement artist'])
+
+            file_path = f"{toy_DAMP}{dir}/{dir}Lyrics/{metadata_file.split('.')[0]}.json"
+
+            # Read JSON file
+            with open(file_path, encoding='utf-8') as file:
+                data = json.load(file)
+
+            lyrics = clean_json(data)
+            pprint.pprint(lyrics)
