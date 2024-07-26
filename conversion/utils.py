@@ -99,7 +99,7 @@ def clean_json(lines):
 
 
 def contains_any_char(sample):
-    pattern = r"(?i)[#@><_&^=•]|-.*-|follow|upload|song by|thank you|thumbs|\.{4,}"
+    pattern = r"(?i)[#@><_&^=•]|-.*-|follow|upload|song by|thank|thumbs|\.{4,}"
     return True if re.search(pattern, sample['l'].lower()) or contains_emoji(sample['l'].lower()) else False
 
 
@@ -135,8 +135,18 @@ def parse_artist_names(string):
     return artists
 
 
+def compute_avg_line_len(lines):
+    avg_len = 0
+    n_line = len(lines)
+    for line in lines:
+        avg_len += len(line['l'])
+    avg_len /= n_line
+    return avg_len
+
+
 if __name__ == '__main__':
 
+    """
     toy_DAMP = "./data/toy_DAMP/"
 
     lan_dirs = os.listdir(toy_DAMP)
@@ -157,3 +167,7 @@ if __name__ == '__main__':
 
             lyrics = clean_json(data)
             pprint.pprint(lyrics)
+    """
+    with open('./data/DAMP_MVP/sing_300x30x2/AE/AELyrics/3770008_3770008.json', 'r', encoding='utf-8') as file:
+        data = json.load(file)
+    print(compute_avg_line_len(data))
