@@ -74,20 +74,43 @@ def startswith_similar(line, paragraph, threshold=0.6):
     return similarity_score >= threshold
 
 
-def clean_json(lines):
+def clean_damp_json(lines):
 
     n_lines = len(lines)
 
     front_index = -1
     for i in range(n_lines):
-        if contains_any_char(lines[i]):
+        if contains_any_char(lines[i], 'DAMP'):
             front_index = i
         if i/n_lines > .2:
             break
 
     back_index = n_lines
     for i in range(n_lines-1, -1, -1):
-        if contains_any_char(lines[i]):
+        if contains_any_char(lines[i], 'DAMP'):
+            back_index = i
+        if i/n_lines < .8:
+            break
+
+    print(f"DETECTED FRONT INDEX: {front_index}")
+    print(f"DETECTED BACK INDEX {back_index}")
+
+    return lines[front_index+1:back_index]
+
+def clean_dali_json(lines):
+
+    n_lines = len(lines)
+
+    front_index = -1
+    for i in range(n_lines):
+        if contains_any_char(lines[i]['text'], 'DALI'):
+            front_index = i
+        if i/n_lines > .2:
+            break
+
+    back_index = n_lines
+    for i in range(n_lines-1, -1, -1):
+        if contains_any_char(lines[i]['text'], 'DALI'):
             back_index = i
         if i/n_lines < .8:
             break
@@ -98,9 +121,13 @@ def clean_json(lines):
     return lines[front_index+1:back_index]
 
 
-def contains_any_char(sample):
-    pattern = r"(?i)[#@><_&^=•]|-.*-|follow|upload|song by|thank|thumbs|\.{4,}"
-    return True if re.search(pattern, sample['l'].lower()) or contains_emoji(sample['l'].lower()) else False
+def contains_any_char(sample, dataset):
+    if dataset == 'DAMP':
+        pattern = r"(?i)[#@><_&^=•]|-.*-|follow|upload|song by|thank|thumbs|\.{4,}"
+        return True if re.search(pattern, sample['l'].lower()) or contains_emoji(sample['l'].lower()) else False
+    if dataset == 'DALI':
+        pattern = r"(?i)[#@><_&^=•]|-.*-|follow|upload|song by|thank|thumbs|\.{4,}"
+        return True if re.search(pattern, sample.lower()) or contains_emoji(sample.lower()) else False
 
 
 def contains_emoji(text):
