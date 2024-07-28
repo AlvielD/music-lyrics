@@ -1,4 +1,5 @@
 from collections import defaultdict
+import os
 
 def display_languages(dali_data):
     # Initialize a dictionary to store language counts and IDs
@@ -20,3 +21,18 @@ def display_languages(dali_data):
         print(f"Count: {data['count']}")
         print(f"IDs: {', '.join(data['ids'])}")
         print("------")
+
+
+def get_all_artists(dali_data):
+    artists = set()  # Using a set to avoid duplicate artists
+
+    # Loop through all files in the dataset directory
+    for key, entry in dali_data.items():
+        # Extract the artist name
+        artist = entry.info['artist']
+        if artist:
+            artists.add(artist)
+
+    # Convert set to list and sort it
+    sorted_artists = sorted(artists)
+    return sorted_artists

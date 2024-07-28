@@ -161,7 +161,6 @@ def parse_artist_names(string):
     artists = [artist.strip() for artist in artists]    # Remove leading and trailing whitespaces from each artist name
     return artists
 
-
 def compute_avg_line_len(lines):
     avg_len = 0
     n_line = len(lines)

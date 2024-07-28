@@ -50,7 +50,7 @@ def process_dali_file(metadata_file, DALI_dir, save_path):
         with open(file_path, encoding='utf-8') as file:
             data = json.load(file)
             title = data['info']['title']
-            artists = data['info']['artist']
+            artists = utils.parse_artist_names(data['info']['artist'])
 
         # Clean the lyrics
         entry = data['annotations']['annot']['lines']
@@ -188,4 +188,6 @@ if __name__ == '__main__':
     #DAMP_dir = "./data/DAMP_MVP/sing_300x30x2/"
     DALI_dir = "../dali/dali_json/"
     save_path = "./saved/dali/"
-    create_dali_notations(DALI_dir, save_path)
+    metadata_file = "my_annot_name_022411a432334ca2800c07dfc81848a2.json"
+    process_dali_file(metadata_file, DALI_dir, save_path)
+    #create_dali_notations(DALI_dir, save_path)
