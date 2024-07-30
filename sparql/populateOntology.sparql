@@ -1,9 +1,36 @@
-PREFIX mm: <https://w3id.org/polifonia/ontology/music-meta/>
-PREFIX core: <https://w3id.org/polifonia/ontology/core/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX core: <http://vivoweb.org/ontology/core#>
+PREFIX rdf:		<http://www.w3.org/2000/01/rdf-schema#>
+PREFIX rdfs:	<http://www.w3.org/2000/01/rdf-schema#>
+PREFIX mm:		<https://w3id.org/polifonia/ontology/music-meta/1.0/>
+PREFIX src:		<https://w3id.org/polifonia/ontology/source/1.0/>
+PREFIX ml: 		<http://w3id.org/polifonia/ontology/music-lyrics/1.0/>
+PREFIX xyz:		<http://sparql.xyz/facade-x/data/>
+PREFIX fx:		<http://sparql.xyz/facade-x/ns/>
 
-SELECT DISTINCT ?musicEnsembleMember ?musicEnsembleMemberRole
-WHERE { ?musicEnsembleMember mm:isMemberOfMusicEnsembleInvolvedIn ?musicEnsembleMembership .
-?musicEnsembleMembership rdf:type mm:MusicEnsembleMembership ;
-core:involvesRole ?musicEnsembleMemberRole .
+CONSTRUCT {
+  # Metadata
+  ?songURI a mm:MusicEntity .
+  ?songURI core:hasTitle ?title .
+  ?songURI core:hasLanguage ?lang .
+  ?songURI mm:isCreatedBy ?creativeProcessURI .
+  ?creativeProcessURI a mm:MusicEntity .
+  ?creativeProcessURI core:involvesAgent ?MusicArtistURI .
+  ?MusicArtistURI core:name ?name .
+
+} WHERE {
+  SERVICE <x-sparql-anything:00000000.json> {
+	?songURI xyz:meta ?metadata .
+  	?metadata xyz:title ?titleVar .
+    ?metadata xyz:language ?langvar .
+    ?metadata xyz:artist ?artistVar .
+          
+    BIND(fx:entity("https://w3id.org/polifonia/ontology/music-meta/1.0/MusicArtist/",REPLACE(?artistVar, " ", "_", "i")) AS ?MusicArtistURI)
+	BIND(fx:entity("https://w3id.org/polifonia/ontology/music-meta/1.0/CreativeProcess/",REPLACE(?titleVar, " ", "_", "i")) AS ?creativeProcessURI)
+
+  
+    BIND(fx:entity(REPLACE(?titleVar, " ", "_", "i")) AS ?title)
+    BIND(fx:entity(REPLACE(?langvar, " ", "_", "i")) AS ?lang)
+    BIND(fx:entity(REPLACE(?artistVar, " ", "_", "i")) AS ?name)
+    
+  }
 }
