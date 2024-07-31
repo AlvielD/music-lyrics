@@ -129,20 +129,17 @@ def main():
         metadata_files = os.listdir(f"{DAMP_dir}{dir}/{dir}ArrangementMeta/")
         for i, metadata_file in zip(tqdm(range(len(metadata_files))), metadata_files):
             try:
-                # Get track metadata from the metadata file
-                track_metadata = utils.read_arrangement_file(f"{DAMP_dir}{dir}/{dir}ArrangementMeta/{metadata_file}")
+                # Get track metadata
+                file_path = f"{DALI_dir}{metadata_file.split('.')[0]}.json"
 
-                title = utils.parse_title(track_metadata['Arrangement title'])
-                artists = utils.parse_artist_names(track_metadata['Arrangement artist'])
-
-                file_path = f"{DAMP_dir}{dir}/{dir}Lyrics/{metadata_file.split('.')[0]}.json"
-
-                # Read JSON file
                 with open(file_path, encoding='utf-8') as file:
                     data = json.load(file)
+                    title = data['info']['title']
+                    artists = utils.parse_artist_names(data['info']['artist'])
 
                 # Clean the lyrics
-                data = utils.clean_damp_json(data)
+                entry = data['annotations']['annot']['lines']
+                entry = utils.clean_dali_json(entry)
 
                 annot = LyricsAnnot(title, artists[0])
                 annot.build_annotations(data, 'DAMP')
@@ -159,12 +156,7 @@ def main():
         print(f"Creating notations for the file {file}")
         for i, file in zip(tqdm(range(len(lan_dirs))), lan_dirs):
             try:
-                # Get track metadata from the metadata file
-                track_metadata = utils.read_arrangement_file(f"{DAMP_dir}{dir}/{dir}ArrangementMeta/{metadata_file}")
-
-                title = utils.parse_title(track_metadata['Arrangement title'])
-                artists = utils.parse_artist_names(track_metadata['Arrangement artist'])
-
+                # Get track metadata
                 file_path = f"{DAMP_dir}{dir}/{dir}Lyrics/{metadata_file.split('.')[0]}.json"
 
                 # Read JSON file
@@ -173,15 +165,17 @@ def main():
 
                 # Clean the lyrics
                 data = utils.clean_dali_json(data)
-
-                annot = LyricsAnnot(title, artists[0])
-                annot.build_annotations(data, 'DAMP')
-                success = annot.add_section_info()
                 
+                # Create annotations
+                annot = LyricsAnnot(title, artists[0])
+                annot.build_annotations(data, 'DALI')
+                success = annot.add_section_info()
+                    
                 if success:
                     annot.save_to_json(save_path)
             except Exception as ex:
                 print(ex)
+            
 
 if __name__ == '__main__':
     #main()
