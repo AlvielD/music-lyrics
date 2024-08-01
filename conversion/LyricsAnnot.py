@@ -1,6 +1,6 @@
 import json
 import pprint
-import re
+import os
 
 import utils
 
@@ -9,10 +9,8 @@ from GeniusCompiler import GeniusCompiler
 
 class LyricsAnnot:
     # PRIVATE ATTRIBUTES
-    _last_id = 0
     _id_len = 8
     _max_id = int("F" * _id_len, 16)
-    _id_map = {}
 
     _spoti_client = SpotiScraper()
     _genius_compiler = GeniusCompiler()
@@ -54,7 +52,7 @@ class LyricsAnnot:
         return annot
 
 
-    def __build_id(self, title, artist):
+    def __build_id(self, title, artist, id_file_path):
         """Build the id of the song from the class attributes
 
         Raises:
@@ -63,22 +61,44 @@ class LyricsAnnot:
         Returns:
             str: string representation of the song's ID
         """
-        # Check if the song by the same artist already exists
-        key = (title.lower(), artist.lower())
-        if key in LyricsAnnot._id_map:
-            return LyricsAnnot._id_map[key]
+        # Load the existing dictionary from the file
+        if os.path.exists(id_file_path):
+            with open(id_file_path, 'r') as id_file:
+                try:
+                    id_list = json.load(id_file)
+                    if id_list:
+                        last_id = int(next(reversed(id_list.values())), 16) + 1
+                    else : #empty dictionary
+                        last_id = 0
+                except json.JSONDecodeError:
+                    id_list = {}
+                    last_id = 0
+        else:
+            print(f"No id file found at {id_file_path}. Instantiating an empty list.")
+            id_list = {}
+            last_id = 0
+        
+        new_id_key = f"{title} - {artist}"
+            
+        if new_id_key not in id_list: # First time this song is converted: need to create a brand new id
+             # Generate a new ID
+            if last_id >= LyricsAnnot._max_id:
+                raise ValueError(f"Maximum ID value of {'F' * LyricsAnnot._id_len} reached.")
+            
+            song_id = f"{last_id:0{LyricsAnnot._id_len}X}"
+            
+            # Append the new entry
+            new_id = {new_id_key : song_id}
+            id_list.update(new_id)
 
-        # Generate a new ID if the song does not exist
-        if LyricsAnnot._last_id >= LyricsAnnot._max_id:
-            raise ValueError(f"Maximum ID value of {'F' * LyricsAnnot._id_len} reached.")
+            # Save the updated dictionary back to the file
+            with open(id_file_path, 'w') as id_file:
+                json.dump(id_list, id_file, indent=4)
 
-        song_id = f"{LyricsAnnot._last_id:0{LyricsAnnot._id_len}X}"
-        LyricsAnnot._last_id += 1
-
-        # Store the generated ID in the dictionary
-        LyricsAnnot._id_map[key] = song_id
-
-        return song_id
+            return song_id
+        
+        else :
+            return id_list[new_id_key]
     
 
     
@@ -126,10 +146,10 @@ class LyricsAnnot:
             return False
         
 
-    def save_to_json(self, save_path):
+    def save_to_json(self, save_path, id_file_path):
 
         # Only build id if we are going to save the song
-        self.song_id = self.__build_id(self.title, self.artist)
+        self.song_id = self.__build_id(self.title, self.artist, id_file_path)
 
         data = {
             'meta': {

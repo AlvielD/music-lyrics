@@ -143,11 +143,11 @@ class GeniusCompiler:
                         }
 
                         # Store the last content of specific sections
-                        if "Chorus" in current_paragraph_name and header_count['Chorus'] == 1 :
+                        if "Chorus" in current_paragraph_name and header_count.get('Chorus',0) == 1 :
                             last_chorus_content = ' '.join(current_paragraph_content)
-                        elif "Pre-Chorus" in current_paragraph_name and header_count['Pre-Chorus'] == 1 :
+                        elif "Pre-Chorus" in current_paragraph_name and header_count.get('Pre-Chorus',0) == 1 :
                             last_pre_chorus_content = ' '.join(current_paragraph_content)
-                        elif "Post-Chorus" in current_paragraph_name and header_count['Post-Chorus'] == 1:
+                        elif "Post-Chorus" in current_paragraph_name and header_count.get('Post-Chorus',0) == 1:
                             last_post_chorus_content = ' '.join(current_paragraph_content)
 
                     # Check the next line to see if it's content or another section header
