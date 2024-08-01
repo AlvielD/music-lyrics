@@ -55,52 +55,68 @@ CONSTRUCT {
   SERVICE <x-sparql-anything:00000000.json> {
     # Metadata
     ?songURI xyz:meta ?metadata .
+    ?metadata xyz:song_id ?songID .
   	?metadata xyz:title ?titleVar .
     ?metadata xyz:language ?langvar .
     ?metadata xyz:artist ?artistVar .
           
-    BIND(fx:entity("https://w3id.org/polifonia/ontology/music-meta/1.0/MusicArtist/",REPLACE(?artistVar, " ", "_", "i")) AS ?MusicArtistURI)
-	BIND(fx:entity("https://w3id.org/polifonia/ontology/music-meta/1.0/CreativeProcess/",REPLACE(?titleVar, " ", "_", "i")) AS ?creativeProcessURI)
 
-    BIND(fx:entity(REPLACE(?titleVar, " ", "_", "i")) AS ?title)
-    BIND(fx:entity(REPLACE(?langvar, " ", "_", "i")) AS ?lang)
-    BIND(fx:entity(REPLACE(?artistVar, " ", "_", "i")) AS ?name)
     
     # Annotations
     ?songURI xyz:annotations ?annotationsContainer .
     ?annotationsContainer fx:anySlot ?annotations .
     ?annotations xyz:paragraph ?paragraphVar .
+    ?annotations xyz:occurrence ?occurrenceVar .
     ?annotations xyz:time_index ?timeIndexContainer .
-    # DOES NOT WORK???
-    #?timeIndexContainer rdf:_1 ?startTimeIndexVar .
-    #?timeIndexContainer rdf:_2 ?endTimeIndexVar .
+    ?timeIndexContainer fx:anySlot ?timeIndexVar .
+    
     
     # Lines
   	?annotations xyz:lines ?linesContainer .
   	?linesContainer fx:anySlot ?lineVar .
   	?lineVar xyz:line ?lineTextVar .
     
-    BIND(fx:entity("https://w3id.org/polifonia/ontology/music-meta/1.0/AbstractScore/",REPLACE(?titleVar, " ", "_", "i")) AS ?abstractScoreURI)
-	BIND(fx:entity("https://w3id.org/polifonia/ontology/music-meta/1.0/Lyrics/",REPLACE(?titleVar, " ", "_", "i")) AS ?lyricsURI)
-    BIND(fx:entity(
-        "https://w3id.org/polifonia/ontology/music-lyrics/1.0/",
-        REPLACE(?paragraphVar, " ", "_", "i"),
-        "/", ?title
-      ) AS ?paragraphURI)
+    # BINDING VARIABLES
     
-    BIND(fx:entity("https://w3id.org/polifonia/ontology/music-lyrics/1.0/",REPLACE(?paragraphVar, " ", "", "i")) AS ?paragraphClass)
-    BIND(fx:entity("https://w3id.org/polifonia/ontology/music-lyrics/1.0/TextFragment") AS ?linesURI)
+    # VALUES
+    BIND(xsd:string(?titleVar) AS ?title)
+    BIND(xsd:string(?langvar) AS ?lang)
+    BIND(xsd:string(?artistVar) AS ?name)
+    
+    
+    # URIs
+    BIND(IRI(CONCAT(STR(mm:MusicArtist), "/", SHA1(STR(?artistVar)))) AS ?MusicArtistURI)
+    BIND(IRI(CONCAT(STR(mm:CreativeProcess), "/", SHA1(STR(?titleVar)))) AS ?creativeProcessURI)
+    
+    BIND(IRI(CONCAT(STR(mm:AbstractScore), "/", SHA1(?songID))) AS ?abstractScoreURI)
+    BIND(IRI(CONCAT(STR(mm:Lyrics), "/", SHA1(?songID))) AS ?lyricsURI)
+    BIND(IRI(CONCAT(STR(ml:AbstractScore), "/", CONCAT(STR(?paragraphVar), STR(?occurrenceVar)), "/", SHA1(?songID))) AS ?paragraphURI)
+    
+    BIND(IRI(CONCAT(STR(ml:), STR(?paragraphVar))) AS ?paragraphClass)
+    BIND(IRI(CONCAT(STR(ml:TextFragment), "/", SHA1(STR(?lineTextVar)))) AS ?linesURI)
     BIND(xsd:string(?lineTextVar) AS ?line)
     
-    BIND(fx:entity("http://vivoweb.org/ontology/core/") AS ?musicTimeIntervalURI)
+    BIND(IRI(
+        CONCAT(STR(ml:AbstractScore), "/", CONCAT(STR(?paragraphVar), STR(?occurrenceVar)), "/", SHA1(?songID))
+      ) AS ?musicTimeIntervalURI)
+    BIND(IRI(
+        CONCAT(STR(core:MusicTimeIndex), "/", CONCAT(STR(?paragraphVar), STR(?occurrenceVar)), "/start/", SHA1(STR(?songID)))
+      ) AS ?startMusicTimeIndexURI)
+    BIND(IRI(
+        CONCAT(STR(core:MusicTimeIndex), "/", CONCAT(STR(?paragraphVar), STR(?occurrenceVar)), "/end/", SHA1(STR(?songID)))
+      ) AS ?endMusicTimeIndexURI)
     
-    BIND(fx:entity("http://vivoweb.org/ontology/core/") AS ?startMusicTimeIndexURI)
-    BIND(fx:entity("http://vivoweb.org/ontology/core/") AS ?endMusicTimeIndexURI)
+    BIND(IRI(
+        CONCAT(STR(core:MusicTimeIndexComponent), "/", CONCAT(STR(?paragraphVar), STR(?occurrenceVar)), "/start/", SHA1(STR(?songID)))
+      ) AS ?startMusicTimeIndexComponentURI)
+    BIND(IRI(
+        CONCAT(STR(core:MusicTimeIndexComponent), "/", CONCAT(STR(?paragraphVar), STR(?occurrenceVar)), "/end/", SHA1(STR(?songID)))
+      ) AS ?endMusicTimeIndexComponentURI)
     
-    BIND(fx:entity("http://vivoweb.org/ontology/core/") AS ?startMusicTimeIndexComponentURI)
-    BIND(fx:entity("http://vivoweb.org/ontology/core/") AS ?endMusicTimeIndexComponentURI)
-    
-    BIND(xsd:integer(?startTimeIndexVar) AS ?startMusicTimeIndexComponent)
-    BIND(xsd:integer(?endTimeIndexVar) AS ?endMusicTimeIndexComponent)
+    # THIS APPROACH DOES NOT WORK EITHER???
+    #BIND(fx:cardinal(?timeIndexVar) AS ?cardinal)
+    #BIND(IF(?cardinal = 0, xsd:float(?timeIndexVar), xsd:float(?timeIndexVar)) AS ?startMusicTimeIndexComponent)
+    #BIND(IF(?cardinal = 1, xsd:float(?timeIndexVar), xsd:float("0")) AS ?endMusicTimeIndexComponent)
+    BIND(?timeIndexVar AS ?startMusicTimeIndexComponent)
   }
 }
