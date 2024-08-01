@@ -24,7 +24,7 @@ def translate_header(header, language):
             for synonym in synonyms:
                 normalized_synonym = unidecode(synonym).lower().replace('-', ' ')
                 if normalized_synonym == normalized_header:
-                    return section
+                    return section.replace('_', '-')
     else : # not supported language
         return 1
 
@@ -34,7 +34,7 @@ def translate_header(header, language):
             for synonym in synonyms:
                 normalized_synonym = unidecode(synonym).lower().replace('-', ' ')
                 if normalized_synonym == normalized_header:
-                    return section
+                    return section.replace('_', '-')
 
     # If no match is found
     return 0

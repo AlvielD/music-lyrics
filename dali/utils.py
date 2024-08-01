@@ -1,6 +1,8 @@
 from collections import defaultdict
 import os
+import regex as re
 import DALI as dali_code
+
 
 def display_languages(dali_data):
     # Initialize a dictionary to store language counts and IDs
@@ -59,14 +61,11 @@ def loop_extract_json(DALI_gz_dir, save_path):
     dali_data = dali_code.get_the_DALI_dataset(DALI_gz_dir, skip=[], keep=[])
     
     for item in os.listdir(DALI_gz_dir):
-        item_path = os.path.join(DALI_gz_dir, item)
         entry = dali_data[item.split('.')[0]]
-        if os.path.isfile(item_path):
-            if not(entry.info['metadata']['language']=='polish') and not(entry.info['metadata']['language']=='croatian') and not(entry.info['metadata']['language']=='estonian'):
-                if not(entry.info['id']=='1c1c8f03185943bd831bee5edf10f08a'):
-                    if not(entry.info['artist']=='L\'Arc~en~Ciel') and not(entry.info['artist']=='F(x)'):
-                        name = f"my_annot_name_{item.split('.')[0]}"
-                        entry.write_json(save_path, name)
+        if not(item == 'info' or item =='__MACOSX'):
+            if not(entry.info['metadata']['language']=='polish' or entry.info['metadata']['language']=='croatian' or entry.info['metadata']['language']=='estonian' or entry.info['metadata']['language']=='latin'):
+                name = f"my_annot_name_{item.split('.')[0]}"
+                entry.write_json(save_path, name)
 
 
 def save_to_json(dali_data, path_save, id) :

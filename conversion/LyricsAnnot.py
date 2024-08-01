@@ -185,6 +185,7 @@ class LyricsAnnot:
 
         # Initialize variables to track current paragraph and its content
         current_paragraph_name = None
+        current_occurrence = None
         current_paragraph_content = None
         current_paragraph_start_time = None
         current_paragraph_end_time = None
@@ -219,7 +220,7 @@ class LyricsAnnot:
                 # Update current paragraph end time
                 current_paragraph_end_time = line_end_time
 
-                # Removed the matched line from the paragraph
+                # Remove the matched line from the paragraph
                 current_paragraph_content = utils.remove_from_paragraph(line_text, current_paragraph_content)
             else:
                 # If current line doesn't belong to current paragraph, finalize current paragraph
@@ -230,7 +231,9 @@ class LyricsAnnot:
                 # Move to a new paragraph section
                 index = last_matched_index + 1
                 if index < len(paragraphs_list):
-                    paragraph_name, paragraph_info = paragraphs_list[index]
+                    paragraph_header, paragraph_info = paragraphs_list[index]
+                    paragraph_name = paragraph_header[0]
+                    paragraph_occurrence = paragraph_header[1]
                     paragraph_content = paragraph_info['content']
                     singer = paragraph_info['singer']
                     # Check if current line starts a new paragraph
@@ -238,6 +241,7 @@ class LyricsAnnot:
                         match = True
                         # Initialize new paragraph
                         current_paragraph_name = paragraph_name
+                        current_occurrence = paragraph_occurrence
                         current_paragraph_content = utils.remove_from_paragraph(line_text, paragraph_content)
                         current_paragraph_start_time = line_start_time
                         current_paragraph_end_time = line_end_time
@@ -245,6 +249,7 @@ class LyricsAnnot:
                         # Add new annotation for the paragraph
                         annotation_data = {
                             'paragraph': current_paragraph_name,
+                            'occurrence': current_occurrence,
                             'time_index': [current_paragraph_start_time, current_paragraph_end_time],
                             'time_duration': current_paragraph_end_time - current_paragraph_start_time,
                             'singer': singer,

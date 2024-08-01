@@ -12,6 +12,17 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 
 from tqdm import tqdm
 
+
+# Define Asian languages and their corresponding scripts
+asian_languages = {
+    'zh': 'Chinese',
+    'ja': 'Japanese',
+    'ko': 'Korean',
+    'th': 'Thai',
+    'vi': 'Vietnamese',
+}
+
+
 def process_damp_metadata_file(metadata_file, dir, DAMP_dir, save_path):
     try:
         # Get track metadata from the metadata file
@@ -58,13 +69,14 @@ def process_dali_file(metadata_file, DALI_dir, save_path):
         
         # Create annotations
         annot = LyricsAnnot(title, artists[0])
-        annot.build_annotations(data, 'DALI')
-        success = annot.add_section_info()
+        if not(annot.language in asian_languages):
+            annot.build_annotations(data, 'DALI')
+            success = annot.add_section_info()
             
-        if success:
-            annot.save_to_json(save_path)
-        
-        return f"Success: {metadata_file}"
+            if success:
+                annot.save_to_json(save_path)
+            
+            return f"Success: {metadata_file}"
     except Exception as ex:
         return f"Error processing {metadata_file}: {ex}"
     
@@ -168,11 +180,14 @@ def main():
                 
                 # Create annotations
                 annot = LyricsAnnot(title, artists[0])
-                annot.build_annotations(data, 'DALI')
-                success = annot.add_section_info()
-                    
-                if success:
-                    annot.save_to_json(save_path)
+                if not(annot.language in asian_languages):
+                    annot.build_annotations(data, 'DALI')
+                    success = annot.add_section_info()
+            
+                    if success:
+                        annot.save_to_json(save_path)
+            
+                    return f"Success: {metadata_file}"
             except Exception as ex:
                 print(ex)
             
