@@ -6,6 +6,7 @@ import utils
 
 from SpotiScraper import SpotiScraper
 from GeniusCompiler import GeniusCompiler
+from SongNotFoundException import SongNotFoundException
 
 class LyricsAnnot:
     # PRIVATE ATTRIBUTES
@@ -24,7 +25,8 @@ class LyricsAnnot:
 
         # Define attributes dependant on external sources
         song = LyricsAnnot._genius_compiler.search_song(self.title, self.artist)
-        if song == None: raise Exception()
+        if song is None:
+            raise SongNotFoundException(self.title, self.artist)
         
         metadata = LyricsAnnot._genius_compiler.get_song_metadata(song.id)
 
@@ -52,7 +54,7 @@ class LyricsAnnot:
         return annot
 
 
-    def __build_id(self, title, artist, id_file_path):
+    def __build_id(self, title, artist, id_file_path, dataset):
         """Build the id of the song from the class attributes
 
         Raises:
@@ -67,7 +69,7 @@ class LyricsAnnot:
                 try:
                     id_list = json.load(id_file)
                     if id_list:
-                        last_id = int(next(reversed(id_list.values())), 16) + 1
+                        last_id = int(next(reversed([v[0] for v in id_list.values()])), 16) + 1
                     else : #empty dictionary
                         last_id = 0
                 except json.JSONDecodeError:
@@ -81,14 +83,16 @@ class LyricsAnnot:
         new_id_key = f"{title} - {artist}"
             
         if new_id_key not in id_list: # First time this song is converted: need to create a brand new id
-             # Generate a new ID
+            #print("Song not in list")
+            # Generate a new ID
             if last_id >= LyricsAnnot._max_id:
                 raise ValueError(f"Maximum ID value of {'F' * LyricsAnnot._id_len} reached.")
             
             song_id = f"{last_id:0{LyricsAnnot._id_len}X}"
             
             # Append the new entry
-            new_id = {new_id_key : song_id}
+            source=[dataset]
+            new_id = {new_id_key : [song_id, source]}
             id_list.update(new_id)
 
             # Save the updated dictionary back to the file
@@ -98,11 +102,21 @@ class LyricsAnnot:
             return song_id
         
         else :
-            return id_list[new_id_key]
+            #print("Song already in list")
+            source = id_list[new_id_key][1]
+            if not(dataset in source):
+                source.append(dataset)
+                id_list[new_id_key][1] = source
+
+                # Save the updated dictionary back to the file
+                with open(id_file_path, 'w') as id_file:
+                    json.dump(id_list, id_file, indent=4)
+                    
+            return id_list[new_id_key][0]
     
 
     
-    def build_annotations(self, data, dataset = 'DAMP'):
+    def build_annotations(self, data, dataset):
         """Add audio-aligned data from the data provided in json format
 
         Args:
@@ -146,10 +160,10 @@ class LyricsAnnot:
             return False
         
 
-    def save_to_json(self, save_path, id_file_path):
+    def save_to_json(self, save_path, id_file_path, dataset):
 
         # Only build id if we are going to save the song
-        self.song_id = self.__build_id(self.title, self.artist, id_file_path)
+        self.song_id = self.__build_id(self.title, self.artist, id_file_path, dataset)
 
         data = {
             'meta': {
@@ -246,6 +260,7 @@ class LyricsAnnot:
                 # If current line doesn't belong to current paragraph, finalize current paragraph
                 if current_paragraph_name:
                     merged_annotations[-1]['time_index'] = [current_paragraph_start_time, current_paragraph_end_time]
+                    merged_annotations[-1]['time_duration'] = current_paragraph_end_time - current_paragraph_start_time
                 match = False
         
                 # Move to a new paragraph section
@@ -271,7 +286,7 @@ class LyricsAnnot:
                             'paragraph': current_paragraph_name,
                             'occurrence': current_occurrence,
                             'time_index': [current_paragraph_start_time, current_paragraph_end_time],
-                            'time_duration': current_paragraph_end_time - current_paragraph_start_time,
+                            'time_duration': 0,
                             'singer': singer,
                             'lines': [{
                                 'line': line_text,

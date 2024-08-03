@@ -169,6 +169,240 @@ def compute_avg_line_len(lines):
     avg_len /= n_line
     return avg_len
 
+def count_specific_sources(file_path):
+    try:
+        # Load the JSON content from the file
+        with open(file_path, 'r', encoding='utf-8') as file:
+            data = json.load(file)
+        
+        count = 0
+        # Iterate through each key-value pair in the dictionary
+        for key, value in data.items():
+            sources = value[1]
+            # Check if the source list contains both "DALI" and "DAMP" in any order
+            if sorted(sources) == ["DALI", "DAMP"]:
+                count += 1
+        
+        return count
+
+    except Exception as ex:
+        return f"Error processing the file: {ex}"
+
+
+
+# Check if the text file containing the id of already converted songs is up-to-date compared
+# to the actual content of the output folder
+# Note: this is a very simple check so as to lower performance needs (number of id must match number of files)
+def check_id_list(save_path, id_file_path):
+    try:
+        # Count the number of files in the save_path directory
+        file_count = len([f for f in os.listdir(save_path) if os.path.isfile(os.path.join(save_path, f))])
+
+        # Load the dictionary from the JSON file
+        if os.path.exists(id_file_path):
+            with open(id_file_path, 'r') as id_file:
+                try:
+                    id_list = json.load(id_file)
+                except json.JSONDecodeError:
+                    raise ValueError("The id file contains invalid JSON.")
+        else:
+            raise FileNotFoundError("The id file does not exist.")
+
+        # Count the number of items in the id_list
+        id_count = len(id_list)
+
+        # Check if the file count matches the id count
+        if file_count == id_count:
+            return True
+        else:
+            return False
+
+    except Exception as ex:
+        return f"Error checking ID list: {ex}"
+
+
+def update_id_list(save_path, id_file_path, source="Unknown"):
+    try:
+        # Initialize an empty dictionary
+        id_list = {}
+
+        # Iterate through each file in the save_path directory
+        for filename in os.listdir(save_path):
+            if filename.endswith('.json'):
+                file_path = os.path.join(save_path, filename)
+                
+                # Load the JSON file content
+                with open(file_path, 'r', encoding='utf-8') as file:
+                    data = json.load(file)
+                    
+                    # Extract the title, artist, and song_id
+                    title = data['meta']['title']
+                    artist = data['meta']['artist']
+                    song_id = filename.split('.')[0]  # Remove the '.json' extension to get the ID
+
+                    # Create the key as "title - artist"
+                    new_id_key = f"{title} - {artist}"
+                    
+                    # Add to the dictionary
+                    id_list[new_id_key] = [song_id, source]
+
+        # Write the dictionary to the id_file_path, overwriting existing content
+        with open(id_file_path, 'w') as id_file:
+            json.dump(id_list, id_file, indent=4)
+
+        return "ID list updated successfully."
+
+    except Exception as ex:
+        return f"Error updating ID list: {ex}"
+    
+
+def correct_time_durations(json_dir):
+    try:
+        # Iterate through each file in the json_dir directory
+        for filename in os.listdir(json_dir):
+            if filename.endswith('.json'):
+                file_path = os.path.join(json_dir, filename)
+                
+                # Load the JSON file content
+                with open(file_path, 'r', encoding='utf-8') as file:
+                    data = json.load(file)
+                    
+                    # Iterate through each paragraph in the annotations array
+                    for paragraph in data.get('annotations', []):
+                        # Calculate the correct time_duration
+                        time_index = paragraph.get('time_index', [])
+                        if len(time_index) == 2:
+                            paragraph['time_duration'] = time_index[1] - time_index[0]
+                    
+                    # Save the updated JSON back to the file
+                    with open(file_path, 'w', encoding='utf-8') as file:
+                        json.dump(data, file, indent=4)
+        
+        return "Time durations corrected successfully."
+
+    except Exception as ex:
+        return f"Error correcting time durations: {ex}"
+
+
+#---------------FUNCTIONS FOR STATISTICS---------------
+def count_sources(id_file_path):
+    try:
+        # Load the JSON content from the file
+        with open(id_file_path, 'r', encoding='utf-8') as file:
+            data = json.load(file)
+        
+        count_dali = 0
+        count_damp = 0
+        count_double_sources = 0
+        # Iterate through each key-value pair in the dictionary
+        for key, value in data.items():
+            sources = value[1]
+            # Check if the source list contains both "DALI" and "DAMP" in any order
+            if "DALI" in sources and "DAMP" in sources:
+                count_double_sources += 1
+                count_dali += 1
+                count_damp += 1
+            else:
+                if "DALI" in sources:
+                    count_dali += 1
+                if "DAMP" in sources:
+                    count_damp += 1
+        
+        return {"count_dali":count_dali, "count_damp":count_damp, "count_double_sources":count_double_sources}
+
+    except Exception as ex:
+        return f"Error processing the file: {ex}"
+
+    
+def count_files(folder_path):
+    try:
+        # List all files in the directory
+        files = os.listdir(folder_path)
+        # Filter out directories, only count files
+        files_count = len([f for f in files if os.path.isfile(os.path.join(folder_path, f))])
+        return files_count
+    except Exception as ex:
+        print(f"Error counting files in {folder_path}: {ex}")
+        return 0
+
+def calculate_percentage(id_file_path, dataset_already_converted, dataset):
+    try:
+        source_counts = count_sources(id_file_path)
+        if dataset == "DALI":
+            converted_count=source_counts["count_dali"]
+        if dataset == "DAMP":
+            converted_count=source_counts["count_damp"]
+        
+        total_count = count_files(dataset_already_converted)
+
+        if total_count == 0:
+            return "Cannot calculate percentage because no file has been processed yet."
+
+        percentage = (converted_count / total_count) * 100
+        return f"{percentage:.2f}% of the songs from {dataset} dataset are usable to create the feed the knowledge graph."
+    
+    except Exception as ex:
+        return f"Error calculating percentage: {ex}"
+
+
+
+def count_avoided_songs(avoided_songs_file_path):
+    try:
+        # Load the JSON content from the file
+        with open(avoided_songs_file_path, 'r', encoding='utf-8') as file:
+            data = json.load(file)
+        
+        # Initialize counters
+        dali_counts = {
+            "no_language_information": 0,
+            "wrongly_encoded_asian_song": 0,
+            "no_paragraphs": 0,
+            "not_found_on_Genius": 0,
+            "total": 0
+        }
+        damp_counts = {
+            "no_language_information": 0,
+            "notes_encoding_instead_of_lines": 0,
+            "no_paragraphs": 0,
+            "not_found_on_Genius": 0,
+            "total": 0
+        }
+        
+        # Iterate through each key-value pair in the dictionary
+        for key, value in data.items():
+            song_id = value[0]
+            reason = value[1]
+            
+            # Determine dataset and increment corresponding counter
+            if "_" in song_id: #DAMP
+                if reason == "no_language_information":
+                    damp_counts["no_language_information"] += 1
+                elif reason == "notes_encoding_instead_of_lines":
+                    damp_counts["notes_encoding_instead_of_lines"] += 1
+                elif reason == "no_paragraphs":
+                    damp_counts["no_paragraphs"] += 1
+                elif reason == "not_found_on_Genius":
+                    damp_counts["not_found_on_Genius"] += 1
+                damp_counts["total"] = damp_counts["no_language_information"]+damp_counts["notes_encoding_instead_of_lines"]+damp_counts["no_paragraphs"]+damp_counts["not_found_on_Genius"]
+            else: #DALI
+                if reason == "no_language_information":
+                    dali_counts["no_language_information"] += 1
+                elif reason == "wrongly_encoded_asian_song":
+                    dali_counts["wrongly_encoded_asian_song"] += 1
+                elif reason == "no_paragraphs":
+                    dali_counts["no_paragraphs"] += 1
+                elif reason == "not_found_on_Genius":
+                    dali_counts["not_found_on_Genius"] += 1
+                dali_counts["total"] = dali_counts["no_language_information"]+dali_counts["wrongly_encoded_asian_song"]+dali_counts["no_paragraphs"]+dali_counts["not_found_on_Genius"]
+
+        
+        return {"dali_counts": dali_counts, "damp_counts": damp_counts}
+
+    except Exception as ex:
+        return f"Error processing the file: {ex}"
+
+
+
 
 if __name__ == '__main__':
 
