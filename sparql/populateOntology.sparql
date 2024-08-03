@@ -1,6 +1,7 @@
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX core: <http://vivoweb.org/ontology/core#>
-PREFIX rdf:		<http://www.w3.org/2000/01/rdf-schema#>
+PREFIX co: <http://purl.org/ontology/co/core#>
+PREFIX xsd:		<http://www.w3.org/2001/XMLSchema#>
+PREFIX core:	<http://vivoweb.org/ontology/core#>
+PREFIX rdf:		<http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs:	<http://www.w3.org/2000/01/rdf-schema#>
 PREFIX mm:		<https://w3id.org/polifonia/ontology/music-meta/1.0/>
 PREFIX src:		<https://w3id.org/polifonia/ontology/source/1.0/>
@@ -10,71 +11,100 @@ PREFIX fx:		<http://sparql.xyz/facade-x/ns/>
 
 CONSTRUCT {
   # Metadata
-  ?songURI a mm:MusicEntity .
-  ?songURI core:hasTitle ?title .
-  ?songURI core:hasLanguage ?lang .
-  ?songURI mm:isCreatedBy ?creativeProcessURI .
-  ?creativeProcessURI a mm:MusicEntity .
-  ?creativeProcessURI core:involvesAgent ?MusicArtistURI .
-  ?MusicArtistURI core:name ?name .
+  ?songURI a mm:MusicEntity ;
+    core:hasTitle ?title ;
+    core:hasLanguage ?lang ;
+    mm:isCreatedBy ?creativeProcessURI ;
+  	core:hasPart ?abstractScoreURI .
+  ?creativeProcessURI a mm:MusicEntity ;
+    core:involvesAgent ?MusicArtistURI .
+  ?MusicArtistURI a mm:Musician ;
+    core:name ?name .
   
   
   # Annotations
-  ?songURI core:hasPart ?abstractScoreURI .
-  ?abstractScoreURI a mm:AbstractScore .
-  ?abstractScoreURI mm:hasText ?lyricsURI .
-  ?lyricsURI a mm:Lyrics .
-  ?lyricsURI mm:hasTextPart ?paragraphURI .
-  ?paragraphURI a ?paragraphClass .
+  ?abstractScoreURI a mm:AbstractScore ;
+    mm:hasText ?lyricsURI .
+  ?lyricsURI a mm:Lyrics ;
+    mm:hasTextPart ?paragraphURI .
   
   
   # Time dimension
-  ?paragraphURI ml:hasMusicTimeInterval ?musicTimeIntervalURI .
-  ?musicTimeIntervalURI a core:MusicTimeInterval .
+  ?paragraphURI a ?paragraphClass ;
+    ml:hasMusicTimeInterval ?musicTimeIntervalURI ;
+  	ml:hasTextPart ?linesURI ;
+    ml:sungBy ?singerURI .
   
-  ?musicTimeIntervalURI core:hasStartMusicTimeIndex ?startMusicTimeIndexURI .
-  ?musicTimeIntervalURI core:hasEndMusicTimeIndex ?endMusicTimeIndexURI .
-  ?startMusicTimeIndexURI a core:MusicTimeIndex .
-  ?endMusicTimeIndexURI a core:MusicTimeIndex .
+  ?musicTimeIntervalURI a core:MusicTimeInterval ;
+    core:hasStartMusicTimeIndex ?startMusicTimeIndexURI ;
+    core:hasEndMusicTimeIndex ?endMusicTimeIndexURI ;
+    core:hasMusicTimeDuration ?musicTimeDurationURI .
+  ?startMusicTimeIndexURI a core:MusicTimeIndex ;
+    core:hasMusicTimeIndexComponent ?startMusicTimeIndexComponentURI .
+  ?startMusicTimeIndexComponentURI a core:MusicTimeIndexComponent ;
+    core:hasValue ?startMusicTimeIndexComponent .
+  ?endMusicTimeIndexURI a core:MusicTimeIndex ;
+    core:hasMusicTimeIndexComponent ?endMusicTimeIndexComponentURI .
+  ?endMusicTimeIndexComponentURI a core:MusicTimeIndexComponent ;
+    core:hasValue ?endMusicTimeIndexComponent .
+  ?musicTimeDurationURI a core:MusicTimeDuration ;
+    core:hasValue ?musicTimeDuration .
   
-  ?startMusicTimeIndexURI core:hasMusicTimeIndexComponent ?startMusicTimeIndexComponentURI .
-  ?endMusicTimeIndexURI core:hasMusicTimeIndexComponent ?endMusicTimeIndexComponentURI .
-  ?startMusicTimeIndexComponentURI a core:MusicTimeIndexComponent .
-  ?endMusicTimeIndexComponentURI a core:MusicTimeIndexComponent .
-  
-  ?startMusicTimeIndexComponentURI core:hasValue ?startMusicTimeIndexComponent .
-  ?endMusicTimeIndexComponentURI core:hasValue ?endMusicTimeIndexComponent .
-  
+  # Singers
+  ?singerURI a mm:Musician ;
+    core:name ?singerName .
   
   # Lines
-  ?paragraphURI ml:hasTextPart ?linesURI .
-  ?linesURI a mm:TextFragment .
-  ?linesURI ml:hasValue ?line .	# NOT IMPLEMENTED YET ON THE ONTOLOGY
+  ?linesURI a mm:TextFragment ;
+    ml:hasMusicTimeInterval ?lineTimeIntervalURI ;
+    ml:hasValue ?line .
+  ?lineTimeIntervalURI a core:MusicTimeInterval ;
+    core:hasStartMusicTimeIndex ?startLineTimeIndexURI ;
+    core:hasEndMusicTimeIndex ?endLineTimeIndexURI ;
+    core:hasMusicTimeDuration ?lineTimeDurationURI .
+  ?startLineTimeIndexURI a core:MusicTimeIndex ;
+    core:hasMusicTimeIndexComponent ?startLineTimeIndexComponentURI .
+  ?startLineTimeIndexComponentURI a core:MusicTimeIndexComponent ;
+    core:hasValue ?startLineTimeIndexComponent .
+  ?endLineTimeIndexURI a core:MusicTimeIndex ;
+    core:hasMusicTimeIndexComponent ?endLineTimeIndexComponentURI .
+  ?endLineTimeIndexComponentURI a core:MusicTimeIndexComponent ;
+    core:hasValue ?endLineTimeIndexComponent .
+  ?lineTimeDurationURI a core:MusicTimeDuration ;
+    core:hasValue ?lineTimeDuration .
+    
 
 } WHERE {
   SERVICE <x-sparql-anything:00000000.json> {
     # Metadata
-    ?songURI xyz:meta ?metadata .
-    ?metadata xyz:song_id ?songID .
-  	?metadata xyz:title ?titleVar .
-    ?metadata xyz:language ?langvar .
-    ?metadata xyz:artist ?artistVar .
-          
+    ?songURI xyz:meta ?metadata ;
+             xyz:annotations ?annotationsContainer .
+    ?metadata xyz:song_id ?songID ;
+              xyz:title ?titleVar ;
+              xyz:language ?langvar ;
+              xyz:artist ?artistVar .
 
     
     # Annotations
-    ?songURI xyz:annotations ?annotationsContainer .
     ?annotationsContainer fx:anySlot ?annotations .
-    ?annotations xyz:paragraph ?paragraphVar .
-    ?annotations xyz:occurrence ?occurrenceVar .
-    ?annotations xyz:time_index ?timeIndexContainer .
-    ?timeIndexContainer fx:anySlot ?timeIndexVar .
+    ?annotations xyz:paragraph ?paragraphVar ;
+                 xyz:occurrence ?occurrenceVar ;
+                 xyz:time_index ?paragraphTimeIndexContainer ;
+                 xyz:time_duration ?paragraphDurationVar ;
+                 xyz:singer ?singersContainer .
+    ?paragraphTimeIndexContainer rdf:_1 ?startMusicTimeIndexComponentVar .
+    ?paragraphTimeIndexContainer rdf:_2 ?endMusicTimeIndexComponentVar .
+    ?singersContainer fx:anySlot ?singerVar .
     
     
     # Lines
   	?annotations xyz:lines ?linesContainer .
   	?linesContainer fx:anySlot ?lineVar .
-  	?lineVar xyz:line ?lineTextVar .
+  	?lineVar xyz:line ?lineTextVar ;
+            xyz:time_index ?lineTimeIndexContainer ;
+            xyz:time_duration ?lineDurationVar .
+    ?lineTimeIndexContainer rdf:_1 ?startLineTimeIndexComponentVar .
+    ?lineTimeIndexContainer rdf:_2 ?endLineTimeIndexComponentVar .
     
     # BINDING VARIABLES
     
@@ -83,9 +113,20 @@ CONSTRUCT {
     BIND(xsd:string(?langvar) AS ?lang)
     BIND(xsd:string(?artistVar) AS ?name)
     
+    BIND(xsd:string(?singerVar) AS ?singerName)
+    BIND(xsd:float(?startMusicTimeIndexComponentVar) AS ?startMusicTimeIndexComponent)
+    BIND(xsd:float(?endMusicTimeIndexComponentVar) AS ?endMusicTimeIndexComponent)
+    BIND(xsd:float(?paragraphDurationVar) AS ?musicTimeDuration)
+    
+    BIND(xsd:string(?lineTextVar) AS ?line)
+    BIND(xsd:float(?startLineTimeIndexComponentVar) AS ?startLineTimeIndexComponent)
+    BIND(xsd:float(?endLineTimeIndexComponentVar) AS ?endLineTimeIndexComponent)
+    BIND(xsd:float(?lineDurationVar) AS ?lineTimeDuration)
+    
     
     # URIs
     BIND(IRI(CONCAT(STR(mm:MusicArtist), "/", SHA1(STR(?artistVar)))) AS ?MusicArtistURI)
+    BIND(IRI(CONCAT(STR(mm:MusicArtist), "/", SHA1(STR(?singerVar)))) AS ?singerURI)
     BIND(IRI(CONCAT(STR(mm:CreativeProcess), "/", SHA1(STR(?titleVar)))) AS ?creativeProcessURI)
     
     BIND(IRI(CONCAT(STR(mm:AbstractScore), "/", SHA1(?songID))) AS ?abstractScoreURI)
@@ -94,10 +135,9 @@ CONSTRUCT {
     
     BIND(IRI(CONCAT(STR(ml:), STR(?paragraphVar))) AS ?paragraphClass)
     BIND(IRI(CONCAT(STR(ml:TextFragment), "/", SHA1(STR(?lineTextVar)))) AS ?linesURI)
-    BIND(xsd:string(?lineTextVar) AS ?line)
     
     BIND(IRI(
-        CONCAT(STR(ml:AbstractScore), "/", CONCAT(STR(?paragraphVar), STR(?occurrenceVar)), "/", SHA1(?songID))
+        CONCAT(STR(core:MusicTimeInterval), "/", CONCAT(STR(?paragraphVar), STR(?occurrenceVar)), "/", SHA1(?songID))
       ) AS ?musicTimeIntervalURI)
     BIND(IRI(
         CONCAT(STR(core:MusicTimeIndex), "/", CONCAT(STR(?paragraphVar), STR(?occurrenceVar)), "/start/", SHA1(STR(?songID)))
@@ -113,10 +153,32 @@ CONSTRUCT {
         CONCAT(STR(core:MusicTimeIndexComponent), "/", CONCAT(STR(?paragraphVar), STR(?occurrenceVar)), "/end/", SHA1(STR(?songID)))
       ) AS ?endMusicTimeIndexComponentURI)
     
-    # THIS APPROACH DOES NOT WORK EITHER???
-    #BIND(fx:cardinal(?timeIndexVar) AS ?cardinal)
-    #BIND(IF(?cardinal = 0, xsd:float(?timeIndexVar), xsd:float(?timeIndexVar)) AS ?startMusicTimeIndexComponent)
-    #BIND(IF(?cardinal = 1, xsd:float(?timeIndexVar), xsd:float("0")) AS ?endMusicTimeIndexComponent)
-    BIND(?timeIndexVar AS ?startMusicTimeIndexComponent)
+    BIND(IRI(
+        CONCAT(STR(core:MusicTimeDuration), "/", CONCAT(STR(?paragraphVar), STR(?occurrenceVar)), "/", SHA1(STR(?songID)))
+      ) AS ?musicTimeDurationURI)
+    
+    # LINE TIME DIMENSION
+    
+    BIND(IRI(
+        CONCAT(STR(core:MusicTimeInterval), "/TextFragment/", SHA1(?lineTextVar))
+      ) AS ?lineTimeIntervalURI)
+    BIND(IRI(
+        CONCAT(STR(core:MusicTimeIndex), "/TextFragment/start/", SHA1(STR(?lineTextVar)))
+      ) AS ?startLineTimeIndexURI)
+    BIND(IRI(
+        CONCAT(STR(core:MusicTimeIndex), "/TextFragment/end/", SHA1(STR(?lineTextVar)))
+      ) AS ?endLineTimeIndexURI)
+    
+    BIND(IRI(
+        CONCAT(STR(core:MusicTimeIndexComponent), "/TextFragment/start/", SHA1(STR(?lineTextVar)))
+      ) AS ?startLineTimeIndexComponentURI)
+    BIND(IRI(
+        CONCAT(STR(core:MusicTimeIndexComponent), "/TextFragment/end/", SHA1(STR(?lineTextVar)))
+      ) AS ?endLineTimeIndexComponentURI)
+    
+    BIND(IRI(
+        CONCAT(STR(core:MusicTimeDuration), "/TextFragment/", SHA1(STR(?lineTextVar)))
+      ) AS ?lineTimeDurationURI)
+    
   }
 }
