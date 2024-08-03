@@ -1,17 +1,17 @@
 import json
 import pprint
+import os
 
-import pylcs
+import utils
 
 from SpotiScraper import SpotiScraper
 from GeniusCompiler import GeniusCompiler
+from SongNotFoundException import SongNotFoundException
 
 class LyricsAnnot:
     # PRIVATE ATTRIBUTES
-    _last_id = 0
     _id_len = 8
     _max_id = int("F" * _id_len, 16)
-    _id_map = {}
 
     _spoti_client = SpotiScraper()
     _genius_compiler = GeniusCompiler()
@@ -19,13 +19,14 @@ class LyricsAnnot:
 
     def __init__(self, title, artist):
         # Meta-data attributes
-        self.song_id = self.__build_id(title, artist)
+        self.song_id = None
         self.title = title
         self.artist = artist
 
         # Define attributes dependant on external sources
         song = LyricsAnnot._genius_compiler.search_song(self.title, self.artist)
-        if song == None: raise Exception()
+        if song is None:
+            raise SongNotFoundException(self.title, self.artist)
         
         metadata = LyricsAnnot._genius_compiler.get_song_metadata(song.id)
 
@@ -53,7 +54,7 @@ class LyricsAnnot:
         return annot
 
 
-    def __build_id(self, title, artist):
+    def __build_id(self, title, artist, id_file_path, dataset):
         """Build the id of the song from the class attributes
 
         Raises:
@@ -62,26 +63,60 @@ class LyricsAnnot:
         Returns:
             str: string representation of the song's ID
         """
-        # Check if the song by the same artist already exists
-        key = (title.lower(), artist.lower())
-        if key in LyricsAnnot._id_map:
-            return LyricsAnnot._id_map[key]
+        # Load the existing dictionary from the file
+        if os.path.exists(id_file_path):
+            with open(id_file_path, 'r') as id_file:
+                try:
+                    id_list = json.load(id_file)
+                    if id_list:
+                        last_id = int(next(reversed([v[0] for v in id_list.values()])), 16) + 1
+                    else : #empty dictionary
+                        last_id = 0
+                except json.JSONDecodeError:
+                    id_list = {}
+                    last_id = 0
+        else:
+            print(f"No id file found at {id_file_path}. Instantiating an empty list.")
+            id_list = {}
+            last_id = 0
+        
+        new_id_key = f"{title} - {artist}"
+            
+        if new_id_key not in id_list: # First time this song is converted: need to create a brand new id
+            #print("Song not in list")
+            # Generate a new ID
+            if last_id >= LyricsAnnot._max_id:
+                raise ValueError(f"Maximum ID value of {'F' * LyricsAnnot._id_len} reached.")
+            
+            song_id = f"{last_id:0{LyricsAnnot._id_len}X}"
+            
+            # Append the new entry
+            source=[dataset]
+            new_id = {new_id_key : [song_id, source]}
+            id_list.update(new_id)
 
-        # Generate a new ID if the song does not exist
-        if LyricsAnnot._last_id >= LyricsAnnot._max_id:
-            raise ValueError(f"Maximum ID value of {'F' * LyricsAnnot._id_len} reached.")
+            # Save the updated dictionary back to the file
+            with open(id_file_path, 'w') as id_file:
+                json.dump(id_list, id_file, indent=4)
 
-        song_id = f"{LyricsAnnot._last_id:0{LyricsAnnot._id_len}X}"
-        LyricsAnnot._last_id += 1
+            return song_id
+        
+        else :
+            #print("Song already in list")
+            source = id_list[new_id_key][1]
+            if not(dataset in source):
+                source.append(dataset)
+                id_list[new_id_key][1] = source
 
-        # Store the generated ID in the dictionary
-        LyricsAnnot._id_map[key] = song_id
-
-        return song_id
+                # Save the updated dictionary back to the file
+                with open(id_file_path, 'w') as id_file:
+                    json.dump(id_list, id_file, indent=4)
+                    
+            return id_list[new_id_key][0]
     
 
     
-    def build_annotations(self, data, dataset = 'DAMP'):
+    def build_annotations(self, data, dataset):
         """Add audio-aligned data from the data provided in json format
 
         Args:
@@ -104,7 +139,7 @@ class LyricsAnnot:
                         'time_duration': self.song_duration - data[-1]['t']})
                     
                     self.annotations = annotations
-                    print("Annotations built successfully!")
+                    #print("Annotations built successfully!")
                 elif dataset == 'DALI':
                     entry = data['annotations']['annot']['lines']
                     annotations = [{
@@ -113,7 +148,7 @@ class LyricsAnnot:
                         'time_duration': entry[i]['time'][1] - entry[i]['time'][0]} for i in range(len(entry))]
                     
                     self.annotations = annotations
-                    print("Annotations built successfully!")
+                    #print("Annotations built successfully!")
                 else:
                     print("Dataset not supported. Annotations were not built.")
             else:
@@ -125,7 +160,11 @@ class LyricsAnnot:
             return False
         
 
-    def save_to_json(self, save_path):
+    def save_to_json(self, save_path, id_file_path, dataset):
+
+        # Only build id if we are going to save the song
+        self.song_id = self.__build_id(self.title, self.artist, id_file_path, dataset)
+
         data = {
             'meta': {
                 'song_id': self.song_id,
@@ -145,7 +184,26 @@ class LyricsAnnot:
         """
         lyrics = LyricsAnnot._genius_compiler.get_lyrics(self.title, self.artist)
         paragraphs = LyricsAnnot._genius_compiler.split_by_section(lyrics, self.artist, self.language)
-        self.annotations = self.__merge_annotations(paragraphs)
+        if paragraphs: 
+            self.annotations = self.__merge_annotations(paragraphs)
+            if self.annotations:
+                return True
+            else:
+                return False
+        else: 
+            return False
+
+    
+    def __check_first_line(self, paragraph):
+        matches = False
+        first_line = self.annotations[0]['line']
+        _, paragraph = paragraph        # Discard paragraph's name
+
+        sim_score = utils.compute_similiarity_score(first_line, paragraph['content'])
+
+        if sim_score > 0.6:
+            matches = True
+        return matches
 
 
     def __merge_annotations(self, paragraphs):
@@ -161,6 +219,7 @@ class LyricsAnnot:
 
         # Initialize variables to track current paragraph and its content
         current_paragraph_name = None
+        current_occurrence = None
         current_paragraph_content = None
         current_paragraph_start_time = None
         current_paragraph_end_time = None
@@ -171,22 +230,18 @@ class LyricsAnnot:
         # Convert paragraphs to a list of items for indexed access
         paragraphs_list = list(paragraphs.items())
 
-         # Iterate through annotation lines
+        if not(self.__check_first_line(paragraphs_list[0])):
+            last_matched_index = 0  # Skip first paragraph of genius lyrics
+
+        # Iterate through annotation lines
         for line in self.annotations:
             line_text = line['line']
             line_start_time = line['time_index'][0]
             line_end_time = line['time_index'][1]
-
-            #print(line_text)
             
             # Check if current line belongs to the current paragraph
             if current_paragraph_content:
-                try:
-                    doc_score = pylcs.lcs_string_length(line_text.lower(), current_paragraph_content.lower()) / len(line_text)
-                    #print(f"SCORE BETWEEN {line_text} AND {current_paragraph_content}: {doc_score}")
-                except ZeroDivisionError:
-                    doc_score = 0.0
-
+                doc_score = utils.compute_similiarity_score(line_text, current_paragraph_content)
             if current_paragraph_content and doc_score > 0.6:
                 # Add line information to current paragraph
                 lines = {
@@ -198,39 +253,40 @@ class LyricsAnnot:
                 
                 # Update current paragraph end time
                 current_paragraph_end_time = line_end_time
+
+                # Remove the matched line from the paragraph
+                current_paragraph_content = utils.remove_from_paragraph(line_text, current_paragraph_content)
             else:
                 # If current line doesn't belong to current paragraph, finalize current paragraph
                 if current_paragraph_name:
                     merged_annotations[-1]['time_index'] = [current_paragraph_start_time, current_paragraph_end_time]
-
+                    merged_annotations[-1]['time_duration'] = current_paragraph_end_time - current_paragraph_start_time
                 match = False
         
                 # Move to a new paragraph section
                 index = last_matched_index + 1
                 if index < len(paragraphs_list):
-                    paragraph_name, paragraph_info = paragraphs_list[index]
+                    paragraph_header, paragraph_info = paragraphs_list[index]
+                    paragraph_name = paragraph_header[0]
+                    paragraph_occurrence = paragraph_header[1]
                     paragraph_content = paragraph_info['content']
                     singer = paragraph_info['singer']
-
-                    #print(f"Match with {paragraph_name}?")
-
                     # Check if current line starts a new paragraph
-                    if startswith_similar(paragraph_content, line_text):
+                    if utils.startswith_similar(line_text, paragraph_content):
                         match = True
-
                         # Initialize new paragraph
                         current_paragraph_name = paragraph_name
-                        current_paragraph_content = paragraph_content
+                        current_occurrence = paragraph_occurrence
+                        current_paragraph_content = utils.remove_from_paragraph(line_text, paragraph_content)
                         current_paragraph_start_time = line_start_time
                         current_paragraph_end_time = line_end_time
-
-                        #print('Match found!')
                         
                         # Add new annotation for the paragraph
                         annotation_data = {
                             'paragraph': current_paragraph_name,
+                            'occurrence': current_occurrence,
                             'time_index': [current_paragraph_start_time, current_paragraph_end_time],
-                            'time_duration': current_paragraph_end_time - current_paragraph_start_time,
+                            'time_duration': 0,
                             'singer': singer,
                             'lines': [{
                                 'line': line_text,
@@ -238,74 +294,47 @@ class LyricsAnnot:
                                 'time_duration': line_end_time - line_start_time
                             }]
                         }
-                        
                         merged_annotations.append(annotation_data)
-
                         # Update last matched index
                         last_matched_index = index
-
+                    elif merged_annotations == []:
+                        # First paragraph not yet initialized, if both lines do not match at first trial then we might be in front of a useless paragraph
+                        last_matched_index = index
+                        index = last_matched_index + 1
                 if not match or index == len(paragraphs_list):
-                    #print('No match found. The line has been added to the current paragraph by default.')
-                    lines = {
-                        'line': line_text,
-                        'time_index': [line_start_time, line_end_time],
-                        'time_duration': line_end_time - line_start_time
-                    }
-                    merged_annotations[-1]['lines'].append(lines)
+                    if merged_annotations:
+                        lines = {
+                            'line': line_text,
+                            'time_index': [line_start_time, line_end_time],
+                            'time_duration': line_end_time - line_start_time
+                        }
+                        merged_annotations[-1]['lines'].append(lines)
+                    else:
+                        pass    # The line is most likely not useful
 
         # Finalize last paragraph if any
         if current_paragraph_name:
             merged_annotations[-1]['time_index'] = [current_paragraph_start_time, current_paragraph_end_time]
             
         return merged_annotations
-    
-
-def startswith_similar(paragraph_content, line_text, threshold=0.6):
-    """
-    Checks if the paragraph content starts similarly to the line text with a given similarity threshold.
-    
-    Args:
-        paragraph_content (str): The content of the paragraph.
-        line_text (str): The text to compare with the start of the paragraph.
-        threshold (float): The similarity threshold above which the strings are considered to start similarly.
-        
-    Returns:
-        bool: True if the start of the paragraph is similar to the line text based on the threshold, False otherwise.
-    """
-    # Convert both strings to lower case for case-insensitive comparison
-    paragraph_content = paragraph_content.lower()
-    line_text = line_text.lower()
-    
-    # Compare only the beginning of the paragraph content up to the length of the line text
-    start_content = paragraph_content[:len(line_text)]
-    
-    # Calculate the similarity score using LCS
-    try:
-        similarity_score = pylcs.lcs_string_length(line_text, start_content) / len(line_text)
-    except ZeroDivisionError:
-        similarity_score = 0.0
-
-    #print(similarity_score)
-
-    # Check if the similarity score meets the threshold
-    return similarity_score >= threshold
 
 
 if __name__ == '__main__':
     
     # Read the data from a JSON file
-    file_path = './data/DAMP_MVP/sing_300x30x2/ES/ESLyrics/3364824_3364824.json'
+    file_path = './data/toy_DAMP/FR/FRLyrics/728723_68818.json'
     save_path = './conversion/saved'
 
     with open(file_path, encoding='utf-8') as file:
         data = json.load(file)
 
     # Create the instance of lyrics annotations
-    title = 'Perro fiel'
-    artist = 'Shakira'
+    title = 'Ziggy Un Garçon Pas Comme'
+    artist = 'Celine Dion'
 
     annot = LyricsAnnot(title, artist)
     annot.build_annotations(data, 'DAMP')
-    annot.add_section_info()
+    success = annot.add_section_info()
 
-    annot.save_to_json(save_path)
+    if success:
+        annot.save_to_json(save_path)

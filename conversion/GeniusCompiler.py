@@ -1,8 +1,7 @@
 import config.genius_config as config
-import pprint
 import re
-from googletrans import Translator
 import requests
+import translation
 
 from lyricsgenius import Genius
 
@@ -36,7 +35,7 @@ class GeniusCompiler:
             # Clean lyrics to remove "You might also like" issue
             lyrics = self.__clean_lyrics(song.lyrics)
             
-            print(f"Lyrics scraped successfully")
+            #print(f"Lyrics scraped successfully")
         else:
             print(f"Lyrics for '{title}' by {artist} not found.")
             lyrics = False
@@ -73,12 +72,8 @@ class GeniusCompiler:
         return metadata
 
 
-    def translate_to_english(self, text, src_lan):
-        translator = Translator()
-        translated = translator.translate(text, src=src_lan, dest='en')
-        return translated.text.title()  # Convert to title format for uniformity
 
-    def split_by_section(self, lyrics, artist, src_lan='en', verbose=False):
+    def split_by_section(self, lyrics, artist, original_language, verbose=False):
         """Splits the provided lyrics in sections using the information present on it.
 
         Args:
@@ -90,14 +85,12 @@ class GeniusCompiler:
             dict: lyrics splitted by sections
         """
 
-        # List of standard section names
-        standard_sections = ['Intro', 'Verse', 'Pre-Chorus', 'Chorus', 'Post-Chorus', 'Bridge', 'Outro']
-
        # Split the lyrics based on the headers
         genius_paragraphs = {}
         lines = lyrics.splitlines()
 
         current_paragraph_name = None
+        current_singers = []
         current_paragraph_content = []
         
         header_count = {}
@@ -107,104 +100,102 @@ class GeniusCompiler:
         last_pre_chorus_content = ''
         last_post_chorus_content = ''
 
-        pre_chorus = 0
-        chorus = 0
-        post_chorus = 0
         i = 0
 
         while i < len(lines):
             line = lines[i]
             match = self.header_pattern.match(line.strip())
             if match:
-                # Save the previous paragraph if exists
-                if current_paragraph_name and current_paragraph_content:
-                    genius_paragraphs[current_paragraph_name] = {
-                        'content': ' '.join(current_paragraph_content),
-                        'singer': singer_names
-                    }
-
-                    # Store the last content of specific sections
-                    if "Chorus" in current_paragraph_name and chorus == 0 :
-                        last_chorus_content = ' '.join(current_paragraph_content)
-                        chorus = 1
-                    elif "Pre-Chorus" in current_paragraph_name and pre_chorus == 0 :
-                        last_pre_chorus_content = ' '.join(current_paragraph_content)
-                        pre_chorus = 1
-                    elif "Post-Chorus" in current_paragraph_name and post_chorus == 0:
-                        last_post_chorus_content = ' '.join(current_paragraph_content)
-                        post_chorus = 1
-                    
                 # Extract paragraph name and singer(s) if provided
                 header_info = match.group(1).strip()
                 if ':' in header_info:
                     header_parts = header_info.split(':')
                     paragraph_name = header_parts[0].strip()
-                    singer_names = [name.strip() for name in header_parts[1].split('&')]
+                    singer_names = [name.strip() for name in header_parts[1].replace(',', '&').split('&')]
                 else:
                     paragraph_name = header_info
                     singer_names = [artist]  # Default to original artist if no singer specified
                 
-                # Preserve numeric suffix if present
+                # Remove numeric suffix if present
                 numeric_suffix_match = re.search(r'\d+$', paragraph_name)
-                numeric_suffix = numeric_suffix_match.group() if numeric_suffix_match else ''
                 paragraph_name_base = paragraph_name[:numeric_suffix_match.start()].strip() if numeric_suffix_match else paragraph_name
 
-                # Translate paragraph name to English
-                paragraph_name_base = self.translate_to_english(paragraph_name_base, src_lan)
+                # Translate paragraph name's base to English
+                result = translation.translate_header(paragraph_name_base, original_language)
+                if result == 0 : #header in the original language did not match anything in the translation dictionary
+                    print(f"Warning: Paragraph name '{paragraph_name_base}' in language '{original_language}' is not a standard section name.")
+                elif result == 1 : #header in a language not supported by the dictionary
+                    print(f'{original_language} is not part of the supported languages.')
+                else :
+                    paragraph_name_base = result.title()
+    
+                    # Save the previous paragraph if exists
+                    if current_paragraph_name and current_paragraph_content and current_singers:
+                        # Adjust previous paragraph occurrence information if it's a duplicate
+                        if current_paragraph_name in header_count:
+                            header_count[current_paragraph_name] += 1
+                        else :
+                            header_count[current_paragraph_name] = 1
 
-                # Ensure paragraph name matches standard sections
-                original_paragraph_name = paragraph_name_base
-                paragraph_name_base = next((section for section in standard_sections if section in paragraph_name_base), paragraph_name_base)
+                        genius_paragraphs[(current_paragraph_name, header_count[current_paragraph_name])] = {
+                            'content': ' '.join(current_paragraph_content),
+                            'singer': current_singers
+                        }
 
-                # Combine base name and numeric suffix, if any
-                paragraph_name = f"{paragraph_name_base.title()} {numeric_suffix}".strip()
+                        # Store the last content of specific sections
+                        if "Chorus" in current_paragraph_name and header_count.get('Chorus',0) == 1 :
+                            last_chorus_content = ' '.join(current_paragraph_content)
+                        elif "Pre-Chorus" in current_paragraph_name and header_count.get('Pre-Chorus',0) == 1 :
+                            last_pre_chorus_content = ' '.join(current_paragraph_content)
+                        elif "Post-Chorus" in current_paragraph_name and header_count.get('Post-Chorus',0) == 1:
+                            last_post_chorus_content = ' '.join(current_paragraph_content)
 
-                # Print a message if paragraph name is not part of standard sections
-                if (paragraph_name_base.lower() not in (section.lower() for section in standard_sections)) and verbose:
-                    print(f"Warning: Paragraph name '{original_paragraph_name}' is not a standard section name.")
+                    # Check the next line to see if it's content or another section header
+                    next_line = lines[i + 1] if i + 1 < len(lines) else ''
+                    next_match = self.header_pattern.match(next_line.strip())
 
-                # Check the next line to see if it's content or another section header
-                next_line = lines[i + 1] if i + 1 < len(lines) else ''
-                next_match = self.header_pattern.match(next_line.strip())
-
-                if paragraph_name_base in ["Chorus", "Pre-Chorus", "Post-Chorus"] and (not next_line.strip() or next_match):
-                    # Append last content if the next line is empty or another header
-                    if paragraph_name_base == "Chorus" and last_chorus_content:
+                    if paragraph_name_base in ["Chorus", "Pre-Chorus", "Post-Chorus"] and (not next_line.strip() or next_match):
+                        # Append last content if the next line is empty or another header
+                        if paragraph_name_base == "Chorus" and last_chorus_content:
+                            current_paragraph_content = []
+                            current_paragraph_content.append(last_chorus_content)
+                        elif paragraph_name_base == "Pre-Chorus" and last_pre_chorus_content:
+                            current_paragraph_content = []
+                            current_paragraph_content.append(last_pre_chorus_content)
+                        elif paragraph_name_base == "Post-Chorus" and last_post_chorus_content:
+                            current_paragraph_content = []
+                            current_paragraph_content.append(last_post_chorus_content)
+                    else:
                         current_paragraph_content = []
-                        current_paragraph_content.append(last_chorus_content)
-                    elif paragraph_name_base == "Pre-Chorus" and last_pre_chorus_content:
-                        current_paragraph_content = []
-                        current_paragraph_content.append(last_pre_chorus_content)
-                    elif paragraph_name_base == "Post-Chorus" and last_post_chorus_content:
-                        current_paragraph_content = []
-                        current_paragraph_content.append(last_post_chorus_content)
-                else:
-                    current_paragraph_content = []
 
-                # Adjust paragraph name if it's a duplicate
-                if paragraph_name in header_count:
-                    header_count[paragraph_name] += 1
-                    paragraph_name = f"{paragraph_name.split()[0]} {header_count[paragraph_name]}"
-                else:
-                    header_count[paragraph_name] = 1
+                    current_paragraph_name = paragraph_name_base
+                    current_singers = singer_names
+                    
 
-                current_paragraph_name = paragraph_name
             else:
                 current_paragraph_content.append(line)
             
             i += 1
 
         # Save the last paragraph
-        if current_paragraph_name and current_paragraph_content:
-            genius_paragraphs[current_paragraph_name] = {
+        if current_paragraph_name and current_paragraph_content and current_singers:
+            # Adjust previous paragraph occurrence information if it's a duplicate
+            if current_paragraph_name in header_count:
+                header_count[current_paragraph_name] += 1
+            else :
+                header_count[current_paragraph_name] = 1
+
+            genius_paragraphs[(current_paragraph_name, header_count[current_paragraph_name])] = {
                 'content': ' '.join(current_paragraph_content),
-                'singer': singer_names
+                'singer': current_singers
             }
+
 
         # Print extracted paragraphs to check
         if genius_paragraphs and verbose:
             for name, content_info in genius_paragraphs.items():
-                print(f"Paragraph Name: {name}")
+                print(f"Paragraph Name: {name[0]}")
+                print(f"Paragraph Occurrence: {name[1]}")
                 print(f"Content: {content_info['content']}")
                 print(f"Singer(s): {', '.join(content_info['singer'])}")
                 print("------")
@@ -217,10 +208,9 @@ class GeniusCompiler:
 
 if __name__ == '__main__':
     
-    title = 'Blinding Lights'
-    artist = 'The Weeknd'
+    title = 'Ziggy Un Garçon Pas Comme (avec Séparation)'
+    artist = 'Celine Dion'
 
     # Create an instance of our compiler and scrape the lyrics from Genius
     compiler = GeniusCompiler()
-    text = compiler.translate_to_english("Verso", src_lan='es')
-    print(text)
+    text = compiler.search_song(title, artist)
