@@ -31,25 +31,43 @@ def compute_similiarity_score(str1, str2):
     return score
 
 
+def normalize_text(text):
+    # Normalize curly quotes and other special characters
+    text = text.replace('’', "'").replace('“', '"').replace('”', '"')
+    # Normalize multiple spaces to a single space
+    text = re.sub(r'\s+', ' ', text)
+    return text.lower().strip()
+
+def remove_leading_punctuation(text):
+    # Define the set of punctuation characters to remove at the start
+    # Exclude characters that might be valid at the start of a line in some languages
+    punctuation = r'^[,.\s?!;:\'"]+'
+    # Remove leading punctuation and spaces
+    cleaned_text = re.sub(punctuation, '', text)
+    return cleaned_text
+
+
 def remove_from_paragraph(line, paragraph):
+    # Normalize both line and paragraph
+    normalized_paragraph = normalize_text(paragraph)
+    normalized_line = normalize_text(line)
+
     # Split the line into words
-    line_words = line.split()
-    # Iterate over the words in the line and create a regex pattern
-    pattern = ''
-    for word in line_words:
-        if re.search(re.escape(word), paragraph):
-            pattern += f'{re.escape(word)} '
-        else:
-            break
-    # Remove the trailing space
-    pattern = pattern.strip()
+    line_words = normalized_line.split()
+    
+    # Construct a regex pattern to match the entire line as a sequence of words
+    pattern = r'\s*'.join(re.escape(word) for word in line_words)
+
     # Find the first matching substring in the paragraph
-    match = re.search(pattern, paragraph)
+    match = re.search(pattern, normalized_paragraph)
     if match:
         matching_substring = match.group(0)
         
-        # Remove the matching substring from the paragraph
-        new_paragraph = paragraph.replace(matching_substring, '', 1)
+        # Remove the matching substring from the paragraph using span
+        start, end = match.span()
+        new_paragraph = paragraph[end:]
+        # Remove leading punctuation and spaces
+        new_paragraph = remove_leading_punctuation(new_paragraph)
         return new_paragraph
     else:
         return paragraph
@@ -346,10 +364,10 @@ def calculate_percentage(id_file_path, dataset_already_converted, dataset):
 
 
 
-def count_avoided_songs(avoided_songs_file_path):
+def dali_count_avoided_songs(dali_avoided_songs_file_path):
     try:
         # Load the JSON content from the file
-        with open(avoided_songs_file_path, 'r', encoding='utf-8') as file:
+        with open(dali_avoided_songs_file_path, 'r', encoding='utf-8') as file:
             data = json.load(file)
         
         # Initialize counters
@@ -360,6 +378,35 @@ def count_avoided_songs(avoided_songs_file_path):
             "not_found_on_Genius": 0,
             "total": 0
         }
+        
+        # Iterate through each key-value pair in the dictionary
+        for key, value in data.items():
+            song_id = value[0]
+            reason = value[1]
+            if reason == "no_language_information":
+                dali_counts["no_language_information"] += 1
+            elif reason == "wrongly_encoded_asian_song":
+                dali_counts["wrongly_encoded_asian_song"] += 1
+            elif reason == "no_paragraphs":
+                dali_counts["no_paragraphs"] += 1
+            elif reason == "not_found_on_Genius":
+                dali_counts["not_found_on_Genius"] += 1
+            dali_counts["total"] = dali_counts["no_language_information"]+dali_counts["wrongly_encoded_asian_song"]+dali_counts["no_paragraphs"]+dali_counts["not_found_on_Genius"]
+
+        
+        return {"dali_counts": dali_counts}
+
+    except Exception as ex:
+        return f"Error processing the file: {ex}"
+    
+
+def damp_count_avoided_songs(damp_avoided_songs_file_path):
+    try:
+        # Load the JSON content from the file
+        with open(damp_avoided_songs_file_path, 'r', encoding='utf-8') as file:
+            data = json.load(file)
+        
+        # Initialize counters
         damp_counts = {
             "no_language_information": 0,
             "notes_encoding_instead_of_lines": 0,
@@ -372,31 +419,18 @@ def count_avoided_songs(avoided_songs_file_path):
         for key, value in data.items():
             song_id = value[0]
             reason = value[1]
-            
-            # Determine dataset and increment corresponding counter
-            if "_" in song_id: #DAMP
-                if reason == "no_language_information":
-                    damp_counts["no_language_information"] += 1
-                elif reason == "notes_encoding_instead_of_lines":
-                    damp_counts["notes_encoding_instead_of_lines"] += 1
-                elif reason == "no_paragraphs":
-                    damp_counts["no_paragraphs"] += 1
-                elif reason == "not_found_on_Genius":
-                    damp_counts["not_found_on_Genius"] += 1
-                damp_counts["total"] = damp_counts["no_language_information"]+damp_counts["notes_encoding_instead_of_lines"]+damp_counts["no_paragraphs"]+damp_counts["not_found_on_Genius"]
-            else: #DALI
-                if reason == "no_language_information":
-                    dali_counts["no_language_information"] += 1
-                elif reason == "wrongly_encoded_asian_song":
-                    dali_counts["wrongly_encoded_asian_song"] += 1
-                elif reason == "no_paragraphs":
-                    dali_counts["no_paragraphs"] += 1
-                elif reason == "not_found_on_Genius":
-                    dali_counts["not_found_on_Genius"] += 1
-                dali_counts["total"] = dali_counts["no_language_information"]+dali_counts["wrongly_encoded_asian_song"]+dali_counts["no_paragraphs"]+dali_counts["not_found_on_Genius"]
+            if reason == "no_language_information":
+                damp_counts["no_language_information"] += 1
+            elif reason == "notes_encoding_instead_of_lines":
+                damp_counts["notes_encoding_instead_of_lines"] += 1
+            elif reason == "no_paragraphs":
+                damp_counts["no_paragraphs"] += 1
+            elif reason == "not_found_on_Genius":
+                damp_counts["not_found_on_Genius"] += 1
+            damp_counts["total"] = damp_counts["no_language_information"]+damp_counts["notes_encoding_instead_of_lines"]+damp_counts["no_paragraphs"]+damp_counts["not_found_on_Genius"]
 
         
-        return {"dali_counts": dali_counts, "damp_counts": damp_counts}
+        return {"damp_counts": damp_counts}
 
     except Exception as ex:
         return f"Error processing the file: {ex}"
