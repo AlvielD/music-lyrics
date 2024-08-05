@@ -27,3 +27,5 @@ Languages and files we put aside in the DALI dataset:
 When converting the DALI json file to the final output file enriched with Genius info, we also detect asian languages and put them aside
 because of asian characters being written the occidental way while the real asian characters are used in Genius
 
+## Knowledge Graph Construction
+Once the all our data was standardize into proper JSON files, we develop a SparQL construct query which allowed us to create the triples following the previously shown ontology. The whole model was build into this SparQL query and then binded the variables of each JSON datafile in order to triplify our data. The SparQL query file can be seen [here](https://github.com/Duam9/ke_final_project-july24/blob/main/sparql/populateOntology.sparql).
