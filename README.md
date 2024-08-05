@@ -3,7 +3,7 @@ This repository contains the content of our final project for Knowledge Engineer
 
 > 🔗 Ontology URI [https://w3id.org/polifonia/ontology/music-lyrics/](https://raw.githubusercontent.com/Duam9/ke_final_project-july24/main/ontology/music-lyrics.rdf)
 
-![](https://github.com/Duam9/ke_final_project-july24/blob/main/ontology/music-lyrics_grafoo.pdf)
+![](https://github.com/Duam9/ke_final_project-july24/blob/main/ontology/music-lyrics_grafoo.png)
 
 https://medium.com/analytics-vidhya/how-to-scrape-song-lyrics-a-gentle-python-tutorial-5b1d4ab351d2
 
