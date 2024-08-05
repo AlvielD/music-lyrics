@@ -1,6 +1,9 @@
-# ke_final_project-july24
+# Music Lyrics Ontology (ML)
 This repository contains the content of our final project for Knowledge Engineering, tackling integration of lyrics data into the Polifonia music ontologies. You will find here the lyrics ontology module we created, as well as the SPARQL queries used to create the Knowledge Graph, and our final report.
 
+> 🔗 Ontology URI [https://w3id.org/polifonia/ontology/music-lyrics/](https://raw.githubusercontent.com/Duam9/ke_final_project-july24/main/ontology/music-lyrics.rdf)
+
+![](https://github.com/Duam9/ke_final_project-july24/blob/main/ontology/music-lyrics_grafoo.pdf)
 
 https://medium.com/analytics-vidhya/how-to-scrape-song-lyrics-a-gentle-python-tutorial-5b1d4ab351d2
 
