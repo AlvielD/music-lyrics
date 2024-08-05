@@ -416,25 +416,6 @@ def count_files(folder_path):
         print(f"Error counting files in {folder_path}: {ex}")
         return 0
 
-def calculate_percentage(id_file_path, dataset_already_converted, dataset):
-    try:
-        source_counts = count_sources(id_file_path)
-        if dataset == "DALI":
-            converted_count=source_counts["count_dali"]
-        if dataset == "DAMP":
-            converted_count=source_counts["count_damp"]
-        
-        total_count = count_files(dataset_already_converted)
-
-        if total_count == 0:
-            return "Cannot calculate percentage because no file has been processed yet."
-
-        percentage = (converted_count / total_count) * 100
-        return f"{percentage:.2f}% of the songs from {dataset} dataset are usable to create the feed the knowledge graph."
-    
-    except Exception as ex:
-        return f"Error calculating percentage: {ex}"
-
 
 
 def dali_count_avoided_songs(dali_avoided_songs_file_path):
