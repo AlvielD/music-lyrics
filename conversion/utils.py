@@ -187,27 +187,8 @@ def compute_avg_line_len(lines):
     avg_len /= n_line
     return avg_len
 
-def count_specific_sources(file_path):
-    try:
-        # Load the JSON content from the file
-        with open(file_path, 'r', encoding='utf-8') as file:
-            data = json.load(file)
-        
-        count = 0
-        # Iterate through each key-value pair in the dictionary
-        for key, value in data.items():
-            sources = value[1]
-            # Check if the source list contains both "DALI" and "DAMP" in any order
-            if sorted(sources) == ["DALI", "DAMP"]:
-                count += 1
-        
-        return count
 
-    except Exception as ex:
-        return f"Error processing the file: {ex}"
-
-
-
+#---------------FUNCTIONS FOR PRE-CONVERSION---------------
 # Check if the text file containing the id of already converted songs is up-to-date compared
 # to the actual content of the output folder
 # Note: this is a very simple check so as to lower performance needs (number of id must match number of files)
@@ -239,7 +220,7 @@ def check_id_list(save_path, id_file_path):
         return f"Error checking ID list: {ex}"
 
 
-def update_id_list(save_path, id_file_path, source="Unknown"):
+def create_id_list(save_path, id_file_path, source):
     try:
         # Initialize an empty dictionary
         id_list = {}
@@ -272,34 +253,126 @@ def update_id_list(save_path, id_file_path, source="Unknown"):
 
     except Exception as ex:
         return f"Error updating ID list: {ex}"
-    
 
-def correct_time_durations(json_dir):
-    try:
-        # Iterate through each file in the json_dir directory
-        for filename in os.listdir(json_dir):
-            if filename.endswith('.json'):
-                file_path = os.path.join(json_dir, filename)
-                
-                # Load the JSON file content
+
+#---------------FUNCTIONS FOR POST-CONVERSION---------------
+# Get the id of songs that got wrongly converted (single paragraphs)
+def get_single_paragraph_song_info(folder_path):
+    single_paragraph_songs = {}
+
+    # Loop through all files in the specified folder
+    for filename in os.listdir(folder_path):
+        if filename.endswith('.json'):
+            file_path = os.path.join(folder_path, filename)
+            
+            # Open and read the JSON file
+            try:
                 with open(file_path, 'r', encoding='utf-8') as file:
                     data = json.load(file)
                     
-                    # Iterate through each paragraph in the annotations array
-                    for paragraph in data.get('annotations', []):
-                        # Calculate the correct time_duration
-                        time_index = paragraph.get('time_index', [])
-                        if len(time_index) == 2:
-                            paragraph['time_duration'] = time_index[1] - time_index[0]
-                    
-                    # Save the updated JSON back to the file
-                    with open(file_path, 'w', encoding='utf-8') as file:
-                        json.dump(data, file, indent=4)
-        
-        return "Time durations corrected successfully."
+                    # Check if the JSON file has only one paragraph
+                    if 'annotations' in data and len(data['annotations']) == 1:
+                        song_id = data['meta']['song_id']
+                        title = data['meta']['title']
+                        artist = data['meta']['artist']
+                        single_paragraph_songs[song_id] = (title, artist)
+            except json.JSONDecodeError as e:
+                print(f"Error decoding JSON in file {file_path}: {e}")
+            except Exception as e:
+                print(f"An unexpected error occurred with file {file_path}: {e}")
+    
+    return single_paragraph_songs
 
-    except Exception as ex:
-        return f"Error correcting time durations: {ex}"
+
+# Function to delete the songs with single paragraphs from the id file
+def delete_dict_entries(files_dict, dict_path):
+    # Load the dictionary from the given file path
+    with open(dict_path, 'r') as file:
+        dictionary = json.load(file)
+
+    print(f"Initial dictionary size: {len(dictionary)}")
+
+    # Keep track of the last matched index
+    last_index = 0
+
+    for file_id in files_dict.keys():
+        keys = list(dictionary.keys())
+        for i in range(last_index, len(keys)):
+            key = keys[i]
+            if dictionary[key][0] == file_id:
+                del dictionary[key]
+                last_index = i
+                break  # Assuming file ID matches only one entry, break the loop
+
+    print(f"Dictionary size after deletions: {len(dictionary)}")
+
+    # Save the updated dictionary back to the file
+    with open(dict_path, 'w') as json_file:
+        json.dump(dictionary, json_file, indent=4)
+
+
+# Function to recompute IDs and rename files
+def delete_wrong_converted_songs(files_dict, files_directory):
+    for key in list(files_dict.keys()):
+        # Find the matching file and delete it
+        for file in os.listdir(files_directory):
+            filename = os.path.splitext(file)[0]
+            if filename == key:
+                path_to_delete = os.path.join(files_directory, file)
+                os.remove(path_to_delete)
+                break
+        
+# Function to recompute IDs and rename files
+def change_ids_and_rename_files(dict_path, files_directory, id_len):
+    # Load the dictionary from the given file path
+    with open(dict_path, 'r') as file:
+        dictionary = json.load(file)
+    
+    new_dict = {}
+    new_id_counter = 0
+
+    for key in list(dictionary.keys()):
+        # Get the old entry
+        old_id = dictionary[key][0]
+        source = dictionary[key][1]
+
+        # Format the new ID with the given length
+        new_id = f"{new_id_counter:0{id_len}X}"
+        
+        if old_id == new_id:
+            new_dict[key] = [old_id, source]
+        else:
+            new_dict[key] = [new_id, source]
+
+            # Find the matching file
+            old_file = None
+            for file in os.listdir(files_directory):
+                filename = os.path.splitext(file)[0]
+                if filename == old_id:
+                    old_file = file
+                    break
+            
+             # Rename the file with the new ID if found
+            if old_file:
+                new_file = f"{new_id}{os.path.splitext(old_file)[1]}"
+                old_path = os.path.join(files_directory, old_file)
+                new_path = os.path.join(files_directory, new_file)
+                os.rename(old_path, new_path)
+
+                # Open the JSON file and update the id field
+                with open(new_path, 'r') as json_file:
+                    data = json.load(json_file)
+                
+                data['meta']['song_id'] = new_id
+
+                with open(new_path, 'w') as json_file:
+                    json.dump(data, json_file, indent=4)
+
+        new_id_counter += 1  # Increment the counter instead of resetting it
+
+    # Save the updated dictionary back to the file
+    with open(dict_path, 'w') as file:
+        json.dump(new_dict, file, indent=4)
 
 
 #---------------FUNCTIONS FOR STATISTICS---------------

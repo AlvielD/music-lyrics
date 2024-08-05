@@ -229,8 +229,12 @@ def process_dali_file(metadata_file, DALI_dir, save_path, already_converted_path
     
 
 def create_damp_notations(DAMP_dir, save_path, already_converted_path, id_file_path, avoided_songs_file_path, batch_size=10, pause_interval=30, pause_duration=60):
-    if not(utils.check_id_list(save_path, id_file_path)):
-        utils.update_id_list(save_path, id_file_path)
+    contents = os.listdir(save_path)
+    if not contents : # the folder is empty, no song has been converted yet
+        utils.create_id_list(save_path, id_file_path, 'DAMP')
+    else:
+        if not(utils.check_id_list(save_path, id_file_path)):
+            return "The number of IDs of songs successfully converted listed in id.txt is different from the number of files in the folder of the converted songs (./saved). Please fill in id.txt with the songs missing before proceeding with the conversion."
     lan_dirs = os.listdir(DAMP_dir)
     for dir in lan_dirs:
         print(f"Creating notations for {dir} language")
@@ -254,8 +258,12 @@ def create_damp_notations(DAMP_dir, save_path, already_converted_path, id_file_p
                 print(result)
     
 def create_dali_notations(DALI_dir, save_path, already_converted_path, id_file_path, avoided_songs_file_path, batch_size=10, pause_interval=30, pause_duration=60):
-    if not(utils.check_id_list(save_path, id_file_path)):
-        utils.update_id_list(save_path, id_file_path)
+    contents = os.listdir(save_path)
+    if not contents : # the folder is empty, no song has been converted yet
+        utils.create_id_list(save_path, id_file_path, 'DALI')
+    else:
+        if not(utils.check_id_list(save_path, id_file_path)):
+            return "The number of IDs of songs successfully converted listed in id.txt is different from the number of files in the folder of the converted songs (./saved). Please fill in id.txt with the songs missing before proceeding with the conversion."
     lan_files = os.listdir(DALI_dir)
     for file in lan_files:
         print(f"Creating notations for the file {file}")
