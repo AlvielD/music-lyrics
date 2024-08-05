@@ -10,10 +10,27 @@
      xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
      xmlns:vann="http://purl.org/vocab/vann/"
      xmlns:terms="http://purl.org/dc/terms/">
-    <owl:Ontology rdf:about="https://w3id.org/polifonia/ontologymusic-lyrics">
+    <owl:Ontology rdf:about="https://w3id.org/polifonia/ontology/music-lyrics">
         <owl:imports rdf:resource="https://w3id.org/polifonia/ontology/music-meta/1.0/"/>
         <owl:imports rdf:resource="https://w3id.org/polifonia/ontology/source/1.0/"/>
     </owl:Ontology>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Annotation properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.w3.org/2002/07/owl#qualifiedCardinality -->
+
+    <owl:AnnotationProperty rdf:about="http://www.w3.org/2002/07/owl#qualifiedCardinality"/>
     
 
 
@@ -28,9 +45,9 @@
     
 
 
-    <!-- https://w3id.org/polifonia/ontologymusic-lyrics/hasMusicTimeInterval -->
+    <!-- https://w3id.org/polifonia/ontology/music-lyrics/hasMusicTimeInterval -->
 
-    <owl:ObjectProperty rdf:about="https://w3id.org/polifonia/ontologymusic-lyrics/hasMusicTimeInterval">
+    <owl:ObjectProperty rdf:about="https://w3id.org/polifonia/ontology/music-lyrics/hasMusicTimeInterval">
         <rdfs:domain rdf:resource="https://w3id.org/polifonia/ontology/music-meta/TextFragment"/>
         <rdfs:range rdf:resource="https://w3id.org/polifonia/ontology/core/MusicTimeInterval"/>
         <rdfs:label xml:lang="en">has music time interval</rdfs:label>
@@ -38,44 +55,9 @@
     
 
 
-    <!-- https://w3id.org/polifonia/ontologymusic-lyrics/hasSource -->
+    <!-- https://w3id.org/polifonia/ontology/music-lyrics/isSungBy -->
 
-    <owl:ObjectProperty rdf:about="https://w3id.org/polifonia/ontologymusic-lyrics/hasSource">
-        <rdfs:domain rdf:resource="https://w3id.org/polifonia/ontology/music-meta/Lyrics"/>
-        <rdfs:range rdf:resource="https://w3id.org/polifonia/ontology/source/Source"/>
-        <rdfs:comment xml:lang="en">Relation between Lyrics and their Source</rdfs:comment>
-        <rdfs:label xml:lang="en">has source</rdfs:label>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- https://w3id.org/polifonia/ontologymusic-lyrics/hasSource -->
-
-    <owl:ObjectProperty rdf:about="https://w3id.org/polifonia/ontologymusic-lyrics/hasSource">
-        <rdfs:domain rdf:resource="https://w3id.org/polifonia/ontology/music-meta/Lyrics"/>
-        <rdfs:range rdf:resource="https://w3id.org/polifonia/ontology/source/Source"/>
-        <rdfs:comment xml:lang="en">Relation between Lyrics and their Source</rdfs:comment>
-        <rdfs:label xml:lang="en">has source</rdfs:label>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- https://w3id.org/polifonia/ontologymusic-lyrics/hasWriter -->
-
-    <owl:ObjectProperty rdf:about="https://w3id.org/polifonia/ontologymusic-lyrics/hasWriter">
-        <rdfs:subPropertyOf rdf:resource="https://w3id.org/polifonia/ontology/core/hasAgent"/>
-        <owl:inverseOf rdf:resource="https://w3id.org/polifonia/ontologymusic-lyrics/isWriterOf"/>
-        <rdfs:domain rdf:resource="https://w3id.org/polifonia/ontology/music-meta/Text"/>
-        <rdfs:range rdf:resource="https://w3id.org/polifonia/ontology/music-meta/Musician"/>
-        <rdfs:comment xml:lang="en">The relation between a piece of Text and a Musician</rdfs:comment>
-        <rdfs:label xml:lang="en">has writer</rdfs:label>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- https://w3id.org/polifonia/ontologymusic-lyrics/isSungBy -->
-
-    <owl:ObjectProperty rdf:about="https://w3id.org/polifonia/ontologymusic-lyrics/isSungBy">
+    <owl:ObjectProperty rdf:about="https://w3id.org/polifonia/ontology/music-lyrics/isSungBy">
         <rdfs:domain rdf:resource="https://w3id.org/polifonia/ontology/music-meta/TextFragment"/>
         <rdfs:range rdf:resource="https://w3id.org/polifonia/ontology/music-meta/Musician"/>
         <rdfs:comment xml:lang="en">The relation between a Text Fragment and a Musician</rdfs:comment>
@@ -84,13 +66,93 @@
     
 
 
-    <!-- https://w3id.org/polifonia/ontologymusic-lyrics/isWriterOf -->
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
 
-    <owl:ObjectProperty rdf:about="https://w3id.org/polifonia/ontologymusic-lyrics/isWriterOf">
-        <rdfs:subPropertyOf rdf:resource="https://w3id.org/polifonia/ontology/core/isAgentOf"/>
-        <rdfs:comment xml:lang="en">The relation between a Musician and a piece of Text</rdfs:comment>
-        <rdfs:label xml:lang="en">is writer of</rdfs:label>
-    </owl:ObjectProperty>
+    
+
+
+    <!-- https://w3id.org/polifonia/ontology/music-meta/TextFragment -->
+
+    <rdf:Description rdf:about="https://w3id.org/polifonia/ontology/music-meta/TextFragment">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://w3id.org/polifonia/ontology/core/value"/>
+                <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://w3id.org/polifonia/ontology/core/value"/>
+                <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:qualifiedCardinality>
+                <owl:onDataRange rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </rdf:Description>
+    
+
+
+    <!-- https://w3id.org/polifonia/ontologymusic-lyrics/Bridge -->
+
+    <owl:Class rdf:about="https://w3id.org/polifonia/ontologymusic-lyrics/Bridge">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/polifonia/ontology/music-meta/TextFragment"/>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/polifonia/ontologymusic-lyrics/Chorus -->
+
+    <owl:Class rdf:about="https://w3id.org/polifonia/ontologymusic-lyrics/Chorus">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/polifonia/ontology/music-meta/TextFragment"/>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/polifonia/ontologymusic-lyrics/Intro -->
+
+    <owl:Class rdf:about="https://w3id.org/polifonia/ontologymusic-lyrics/Intro">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/polifonia/ontology/music-meta/TextFragment"/>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/polifonia/ontologymusic-lyrics/Outro -->
+
+    <owl:Class rdf:about="https://w3id.org/polifonia/ontologymusic-lyrics/Outro">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/polifonia/ontology/music-meta/TextFragment"/>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/polifonia/ontologymusic-lyrics/Post-chorus -->
+
+    <owl:Class rdf:about="https://w3id.org/polifonia/ontologymusic-lyrics/Post-chorus">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/polifonia/ontology/music-meta/TextFragment"/>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/polifonia/ontologymusic-lyrics/Pre-chorus -->
+
+    <owl:Class rdf:about="https://w3id.org/polifonia/ontologymusic-lyrics/Pre-chorus">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/polifonia/ontology/music-meta/TextFragment"/>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/polifonia/ontologymusic-lyrics/Verse -->
+
+    <owl:Class rdf:about="https://w3id.org/polifonia/ontologymusic-lyrics/Verse">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/polifonia/ontology/music-meta/TextFragment"/>
+    </owl:Class>
+    <rdf:Description>
+        <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:qualifiedCardinality>
+    </rdf:Description>
 </rdf:RDF>
 
 
