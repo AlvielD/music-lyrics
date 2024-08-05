@@ -5,6 +5,20 @@ This repository contains the content of our final project for Knowledge Engineer
 
 ![](https://github.com/Duam9/ke_final_project-july24/blob/main/ontology/music-lyrics_grafoo.png)
 
+## Competency Questions
+
+| **ID** | **Competency question**                                                  | **Reference** |
+|--------|--------------------------------------------------------------------------|---------------|
+| 1      | Who is the primary artist involved in the creative process of a song?    | Music Meta    |
+| 2      | In what language is written a song?                                      | Core          |
+| 3      | Which different languages the lyrics from our Knowledge Graph use?       | Core          |
+| 4      | Which are the different sections of a song?                              | Music Lyrics  |
+| 5      | What are the lyrics associated to an specific section of a song?         | Music Lyrics  |
+| 6      | What are the starting and ending time stamps of a specific lyric's line? | Music Lyrics  |
+| 7      | What is the duration of a lyric's line?                                  | Music Lyrics  |
+| 8      | What is the duration of a song's section?                                | Music Lyrics  |
+| 9      | What are the singers in charge of singing a specific song's section?     | Music Lyrics  |
+
 https://medium.com/analytics-vidhya/how-to-scrape-song-lyrics-a-gentle-python-tutorial-5b1d4ab351d2
 
 Some problems we faced:
