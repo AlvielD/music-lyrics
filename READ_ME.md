@@ -3,39 +3,7 @@ This repository contains the content of our final project for Knowledge Engineer
 
 ## How to use this repository
 ### Files hierarchy
-.
-├── conversion/
-│   ├── config
-│   ├── saved
-│   ├── test
-│   ├── dali_avoided_songs.txt
-│   ├── GeniusCompiler.py
-│   ├── header_synonyms.txt
-│   ├── id.txt
-│   ├── LyricsAnnot.py
-│   ├── main.py
-│   ├── real_conversion.ipynb
-│   ├── test_conversion.ipynb
-│   ├── SongNotFoundException.py
-│   ├── SpotiScraper.py
-│   ├── test_conversion.ipynb
-│   ├── translation.py
-│   └── utils.py
-├── ontology/
-│   ├── catalog-v001.xml
-│   ├── music-lyrics.rdf
-│   └── music-lyrics_grafoo
-├── sparql/
-│   ├── annotations
-│   ├── triples
-│   ├── populateOntology.ipynb
-│   ├── populateOntology.sparql
-│   └── queries.ipynb
-├── .gitignore
-├── READ_ME
-├── Requirements
-├── use_dataset.ipynb
-└── utils.py
+
 
 ### Advices
 We advise you to read the whole current file and the annotated notebooks that are referred along the way before trying to use its content on your own.<br>
