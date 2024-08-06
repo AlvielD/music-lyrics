@@ -26,10 +26,13 @@ In order to triplify the data it was needed a previous step involving cleaning a
 
 Lyrics are carefully encoded and decoded usin UTF-8, then they are cleaned from extra data written by the users and aligned with the lyrics extracted from [Genius](https://genius.com/).
 
+When converting the DALI json file to the final output file enriched with Genius info, we also detect asian languages and put them aside
+because of asian characters being written the occidental way while the real asian characters are used in Genius
+
 ## Knowledge Graph Construction
 Once the all our data was standardize into proper JSON files, we develop a SparQL construct query which allowed us to create the triples following the previously shown ontology. The whole model was build into this SparQL query and then binded the variables of each JSON datafile in order to triplify our data. The SparQL query file can be seen [here](https://github.com/Duam9/ke_final_project-july24/blob/main/sparql/populateOntology.sparql).
 
-## Faced problems
+## Faced Problems
 - Lack of information about the song writers (need for API)
 - Lack of accessibility of interesting functions in API without commercial plans
 - Matching of lyrics when some are in lower case and other in cap letters
@@ -46,5 +49,10 @@ Languages and files we put aside in the DALI dataset:
 - because of too many hyphen in the text compared to Genius:
     - latin (1)
 
-When converting the DALI json file to the final output file enriched with Genius info, we also detect asian languages and put them aside
-because of asian characters being written the occidental way while the real asian characters are used in Genius
+## Possible Improvements
+The scope of this project is to give an entry point to extend the polifonia ontology on the audio-aligned data. There are many things to be done yet:
+- Improve the cleaning in order to get more songs from the DAMP dataset.
+- Perform the entity linking on the Polifonia knowledge graph.
+- Enhance the granularity to syllable level.
+- Extend the artist field to all artists involved in the writting process
+- Add the dataset source information
