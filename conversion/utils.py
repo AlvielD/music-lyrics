@@ -5,6 +5,7 @@ import pprint
 import unicodedata
 import emoji
 import os
+import shutil
 
 from tqdm import tqdm
 
@@ -225,8 +226,10 @@ def create_id_list(save_path, id_file_path, source):
         # Initialize an empty dictionary
         id_list = {}
 
+        filenames = sorted(os.listdir(save_path), key=lambda x: int(os.path.splitext(x)[0], 16))
+
         # Iterate through each file in the save_path directory
-        for filename in os.listdir(save_path):
+        for filename in filenames:
             if filename.endswith('.json'):
                 file_path = os.path.join(save_path, filename)
                 
@@ -373,6 +376,67 @@ def change_ids_and_rename_files(dict_path, files_directory, id_len):
     # Save the updated dictionary back to the file
     with open(dict_path, 'w') as file:
         json.dump(new_dict, file, indent=4)
+
+
+def merge_damp_ids_to_dali(damp_path, dali_path, id_file_path, starting_id):
+    # Starting ID counter
+    current_id = starting_id
+
+    # Open file, modify its content and save it
+    with open(id_file_path, 'r') as id_file:
+        id_list = json.load(id_file)
+        
+    # Iterate through files in DAMP folder
+    for filename in os.listdir(damp_path):
+        file_path = os.path.join(damp_path, filename)
+        with open(file_path, 'r') as file:
+            data = json.load(file)
+        test_key = f"{data['meta']['title']}"+" - "+ f"{data['meta']['artist']}"
+        if test_key not in id_list : # First time a song gets converted
+            # Construct full file path
+            file_path = os.path.join(damp_path, filename)
+            
+            # Create new filename by appending _d and changing extension
+            new_filename = f"{os.path.splitext(filename)[0]}_d{os.path.splitext(filename)[1]}"
+            new_file_path = os.path.join(dali_path, new_filename)
+
+            # Move and rename the file to DALI folder
+            shutil.move(file_path, new_file_path)
+
+            # Increment ID
+            current_id += 1
+            renamed_file_path = os.path.join(dali_path, f"{current_id:08X}{os.path.splitext(filename)[1]}")
+
+            # Rename file with the incremented ID
+            os.rename(new_file_path, renamed_file_path)
+
+            # Open file, modify its content and save it
+            with open(renamed_file_path, 'r') as file:
+                dic = json.load(file)
+                # Update the ID
+                dic['meta']['song_id'] = f"{current_id:08X}"
+            
+            with open(renamed_file_path, 'w') as file:
+                json.dump(dic, file, indent=4)
+
+            # Append the new entry
+            new_id = {test_key : [f"{current_id:08X}", "DAMP"]}
+            id_list.update(new_id)
+
+            # Save the updated dictionary back to the file
+            with open(id_file_path, 'w') as id_file:
+                json.dump(id_list, id_file, indent=4)
+            
+            # Increment ID for the next file
+            current_id += 1
+
+        else : # song already converted
+            os.remove(file_path)
+            source = id_list[test_key][1]
+            source.append("DAMP")
+            with open(id_file_path, 'w') as id_file:
+                json.dump(id_list, id_file, indent=4)
+
 
 
 #---------------FUNCTIONS FOR STATISTICS---------------
