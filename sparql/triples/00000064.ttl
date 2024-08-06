@@ -1,0 +1,1493 @@
+@prefix co:   <http://purl.org/ontology/co/core#> .
+@prefix core: <http://vivoweb.org/ontology/core#> .
+@prefix fx:   <http://sparql.xyz/facade-x/ns/> .
+@prefix ml:   <http://w3id.org/polifonia/ontology/music-lyrics/1.0/> .
+@prefix mm:   <https://w3id.org/polifonia/ontology/music-meta/1.0/> .
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix src:  <https://w3id.org/polifonia/ontology/source/1.0/> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix xyz:  <http://sparql.xyz/facade-x/data/> .
+
+[ rdf:type          mm:MusicEntity ;
+  core:hasLanguage  "en" ;
+  core:hasPart      <https://w3id.org/polifonia/ontology/music-meta/1.0/AbstractScore/e7f304f060525b6a874855035e67a9e6d97e819c> ;
+  core:hasTitle     "Under The Sun" ;
+  mm:isCreatedBy    <https://w3id.org/polifonia/ontology/music-meta/1.0/CreativeProcess/e47093943f8d695618917323762977d5ee859890>
+] .
+
+<http://vivoweb.org/ontology/core#MusicTimeDuration/TextFragment/f7c96037645b0a47fd4ac15a8d707bafb75fd644>
+        rdf:type       core:MusicTimeDuration ;
+        core:hasValue  "2.34375"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeInterval/TextFragment/2929bf72651d1e8f6cca2228e82b91b1420793ce>
+        rdf:type                     core:MusicTimeInterval ;
+        core:hasEndMusicTimeIndex    <http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/end/2929bf72651d1e8f6cca2228e82b91b1420793ce> ;
+        core:hasMusicTimeDuration    <http://vivoweb.org/ontology/core#MusicTimeDuration/TextFragment/2929bf72651d1e8f6cca2228e82b91b1420793ce> ;
+        core:hasStartMusicTimeIndex  <http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/start/2929bf72651d1e8f6cca2228e82b91b1420793ce> .
+
+<http://w3id.org/polifonia/ontology/music-lyrics/1.0/TextFragment/a83715a31cb018a53b673826db6b51eb90ee8ee0>
+        rdf:type                 mm:TextFragment ;
+        ml:hasMusicTimeInterval  <http://vivoweb.org/ontology/core#MusicTimeInterval/TextFragment/a83715a31cb018a53b673826db6b51eb90ee8ee0> ;
+        ml:hasValue              "i complain to say" .
+
+<http://w3id.org/polifonia/ontology/music-lyrics/1.0/AbstractScore/Chorus1/e7f304f060525b6a874855035e67a9e6d97e819c>
+        rdf:type                 ml:Chorus ;
+        ml:hasMusicTimeInterval  <http://vivoweb.org/ontology/core#MusicTimeInterval/Chorus1/e7f304f060525b6a874855035e67a9e6d97e819c> ;
+        ml:hasTextPart           <http://w3id.org/polifonia/ontology/music-lyrics/1.0/TextFragment/58b5aa329f5d1fe7be7386ba4cd5305d5038a28c> , <http://w3id.org/polifonia/ontology/music-lyrics/1.0/TextFragment/c351fe2ec125a65540fb7c05eb253bf01c076d9d> , <http://w3id.org/polifonia/ontology/music-lyrics/1.0/TextFragment/f7c96037645b0a47fd4ac15a8d707bafb75fd644> , <http://w3id.org/polifonia/ontology/music-lyrics/1.0/TextFragment/7c5802bdd0184a36cfc81921fc9920425b44a93e> , <http://w3id.org/polifonia/ontology/music-lyrics/1.0/TextFragment/b8a4a16ac66d1d8b4ca2a2c77719e10f5b9bf4a5> , <http://w3id.org/polifonia/ontology/music-lyrics/1.0/TextFragment/182953f0dc762773038721509a4c2e90ab8a6cca> , <http://w3id.org/polifonia/ontology/music-lyrics/1.0/TextFragment/e0199650cc2e731d99b2502600f365cce99647be> ;
+        ml:sungBy                <https://w3id.org/polifonia/ontology/music-meta/1.0/MusicArtist/4d68592382a10cfbb38c81cd74b4252a614b884a> .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/start/366e875c4dcfae545d3fa9f59477880b58ab0662>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/start/366e875c4dcfae545d3fa9f59477880b58ab0662> .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/start/1ad6a8d36a8e00317fe4d6ebb0e349f0e3c849f2>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/start/1ad6a8d36a8e00317fe4d6ebb0e349f0e3c849f2> .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndexComponent/Pre-Chorus1/end/e7f304f060525b6a874855035e67a9e6d97e819c>
+        rdf:type       core:MusicTimeIndexComponent ;
+        core:hasValue  "100.58328125"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/end/986073dda0f421baf0f25d5475c7c5824640d412>
+        rdf:type       core:MusicTimeIndexComponent ;
+        core:hasValue  "160.4075"^^xsd:float , "83.8840625"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/end/eda0d79c3a7e542d54870f13e5a09dea763c8921>
+        rdf:type       core:MusicTimeIndexComponent ;
+        core:hasValue  "163.39578125"^^xsd:float , "86.81375"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/end/a505a761a7a5b30747f75459bcb953ec137ff509>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/end/a505a761a7a5b30747f75459bcb953ec137ff509> .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/start/eda0d79c3a7e542d54870f13e5a09dea763c8921>
+        rdf:type       core:MusicTimeIndexComponent ;
+        core:hasValue  "160.70046875"^^xsd:float , "84.1184375"^^xsd:float .
+
+<http://w3id.org/polifonia/ontology/music-lyrics/1.0/AbstractScore/Pre-Chorus1/e7f304f060525b6a874855035e67a9e6d97e819c>
+        rdf:type                 ml:Pre-Chorus ;
+        ml:hasMusicTimeInterval  <http://vivoweb.org/ontology/core#MusicTimeInterval/Pre-Chorus1/e7f304f060525b6a874855035e67a9e6d97e819c> ;
+        ml:hasTextPart           <http://w3id.org/polifonia/ontology/music-lyrics/1.0/TextFragment/eda0d79c3a7e542d54870f13e5a09dea763c8921> , <http://w3id.org/polifonia/ontology/music-lyrics/1.0/TextFragment/f7a06a79162477836aac7264378f197ae33aaf10> , <http://w3id.org/polifonia/ontology/music-lyrics/1.0/TextFragment/ae5d85e680feb527cf9882884c9967401ffa76a8> , <http://w3id.org/polifonia/ontology/music-lyrics/1.0/TextFragment/fc34555bd5aaa306a0896c845c4701f8f3e2660d> , <http://w3id.org/polifonia/ontology/music-lyrics/1.0/TextFragment/67e17e401a7117375f85ab0356f2abf854c18d04> , <http://w3id.org/polifonia/ontology/music-lyrics/1.0/TextFragment/9ce62c0669eadebf518aa975fc13f0c2d49e7a08> , <http://w3id.org/polifonia/ontology/music-lyrics/1.0/TextFragment/247e8226ef929666d90fb232878a846427224891> , <http://w3id.org/polifonia/ontology/music-lyrics/1.0/TextFragment/986073dda0f421baf0f25d5475c7c5824640d412> ;
+        ml:sungBy                <https://w3id.org/polifonia/ontology/music-meta/1.0/MusicArtist/4d68592382a10cfbb38c81cd74b4252a614b884a> .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/end/67e17e401a7117375f85ab0356f2abf854c18d04>
+        rdf:type       core:MusicTimeIndexComponent ;
+        core:hasValue  "177.2825"^^xsd:float , "100.58328125"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/start/67e17e401a7117375f85ab0356f2abf854c18d04>
+        rdf:type       core:MusicTimeIndexComponent ;
+        core:hasValue  "174.704375"^^xsd:float , "98.1809375"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndexComponent/Chorus1/end/e7f304f060525b6a874855035e67a9e6d97e819c>
+        rdf:type       core:MusicTimeIndexComponent ;
+        core:hasValue  "129.3528125"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndexComponent/Chorus3/end/e7f304f060525b6a874855035e67a9e6d97e819c>
+        rdf:type       core:MusicTimeIndexComponent ;
+        core:hasValue  "242.96609375"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeDuration/Verse2/e7f304f060525b6a874855035e67a9e6d97e819c>
+        rdf:type       core:MusicTimeDuration ;
+        core:hasValue  "22.6171875"^^xsd:float .
+
+<http://w3id.org/polifonia/ontology/music-lyrics/1.0/TextFragment/e4ac4655cf3f4d869e80e8b79b6da37892548da1>
+        rdf:type                 mm:TextFragment ;
+        ml:hasMusicTimeInterval  <http://vivoweb.org/ontology/core#MusicTimeInterval/TextFragment/e4ac4655cf3f4d869e80e8b79b6da37892548da1> ;
+        ml:hasValue              "now that i'm over you, and i'm sober too" .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndexComponent/Verse2/end/e7f304f060525b6a874855035e67a9e6d97e819c>
+        rdf:type       core:MusicTimeIndexComponent ;
+        core:hasValue  "155.30984375"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeInterval/TextFragment/c58d5c75ffa7247efcf104bbcea50a9df5160ffa>
+        rdf:type                     core:MusicTimeInterval ;
+        core:hasEndMusicTimeIndex    <http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/end/c58d5c75ffa7247efcf104bbcea50a9df5160ffa> ;
+        core:hasMusicTimeDuration    <http://vivoweb.org/ontology/core#MusicTimeDuration/TextFragment/c58d5c75ffa7247efcf104bbcea50a9df5160ffa> ;
+        core:hasStartMusicTimeIndex  <http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/start/c58d5c75ffa7247efcf104bbcea50a9df5160ffa> .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/start/fcb0b1f860b66deedc702d5f963d67c87295eaf0>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/start/fcb0b1f860b66deedc702d5f963d67c87295eaf0> .
+
+<http://vivoweb.org/ontology/core#MusicTimeDuration/TextFragment/c351fe2ec125a65540fb7c05eb253bf01c076d9d>
+        rdf:type       core:MusicTimeDuration ;
+        core:hasValue  "2.34375"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeDuration/TextFragment/b8a4a16ac66d1d8b4ca2a2c77719e10f5b9bf4a5>
+        rdf:type       core:MusicTimeDuration ;
+        core:hasValue  "2.34375"^^xsd:float , "2.40234375"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/end/06d62f4ee5b91509bfff82c53d8f8ff22b3d77d1>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/end/06d62f4ee5b91509bfff82c53d8f8ff22b3d77d1> .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/end/b0db5bc7ac04ea2f21add696ef0419a4dce75905>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/end/b0db5bc7ac04ea2f21add696ef0419a4dce75905> .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/end/ae870d370ffa711cc853f0e1d008cfd8093659e4>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/end/ae870d370ffa711cc853f0e1d008cfd8093659e4> .
+
+<http://vivoweb.org/ontology/core#MusicTimeDuration/TextFragment/2929bf72651d1e8f6cca2228e82b91b1420793ce>
+        rdf:type       core:MusicTimeDuration ;
+        core:hasValue  "2.8125"^^xsd:float .
+
+<http://w3id.org/polifonia/ontology/music-lyrics/1.0/AbstractScore/Chorus3/e7f304f060525b6a874855035e67a9e6d97e819c>
+        rdf:type                 ml:Chorus ;
+        ml:hasMusicTimeInterval  <http://vivoweb.org/ontology/core#MusicTimeInterval/Chorus3/e7f304f060525b6a874855035e67a9e6d97e819c> ;
+        ml:hasTextPart           <http://w3id.org/polifonia/ontology/music-lyrics/1.0/TextFragment/c351fe2ec125a65540fb7c05eb253bf01c076d9d> , <http://w3id.org/polifonia/ontology/music-lyrics/1.0/TextFragment/182953f0dc762773038721509a4c2e90ab8a6cca> , <http://w3id.org/polifonia/ontology/music-lyrics/1.0/TextFragment/58b5aa329f5d1fe7be7386ba4cd5305d5038a28c> , <http://w3id.org/polifonia/ontology/music-lyrics/1.0/TextFragment/f7c96037645b0a47fd4ac15a8d707bafb75fd644> , <http://w3id.org/polifonia/ontology/music-lyrics/1.0/TextFragment/e0199650cc2e731d99b2502600f365cce99647be> , <http://w3id.org/polifonia/ontology/music-lyrics/1.0/TextFragment/b8a4a16ac66d1d8b4ca2a2c77719e10f5b9bf4a5> , <http://w3id.org/polifonia/ontology/music-lyrics/1.0/TextFragment/7c5802bdd0184a36cfc81921fc9920425b44a93e> ;
+        ml:sungBy                <https://w3id.org/polifonia/ontology/music-meta/1.0/MusicArtist/4d68592382a10cfbb38c81cd74b4252a614b884a> .
+
+<http://w3id.org/polifonia/ontology/music-lyrics/1.0/TextFragment/f7a06a79162477836aac7264378f197ae33aaf10>
+        rdf:type                 mm:TextFragment ;
+        ml:hasMusicTimeInterval  <http://vivoweb.org/ontology/core#MusicTimeInterval/TextFragment/f7a06a79162477836aac7264378f197ae33aaf10> ;
+        ml:hasValue              "let you know    " .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/end/ae5d85e680feb527cf9882884c9967401ffa76a8>
+        rdf:type       core:MusicTimeIndexComponent ;
+        core:hasValue  "157.7121875"^^xsd:float , "81.18875"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndexComponent/Verse2/start/e7f304f060525b6a874855035e67a9e6d97e819c>
+        rdf:type       core:MusicTimeIndexComponent ;
+        core:hasValue  "132.69265625"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/end/4c8b0b1f925ec26b6a0d4e2c3b7389c3329af339>
+        rdf:type       core:MusicTimeIndexComponent ;
+        core:hasValue  "202.53640625"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/end/4c1503c42c346befa32d7d2b3cd1898d2190b1a6>
+        rdf:type       core:MusicTimeIndexComponent ;
+        core:hasValue  "138.0246875"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/start/ae5d85e680feb527cf9882884c9967401ffa76a8>
+        rdf:type       core:MusicTimeIndexComponent ;
+        core:hasValue  "155.42703125"^^xsd:float , "78.845"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/end/247e8226ef929666d90fb232878a846427224891>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/end/247e8226ef929666d90fb232878a846427224891> .
+
+<http://vivoweb.org/ontology/core#MusicTimeInterval/TextFragment/c4da80bb873e32909284aca78c8598740a0d12a7>
+        rdf:type                     core:MusicTimeInterval ;
+        core:hasEndMusicTimeIndex    <http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/end/c4da80bb873e32909284aca78c8598740a0d12a7> ;
+        core:hasMusicTimeDuration    <http://vivoweb.org/ontology/core#MusicTimeDuration/TextFragment/c4da80bb873e32909284aca78c8598740a0d12a7> ;
+        core:hasStartMusicTimeIndex  <http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/start/c4da80bb873e32909284aca78c8598740a0d12a7> .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/end/aaa262cc553c550070ddacf7ea4062ab79825448>
+        rdf:type       core:MusicTimeIndexComponent ;
+        core:hasValue  "171.3059375"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/start/df159a38f90f2848e11d5668211c45219371fed3>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/start/df159a38f90f2848e11d5668211c45219371fed3> .
+
+<http://vivoweb.org/ontology/core#MusicTimeInterval/Pre-Chorus1/e7f304f060525b6a874855035e67a9e6d97e819c>
+        rdf:type                     core:MusicTimeInterval ;
+        core:hasEndMusicTimeIndex    <http://vivoweb.org/ontology/core#MusicTimeIndex/Pre-Chorus1/end/e7f304f060525b6a874855035e67a9e6d97e819c> ;
+        core:hasMusicTimeDuration    <http://vivoweb.org/ontology/core#MusicTimeDuration/Pre-Chorus1/e7f304f060525b6a874855035e67a9e6d97e819c> ;
+        core:hasStartMusicTimeIndex  <http://vivoweb.org/ontology/core#MusicTimeIndex/Pre-Chorus1/start/e7f304f060525b6a874855035e67a9e6d97e819c> .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/start/aaa262cc553c550070ddacf7ea4062ab79825448>
+        rdf:type       core:MusicTimeIndexComponent ;
+        core:hasValue  "166.3840625"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeDuration/Chorus1/e7f304f060525b6a874855035e67a9e6d97e819c>
+        rdf:type       core:MusicTimeDuration ;
+        core:hasValue  "27.48046875"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/start/986073dda0f421baf0f25d5475c7c5824640d412>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/start/986073dda0f421baf0f25d5475c7c5824640d412> .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/end/4db9d572f00b84c616c72afd3d6d01e0a3671d56>
+        rdf:type       core:MusicTimeIndexComponent ;
+        core:hasValue  "149.56765625"^^xsd:float , "72.985625"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/start/f7c96037645b0a47fd4ac15a8d707bafb75fd644>
+        rdf:type       core:MusicTimeIndexComponent ;
+        core:hasValue  "227.673125"^^xsd:float , "183.90359375"^^xsd:float , "107.38015625"^^xsd:float .
+
+<http://w3id.org/polifonia/ontology/music-lyrics/1.0/TextFragment/2929bf72651d1e8f6cca2228e82b91b1420793ce>
+        rdf:type                 mm:TextFragment ;
+        ml:hasMusicTimeInterval  <http://vivoweb.org/ontology/core#MusicTimeInterval/TextFragment/2929bf72651d1e8f6cca2228e82b91b1420793ce> ;
+        ml:hasValue              "could you show me something that i want to see" .
+
+<http://vivoweb.org/ontology/core#MusicTimeDuration/TextFragment/eda0d79c3a7e542d54870f13e5a09dea763c8921>
+        rdf:type       core:MusicTimeDuration ;
+        core:hasValue  "2.6953125"^^xsd:float .
+
+<https://w3id.org/polifonia/ontology/music-meta/1.0/CreativeProcess/e47093943f8d695618917323762977d5ee859890>
+        rdf:type            mm:MusicEntity ;
+        core:involvesAgent  <https://w3id.org/polifonia/ontology/music-meta/1.0/MusicArtist/4d68592382a10cfbb38c81cd74b4252a614b884a> .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/end/e0199650cc2e731d99b2502600f365cce99647be>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/end/e0199650cc2e731d99b2502600f365cce99647be> .
+
+<http://vivoweb.org/ontology/core#MusicTimeDuration/TextFragment/67e17e401a7117375f85ab0356f2abf854c18d04>
+        rdf:type       core:MusicTimeDuration ;
+        core:hasValue  "2.578125"^^xsd:float , "2.40234375"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/end/182953f0dc762773038721509a4c2e90ab8a6cca>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/end/182953f0dc762773038721509a4c2e90ab8a6cca> .
+
+<http://vivoweb.org/ontology/core#MusicTimeInterval/Verse1/e7f304f060525b6a874855035e67a9e6d97e819c>
+        rdf:type                     core:MusicTimeInterval ;
+        core:hasEndMusicTimeIndex    <http://vivoweb.org/ontology/core#MusicTimeIndex/Verse1/end/e7f304f060525b6a874855035e67a9e6d97e819c> ;
+        core:hasMusicTimeDuration    <http://vivoweb.org/ontology/core#MusicTimeDuration/Verse1/e7f304f060525b6a874855035e67a9e6d97e819c> ;
+        core:hasStartMusicTimeIndex  <http://vivoweb.org/ontology/core#MusicTimeIndex/Verse1/start/e7f304f060525b6a874855035e67a9e6d97e819c> .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/end/366e875c4dcfae545d3fa9f59477880b58ab0662>
+        rdf:type       core:MusicTimeIndexComponent ;
+        core:hasValue  "213.610625"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeInterval/TextFragment/f7c96037645b0a47fd4ac15a8d707bafb75fd644>
+        rdf:type                     core:MusicTimeInterval ;
+        core:hasEndMusicTimeIndex    <http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/end/f7c96037645b0a47fd4ac15a8d707bafb75fd644> ;
+        core:hasMusicTimeDuration    <http://vivoweb.org/ontology/core#MusicTimeDuration/TextFragment/f7c96037645b0a47fd4ac15a8d707bafb75fd644> ;
+        core:hasStartMusicTimeIndex  <http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/start/f7c96037645b0a47fd4ac15a8d707bafb75fd644> .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndexComponent/Pre-Chorus1/start/e7f304f060525b6a874855035e67a9e6d97e819c>
+        rdf:type       core:MusicTimeIndexComponent ;
+        core:hasValue  "78.845"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/end/073a46f2771a7c40e04544ffd8c1ca3e9f65350b>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/end/073a46f2771a7c40e04544ffd8c1ca3e9f65350b> .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/start/366e875c4dcfae545d3fa9f59477880b58ab0662>
+        rdf:type       core:MusicTimeIndexComponent ;
+        core:hasValue  "210.62234375"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/start/1ad6a8d36a8e00317fe4d6ebb0e349f0e3c849f2>
+        rdf:type       core:MusicTimeIndexComponent ;
+        core:hasValue  "213.78640625"^^xsd:float , "208.22"^^xsd:float , "202.88796875"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/end/e4ac4655cf3f4d869e80e8b79b6da37892548da1>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/end/e4ac4655cf3f4d869e80e8b79b6da37892548da1> .
+
+<http://vivoweb.org/ontology/core#MusicTimeDuration/Chorus3/e7f304f060525b6a874855035e67a9e6d97e819c>
+        rdf:type       core:MusicTimeDuration ;
+        core:hasValue  "9.66796875"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/end/9ce62c0669eadebf518aa975fc13f0c2d49e7a08>
+        rdf:type       core:MusicTimeIndexComponent ;
+        core:hasValue  "94.7825"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/start/4c8b0b1f925ec26b6a0d4e2c3b7389c3329af339>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/start/4c8b0b1f925ec26b6a0d4e2c3b7389c3329af339> .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/start/4c1503c42c346befa32d7d2b3cd1898d2190b1a6>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/start/4c1503c42c346befa32d7d2b3cd1898d2190b1a6> .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/start/de15646af271d9a7a2c04a98906c601341e0f4b3>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/start/de15646af271d9a7a2c04a98906c601341e0f4b3> .
+
+<http://vivoweb.org/ontology/core#MusicTimeDuration/TextFragment/ae5d85e680feb527cf9882884c9967401ffa76a8>
+        rdf:type       core:MusicTimeDuration ;
+        core:hasValue  "2.28515625"^^xsd:float , "2.34375"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/end/f7a06a79162477836aac7264378f197ae33aaf10>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/end/f7a06a79162477836aac7264378f197ae33aaf10> .
+
+<http://vivoweb.org/ontology/core#MusicTimeDuration/TextFragment/4c8b0b1f925ec26b6a0d4e2c3b7389c3329af339>
+        rdf:type       core:MusicTimeDuration ;
+        core:hasValue  "2.75390625"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeInterval/TextFragment/1ad6a8d36a8e00317fe4d6ebb0e349f0e3c849f2>
+        rdf:type                     core:MusicTimeInterval ;
+        core:hasEndMusicTimeIndex    <http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/end/1ad6a8d36a8e00317fe4d6ebb0e349f0e3c849f2> ;
+        core:hasMusicTimeDuration    <http://vivoweb.org/ontology/core#MusicTimeDuration/TextFragment/1ad6a8d36a8e00317fe4d6ebb0e349f0e3c849f2> ;
+        core:hasStartMusicTimeIndex  <http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/start/1ad6a8d36a8e00317fe4d6ebb0e349f0e3c849f2> .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/start/4db9d572f00b84c616c72afd3d6d01e0a3671d56>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/start/4db9d572f00b84c616c72afd3d6d01e0a3671d56> .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/start/fcb0b1f860b66deedc702d5f963d67c87295eaf0>
+        rdf:type       core:MusicTimeIndexComponent ;
+        core:hasValue  "142.30203125"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeDuration/TextFragment/aaa262cc553c550070ddacf7ea4062ab79825448>
+        rdf:type       core:MusicTimeDuration ;
+        core:hasValue  "4.921875"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndexComponent/Verse1/start/e7f304f060525b6a874855035e67a9e6d97e819c>
+        rdf:type       core:MusicTimeIndexComponent ;
+        core:hasValue  "56.345"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeInterval/TextFragment/c351fe2ec125a65540fb7c05eb253bf01c076d9d>
+        rdf:type                     core:MusicTimeInterval ;
+        core:hasEndMusicTimeIndex    <http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/end/c351fe2ec125a65540fb7c05eb253bf01c076d9d> ;
+        core:hasMusicTimeDuration    <http://vivoweb.org/ontology/core#MusicTimeDuration/TextFragment/c351fe2ec125a65540fb7c05eb253bf01c076d9d> ;
+        core:hasStartMusicTimeIndex  <http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/start/c351fe2ec125a65540fb7c05eb253bf01c076d9d> .
+
+<http://w3id.org/polifonia/ontology/music-lyrics/1.0/TextFragment/c4da80bb873e32909284aca78c8598740a0d12a7>
+        rdf:type                 mm:TextFragment ;
+        ml:hasMusicTimeInterval  <http://vivoweb.org/ontology/core#MusicTimeInterval/TextFragment/c4da80bb873e32909284aca78c8598740a0d12a7> ;
+        ml:hasValue              "right on through the haze" .
+
+<http://vivoweb.org/ontology/core#MusicTimeInterval/TextFragment/b8a4a16ac66d1d8b4ca2a2c77719e10f5b9bf4a5>
+        rdf:type                     core:MusicTimeInterval ;
+        core:hasEndMusicTimeIndex    <http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/end/b8a4a16ac66d1d8b4ca2a2c77719e10f5b9bf4a5> ;
+        core:hasMusicTimeDuration    <http://vivoweb.org/ontology/core#MusicTimeDuration/TextFragment/b8a4a16ac66d1d8b4ca2a2c77719e10f5b9bf4a5> ;
+        core:hasStartMusicTimeIndex  <http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/start/b8a4a16ac66d1d8b4ca2a2c77719e10f5b9bf4a5> .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndex/Verse1/end/e7f304f060525b6a874855035e67a9e6d97e819c>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <http://vivoweb.org/ontology/core#MusicTimeIndexComponent/Verse1/end/e7f304f060525b6a874855035e67a9e6d97e819c> .
+
+<http://vivoweb.org/ontology/core#MusicTimeInterval/TextFragment/fcb0b1f860b66deedc702d5f963d67c87295eaf0>
+        rdf:type                     core:MusicTimeInterval ;
+        core:hasEndMusicTimeIndex    <http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/end/fcb0b1f860b66deedc702d5f963d67c87295eaf0> ;
+        core:hasMusicTimeDuration    <http://vivoweb.org/ontology/core#MusicTimeDuration/TextFragment/fcb0b1f860b66deedc702d5f963d67c87295eaf0> ;
+        core:hasStartMusicTimeIndex  <http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/start/fcb0b1f860b66deedc702d5f963d67c87295eaf0> .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/end/df159a38f90f2848e11d5668211c45219371fed3>
+        rdf:type       core:MusicTimeIndexComponent ;
+        core:hasValue  "135.2121875"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/end/58b5aa329f5d1fe7be7386ba4cd5305d5038a28c>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/end/58b5aa329f5d1fe7be7386ba4cd5305d5038a28c> .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/start/df159a38f90f2848e11d5668211c45219371fed3>
+        rdf:type       core:MusicTimeIndexComponent ;
+        core:hasValue  "132.69265625"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/start/986073dda0f421baf0f25d5475c7c5824640d412>
+        rdf:type       core:MusicTimeIndexComponent ;
+        core:hasValue  "157.9465625"^^xsd:float , "81.423125"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/start/9ce62c0669eadebf518aa975fc13f0c2d49e7a08>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/start/9ce62c0669eadebf518aa975fc13f0c2d49e7a08> .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/end/06d62f4ee5b91509bfff82c53d8f8ff22b3d77d1>
+        rdf:type       core:MusicTimeIndexComponent ;
+        core:hasValue  "218.94265625"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndexComponent/Pre-Chorus2/start/e7f304f060525b6a874855035e67a9e6d97e819c>
+        rdf:type       core:MusicTimeIndexComponent ;
+        core:hasValue  "155.42703125"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeDuration/TextFragment/366e875c4dcfae545d3fa9f59477880b58ab0662>
+        rdf:type       core:MusicTimeDuration ;
+        core:hasValue  "2.98828125"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeDuration/TextFragment/1ad6a8d36a8e00317fe4d6ebb0e349f0e3c849f2>
+        rdf:type       core:MusicTimeDuration ;
+        core:hasValue  "1.5234375"^^xsd:float , "1.640625"^^xsd:float , "1.58203125"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/end/ae870d370ffa711cc853f0e1d008cfd8093659e4>
+        rdf:type       core:MusicTimeIndexComponent ;
+        core:hasValue  "221.6965625"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/end/77bc4758cb46e07ba0468b4fb0c10ded06015d61>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/end/77bc4758cb46e07ba0468b4fb0c10ded06015d61> .
+
+<http://w3id.org/polifonia/ontology/music-lyrics/1.0/AbstractScore/Verse2/e7f304f060525b6a874855035e67a9e6d97e819c>
+        rdf:type                 ml:Verse ;
+        ml:hasMusicTimeInterval  <http://vivoweb.org/ontology/core#MusicTimeInterval/Verse2/e7f304f060525b6a874855035e67a9e6d97e819c> ;
+        ml:hasTextPart           <http://w3id.org/polifonia/ontology/music-lyrics/1.0/TextFragment/4c1503c42c346befa32d7d2b3cd1898d2190b1a6> , <http://w3id.org/polifonia/ontology/music-lyrics/1.0/TextFragment/de15646af271d9a7a2c04a98906c601341e0f4b3> , <http://w3id.org/polifonia/ontology/music-lyrics/1.0/TextFragment/77bc4758cb46e07ba0468b4fb0c10ded06015d61> , <http://w3id.org/polifonia/ontology/music-lyrics/1.0/TextFragment/073a46f2771a7c40e04544ffd8c1ca3e9f65350b> , <http://w3id.org/polifonia/ontology/music-lyrics/1.0/TextFragment/a505a761a7a5b30747f75459bcb953ec137ff509> , <http://w3id.org/polifonia/ontology/music-lyrics/1.0/TextFragment/4db9d572f00b84c616c72afd3d6d01e0a3671d56> , <http://w3id.org/polifonia/ontology/music-lyrics/1.0/TextFragment/fcb0b1f860b66deedc702d5f963d67c87295eaf0> , <http://w3id.org/polifonia/ontology/music-lyrics/1.0/TextFragment/df159a38f90f2848e11d5668211c45219371fed3> ;
+        ml:sungBy                <https://w3id.org/polifonia/ontology/music-meta/1.0/MusicArtist/4d68592382a10cfbb38c81cd74b4252a614b884a> .
+
+<http://vivoweb.org/ontology/core#MusicTimeDuration/TextFragment/9ce62c0669eadebf518aa975fc13f0c2d49e7a08>
+        rdf:type       core:MusicTimeDuration ;
+        core:hasValue  "2.4609375"^^xsd:float .
+
+<http://w3id.org/polifonia/ontology/music-lyrics/1.0/TextFragment/f7c96037645b0a47fd4ac15a8d707bafb75fd644>
+        rdf:type                 mm:TextFragment ;
+        ml:hasMusicTimeInterval  <http://vivoweb.org/ontology/core#MusicTimeInterval/TextFragment/f7c96037645b0a47fd4ac15a8d707bafb75fd644> ;
+        ml:hasValue              "like how you think i'm special and" .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/end/247e8226ef929666d90fb232878a846427224891>
+        rdf:type       core:MusicTimeIndexComponent ;
+        core:hasValue  "92.02859375"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeInterval/TextFragment/986073dda0f421baf0f25d5475c7c5824640d412>
+        rdf:type                     core:MusicTimeInterval ;
+        core:hasEndMusicTimeIndex    <http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/end/986073dda0f421baf0f25d5475c7c5824640d412> ;
+        core:hasMusicTimeDuration    <http://vivoweb.org/ontology/core#MusicTimeDuration/TextFragment/986073dda0f421baf0f25d5475c7c5824640d412> ;
+        core:hasStartMusicTimeIndex  <http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/start/986073dda0f421baf0f25d5475c7c5824640d412> .
+
+<http://vivoweb.org/ontology/core#MusicTimeInterval/TextFragment/eda0d79c3a7e542d54870f13e5a09dea763c8921>
+        rdf:type                     core:MusicTimeInterval ;
+        core:hasEndMusicTimeIndex    <http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/end/eda0d79c3a7e542d54870f13e5a09dea763c8921> ;
+        core:hasMusicTimeDuration    <http://vivoweb.org/ontology/core#MusicTimeDuration/TextFragment/eda0d79c3a7e542d54870f13e5a09dea763c8921> ;
+        core:hasStartMusicTimeIndex  <http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/start/eda0d79c3a7e542d54870f13e5a09dea763c8921> .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/end/d847d510346ceb442ae85fb796ebd3b929e71293>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/end/d847d510346ceb442ae85fb796ebd3b929e71293> .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/end/c58d5c75ffa7247efcf104bbcea50a9df5160ffa>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/end/c58d5c75ffa7247efcf104bbcea50a9df5160ffa> .
+
+<http://vivoweb.org/ontology/core#MusicTimeInterval/TextFragment/67e17e401a7117375f85ab0356f2abf854c18d04>
+        rdf:type                     core:MusicTimeInterval ;
+        core:hasEndMusicTimeIndex    <http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/end/67e17e401a7117375f85ab0356f2abf854c18d04> ;
+        core:hasMusicTimeDuration    <http://vivoweb.org/ontology/core#MusicTimeDuration/TextFragment/67e17e401a7117375f85ab0356f2abf854c18d04> ;
+        core:hasStartMusicTimeIndex  <http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/start/67e17e401a7117375f85ab0356f2abf854c18d04> .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/end/7c5802bdd0184a36cfc81921fc9920425b44a93e>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/end/7c5802bdd0184a36cfc81921fc9920425b44a93e> .
+
+<http://vivoweb.org/ontology/core#MusicTimeInterval/Chorus1/e7f304f060525b6a874855035e67a9e6d97e819c>
+        rdf:type                     core:MusicTimeInterval ;
+        core:hasEndMusicTimeIndex    <http://vivoweb.org/ontology/core#MusicTimeIndex/Chorus1/end/e7f304f060525b6a874855035e67a9e6d97e819c> ;
+        core:hasMusicTimeDuration    <http://vivoweb.org/ontology/core#MusicTimeDuration/Chorus1/e7f304f060525b6a874855035e67a9e6d97e819c> ;
+        core:hasStartMusicTimeIndex  <http://vivoweb.org/ontology/core#MusicTimeIndex/Chorus1/start/e7f304f060525b6a874855035e67a9e6d97e819c> .
+
+<http://vivoweb.org/ontology/core#MusicTimeDuration/Pre-Chorus1/e7f304f060525b6a874855035e67a9e6d97e819c>
+        rdf:type       core:MusicTimeDuration ;
+        core:hasValue  "21.73828125"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/start/a505a761a7a5b30747f75459bcb953ec137ff509>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/start/a505a761a7a5b30747f75459bcb953ec137ff509> .
+
+<http://vivoweb.org/ontology/core#MusicTimeDuration/TextFragment/fcb0b1f860b66deedc702d5f963d67c87295eaf0>
+        rdf:type       core:MusicTimeDuration ;
+        core:hasValue  "1.93359375"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndex/Pre-Chorus2/end/e7f304f060525b6a874855035e67a9e6d97e819c>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <http://vivoweb.org/ontology/core#MusicTimeIndexComponent/Pre-Chorus2/end/e7f304f060525b6a874855035e67a9e6d97e819c> .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndexComponent/Bridge1/start/e7f304f060525b6a874855035e67a9e6d97e819c>
+        rdf:type       core:MusicTimeIndexComponent ;
+        core:hasValue  "199.7825"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/start/4c8b0b1f925ec26b6a0d4e2c3b7389c3329af339>
+        rdf:type       core:MusicTimeIndexComponent ;
+        core:hasValue  "199.7825"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/start/4c1503c42c346befa32d7d2b3cd1898d2190b1a6>
+        rdf:type       core:MusicTimeIndexComponent ;
+        core:hasValue  "136.1496875"^^xsd:float .
+
+<http://w3id.org/polifonia/ontology/music-lyrics/1.0/TextFragment/1ad6a8d36a8e00317fe4d6ebb0e349f0e3c849f2>
+        rdf:type                 mm:TextFragment ;
+        ml:hasMusicTimeInterval  <http://vivoweb.org/ontology/core#MusicTimeInterval/TextFragment/1ad6a8d36a8e00317fe4d6ebb0e349f0e3c849f2> ;
+        ml:hasValue              "na na na na na na" .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/end/e0199650cc2e731d99b2502600f365cce99647be>
+        rdf:type       core:MusicTimeIndexComponent ;
+        core:hasValue  "231.891875"^^xsd:float , "188.00515625"^^xsd:float , "111.48171875"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/end/c4da80bb873e32909284aca78c8598740a0d12a7>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/end/c4da80bb873e32909284aca78c8598740a0d12a7> .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/end/de15646af271d9a7a2c04a98906c601341e0f4b3>
+        rdf:type       core:MusicTimeIndexComponent ;
+        core:hasValue  "142.2434375"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/start/de15646af271d9a7a2c04a98906c601341e0f4b3>
+        rdf:type       core:MusicTimeIndexComponent ;
+        core:hasValue  "139.13796875"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/end/182953f0dc762773038721509a4c2e90ab8a6cca>
+        rdf:type       core:MusicTimeIndexComponent ;
+        core:hasValue  "240.97390625"^^xsd:float , "197.26296875"^^xsd:float , "120.62234375"^^xsd:float .
+
+<http://w3id.org/polifonia/ontology/music-lyrics/1.0/TextFragment/c351fe2ec125a65540fb7c05eb253bf01c076d9d>
+        rdf:type                 mm:TextFragment ;
+        ml:hasMusicTimeInterval  <http://vivoweb.org/ontology/core#MusicTimeInterval/TextFragment/c351fe2ec125a65540fb7c05eb253bf01c076d9d> ;
+        ml:hasValue              "cause normally i'll probably just" .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndexComponent/Chorus3/start/e7f304f060525b6a874855035e67a9e6d97e819c>
+        rdf:type       core:MusicTimeIndexComponent ;
+        core:hasValue  "222.22390625"^^xsd:float .
+
+<http://w3id.org/polifonia/ontology/music-lyrics/1.0/TextFragment/b8a4a16ac66d1d8b4ca2a2c77719e10f5b9bf4a5>
+        rdf:type                 mm:TextFragment ;
+        ml:hasMusicTimeInterval  <http://vivoweb.org/ontology/core#MusicTimeInterval/TextFragment/b8a4a16ac66d1d8b4ca2a2c77719e10f5b9bf4a5> ;
+        ml:hasValue              "i'm sure you'll tell me anything" .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/start/4db9d572f00b84c616c72afd3d6d01e0a3671d56>
+        rdf:type       core:MusicTimeIndexComponent ;
+        core:hasValue  "147.3996875"^^xsd:float , "70.81765625"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/end/fc34555bd5aaa306a0896c845c4701f8f3e2660d>
+        rdf:type       core:MusicTimeIndexComponent ;
+        core:hasValue  "174.3528125"^^xsd:float , "97.7121875"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/start/06d62f4ee5b91509bfff82c53d8f8ff22b3d77d1>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/start/06d62f4ee5b91509bfff82c53d8f8ff22b3d77d1> .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/end/a83715a31cb018a53b673826db6b51eb90ee8ee0>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/end/a83715a31cb018a53b673826db6b51eb90ee8ee0> .
+
+<http://vivoweb.org/ontology/core#MusicTimeDuration/TextFragment/df159a38f90f2848e11d5668211c45219371fed3>
+        rdf:type       core:MusicTimeDuration ;
+        core:hasValue  "2.51953125"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/start/fc34555bd5aaa306a0896c845c4701f8f3e2660d>
+        rdf:type       core:MusicTimeIndexComponent ;
+        core:hasValue  "171.59890625"^^xsd:float , "95.07546875"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndexComponent/Bridge1/end/e7f304f060525b6a874855035e67a9e6d97e819c>
+        rdf:type       core:MusicTimeIndexComponent ;
+        core:hasValue  "221.6965625"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeInterval/TextFragment/ae5d85e680feb527cf9882884c9967401ffa76a8>
+        rdf:type                     core:MusicTimeInterval ;
+        core:hasEndMusicTimeIndex    <http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/end/ae5d85e680feb527cf9882884c9967401ffa76a8> ;
+        core:hasMusicTimeDuration    <http://vivoweb.org/ontology/core#MusicTimeDuration/TextFragment/ae5d85e680feb527cf9882884c9967401ffa76a8> ;
+        core:hasStartMusicTimeIndex  <http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/start/ae5d85e680feb527cf9882884c9967401ffa76a8> .
+
+<http://vivoweb.org/ontology/core#MusicTimeInterval/TextFragment/4c8b0b1f925ec26b6a0d4e2c3b7389c3329af339>
+        rdf:type                     core:MusicTimeInterval ;
+        core:hasEndMusicTimeIndex    <http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/end/4c8b0b1f925ec26b6a0d4e2c3b7389c3329af339> ;
+        core:hasMusicTimeDuration    <http://vivoweb.org/ontology/core#MusicTimeDuration/TextFragment/4c8b0b1f925ec26b6a0d4e2c3b7389c3329af339> ;
+        core:hasStartMusicTimeIndex  <http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/start/4c8b0b1f925ec26b6a0d4e2c3b7389c3329af339> .
+
+<http://vivoweb.org/ontology/core#MusicTimeInterval/TextFragment/4c1503c42c346befa32d7d2b3cd1898d2190b1a6>
+        rdf:type                     core:MusicTimeInterval ;
+        core:hasEndMusicTimeIndex    <http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/end/4c1503c42c346befa32d7d2b3cd1898d2190b1a6> ;
+        core:hasMusicTimeDuration    <http://vivoweb.org/ontology/core#MusicTimeDuration/TextFragment/4c1503c42c346befa32d7d2b3cd1898d2190b1a6> ;
+        core:hasStartMusicTimeIndex  <http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/start/4c1503c42c346befa32d7d2b3cd1898d2190b1a6> .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/start/b0db5bc7ac04ea2f21add696ef0419a4dce75905>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/start/b0db5bc7ac04ea2f21add696ef0419a4dce75905> .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/start/ae870d370ffa711cc853f0e1d008cfd8093659e4>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/start/ae870d370ffa711cc853f0e1d008cfd8093659e4> .
+
+<http://vivoweb.org/ontology/core#MusicTimeDuration/TextFragment/986073dda0f421baf0f25d5475c7c5824640d412>
+        rdf:type       core:MusicTimeDuration ;
+        core:hasValue  "2.4609375"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeDuration/Verse1/e7f304f060525b6a874855035e67a9e6d97e819c>
+        rdf:type       core:MusicTimeDuration ;
+        core:hasValue  "22.44140625"^^xsd:float .
+
+<http://w3id.org/polifonia/ontology/music-lyrics/1.0/TextFragment/fcb0b1f860b66deedc702d5f963d67c87295eaf0>
+        rdf:type                 mm:TextFragment ;
+        ml:hasMusicTimeInterval  <http://vivoweb.org/ontology/core#MusicTimeInterval/TextFragment/fcb0b1f860b66deedc702d5f963d67c87295eaf0> ;
+        ml:hasValue              "of sunshine on my face" .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndexComponent/Chorus1/start/e7f304f060525b6a874855035e67a9e6d97e819c>
+        rdf:type       core:MusicTimeIndexComponent ;
+        core:hasValue  "101.87234375"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeInterval/Chorus3/e7f304f060525b6a874855035e67a9e6d97e819c>
+        rdf:type                     core:MusicTimeInterval ;
+        core:hasEndMusicTimeIndex    <http://vivoweb.org/ontology/core#MusicTimeIndex/Chorus3/end/e7f304f060525b6a874855035e67a9e6d97e819c> ;
+        core:hasMusicTimeDuration    <http://vivoweb.org/ontology/core#MusicTimeDuration/Chorus3/e7f304f060525b6a874855035e67a9e6d97e819c> ;
+        core:hasStartMusicTimeIndex  <http://vivoweb.org/ontology/core#MusicTimeIndex/Chorus3/start/e7f304f060525b6a874855035e67a9e6d97e819c> .
+
+<http://vivoweb.org/ontology/core#MusicTimeInterval/TextFragment/aaa262cc553c550070ddacf7ea4062ab79825448>
+        rdf:type                     core:MusicTimeInterval ;
+        core:hasEndMusicTimeIndex    <http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/end/aaa262cc553c550070ddacf7ea4062ab79825448> ;
+        core:hasMusicTimeDuration    <http://vivoweb.org/ontology/core#MusicTimeDuration/TextFragment/aaa262cc553c550070ddacf7ea4062ab79825448> ;
+        core:hasStartMusicTimeIndex  <http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/start/aaa262cc553c550070ddacf7ea4062ab79825448> .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndexComponent/Pre-Chorus2/end/e7f304f060525b6a874855035e67a9e6d97e819c>
+        rdf:type       core:MusicTimeIndexComponent ;
+        core:hasValue  "177.2825"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/start/247e8226ef929666d90fb232878a846427224891>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/start/247e8226ef929666d90fb232878a846427224891> .
+
+<http://vivoweb.org/ontology/core#MusicTimeDuration/TextFragment/ae870d370ffa711cc853f0e1d008cfd8093659e4>
+        rdf:type       core:MusicTimeDuration ;
+        core:hasValue  "1.5234375"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeInterval/TextFragment/4db9d572f00b84c616c72afd3d6d01e0a3671d56>
+        rdf:type                     core:MusicTimeInterval ;
+        core:hasEndMusicTimeIndex    <http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/end/4db9d572f00b84c616c72afd3d6d01e0a3671d56> ;
+        core:hasMusicTimeDuration    <http://vivoweb.org/ontology/core#MusicTimeDuration/TextFragment/4db9d572f00b84c616c72afd3d6d01e0a3671d56> ;
+        core:hasStartMusicTimeIndex  <http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/start/4db9d572f00b84c616c72afd3d6d01e0a3671d56> .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndexComponent/Chorus2/end/e7f304f060525b6a874855035e67a9e6d97e819c>
+        rdf:type       core:MusicTimeIndexComponent ;
+        core:hasValue  "199.13796875"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndex/Bridge1/end/e7f304f060525b6a874855035e67a9e6d97e819c>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <http://vivoweb.org/ontology/core#MusicTimeIndexComponent/Bridge1/end/e7f304f060525b6a874855035e67a9e6d97e819c> .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/start/9ce62c0669eadebf518aa975fc13f0c2d49e7a08>
+        rdf:type       core:MusicTimeIndexComponent ;
+        core:hasValue  "92.3215625"^^xsd:float .
+
+<http://w3id.org/polifonia/ontology/music-lyrics/1.0/AbstractScore/Pre-Chorus2/e7f304f060525b6a874855035e67a9e6d97e819c>
+        rdf:type                 ml:Pre-Chorus ;
+        ml:hasMusicTimeInterval  <http://vivoweb.org/ontology/core#MusicTimeInterval/Pre-Chorus2/e7f304f060525b6a874855035e67a9e6d97e819c> ;
+        ml:hasTextPart           <http://w3id.org/polifonia/ontology/music-lyrics/1.0/TextFragment/67e17e401a7117375f85ab0356f2abf854c18d04> , <http://w3id.org/polifonia/ontology/music-lyrics/1.0/TextFragment/aaa262cc553c550070ddacf7ea4062ab79825448> , <http://w3id.org/polifonia/ontology/music-lyrics/1.0/TextFragment/ae5d85e680feb527cf9882884c9967401ffa76a8> , <http://w3id.org/polifonia/ontology/music-lyrics/1.0/TextFragment/eda0d79c3a7e542d54870f13e5a09dea763c8921> , <http://w3id.org/polifonia/ontology/music-lyrics/1.0/TextFragment/fc34555bd5aaa306a0896c845c4701f8f3e2660d> , <http://w3id.org/polifonia/ontology/music-lyrics/1.0/TextFragment/f7a06a79162477836aac7264378f197ae33aaf10> , <http://w3id.org/polifonia/ontology/music-lyrics/1.0/TextFragment/986073dda0f421baf0f25d5475c7c5824640d412> ;
+        ml:sungBy                <https://w3id.org/polifonia/ontology/music-meta/1.0/MusicArtist/4d68592382a10cfbb38c81cd74b4252a614b884a> .
+
+<http://w3id.org/polifonia/ontology/music-lyrics/1.0/TextFragment/986073dda0f421baf0f25d5475c7c5824640d412>
+        rdf:type                 mm:TextFragment ;
+        ml:hasMusicTimeInterval  <http://vivoweb.org/ontology/core#MusicTimeInterval/TextFragment/986073dda0f421baf0f25d5475c7c5824640d412> ;
+        ml:hasValue              "cause it don't break twice" .
+
+<https://w3id.org/polifonia/ontology/music-meta/1.0/Lyrics/e7f304f060525b6a874855035e67a9e6d97e819c>
+        rdf:type        mm:Lyrics ;
+        mm:hasTextPart  <http://w3id.org/polifonia/ontology/music-lyrics/1.0/AbstractScore/Chorus3/e7f304f060525b6a874855035e67a9e6d97e819c> , <http://w3id.org/polifonia/ontology/music-lyrics/1.0/AbstractScore/Bridge1/e7f304f060525b6a874855035e67a9e6d97e819c> , <http://w3id.org/polifonia/ontology/music-lyrics/1.0/AbstractScore/Chorus2/e7f304f060525b6a874855035e67a9e6d97e819c> , <http://w3id.org/polifonia/ontology/music-lyrics/1.0/AbstractScore/Pre-Chorus2/e7f304f060525b6a874855035e67a9e6d97e819c> , <http://w3id.org/polifonia/ontology/music-lyrics/1.0/AbstractScore/Verse2/e7f304f060525b6a874855035e67a9e6d97e819c> , <http://w3id.org/polifonia/ontology/music-lyrics/1.0/AbstractScore/Chorus1/e7f304f060525b6a874855035e67a9e6d97e819c> , <http://w3id.org/polifonia/ontology/music-lyrics/1.0/AbstractScore/Pre-Chorus1/e7f304f060525b6a874855035e67a9e6d97e819c> , <http://w3id.org/polifonia/ontology/music-lyrics/1.0/AbstractScore/Verse1/e7f304f060525b6a874855035e67a9e6d97e819c> .
+
+<http://w3id.org/polifonia/ontology/music-lyrics/1.0/TextFragment/eda0d79c3a7e542d54870f13e5a09dea763c8921>
+        rdf:type                 mm:TextFragment ;
+        ml:hasMusicTimeInterval  <http://vivoweb.org/ontology/core#MusicTimeInterval/TextFragment/eda0d79c3a7e542d54870f13e5a09dea763c8921> ;
+        ml:hasValue              "just to let you know    " .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/start/e0199650cc2e731d99b2502600f365cce99647be>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/start/e0199650cc2e731d99b2502600f365cce99647be> .
+
+<http://w3id.org/polifonia/ontology/music-lyrics/1.0/TextFragment/67e17e401a7117375f85ab0356f2abf854c18d04>
+        rdf:type                 mm:TextFragment ;
+        ml:hasMusicTimeInterval  <http://vivoweb.org/ontology/core#MusicTimeInterval/TextFragment/67e17e401a7117375f85ab0356f2abf854c18d04> ;
+        ml:hasValue              "i'll let go    " .
+
+<http://vivoweb.org/ontology/core#MusicTimeInterval/TextFragment/366e875c4dcfae545d3fa9f59477880b58ab0662>
+        rdf:type                     core:MusicTimeInterval ;
+        core:hasEndMusicTimeIndex    <http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/end/366e875c4dcfae545d3fa9f59477880b58ab0662> ;
+        core:hasMusicTimeDuration    <http://vivoweb.org/ontology/core#MusicTimeDuration/TextFragment/366e875c4dcfae545d3fa9f59477880b58ab0662> ;
+        core:hasStartMusicTimeIndex  <http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/start/366e875c4dcfae545d3fa9f59477880b58ab0662> .
+
+<http://vivoweb.org/ontology/core#MusicTimeDuration/TextFragment/4c1503c42c346befa32d7d2b3cd1898d2190b1a6>
+        rdf:type       core:MusicTimeDuration ;
+        core:hasValue  "1.875"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/start/182953f0dc762773038721509a4c2e90ab8a6cca>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/start/182953f0dc762773038721509a4c2e90ab8a6cca> .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/end/58b5aa329f5d1fe7be7386ba4cd5305d5038a28c>
+        rdf:type       core:MusicTimeIndexComponent ;
+        core:hasValue  "242.96609375"^^xsd:float , "226.3840625"^^xsd:float , "199.13796875"^^xsd:float , "182.43875"^^xsd:float , "129.3528125"^^xsd:float , "122.61453125"^^xsd:float , "106.0325"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndex/Chorus2/end/e7f304f060525b6a874855035e67a9e6d97e819c>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <http://vivoweb.org/ontology/core#MusicTimeIndexComponent/Chorus2/end/e7f304f060525b6a874855035e67a9e6d97e819c> .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/start/fc34555bd5aaa306a0896c845c4701f8f3e2660d>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/start/fc34555bd5aaa306a0896c845c4701f8f3e2660d> .
+
+<http://vivoweb.org/ontology/core#MusicTimeInterval/TextFragment/9ce62c0669eadebf518aa975fc13f0c2d49e7a08>
+        rdf:type                     core:MusicTimeInterval ;
+        core:hasEndMusicTimeIndex    <http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/end/9ce62c0669eadebf518aa975fc13f0c2d49e7a08> ;
+        core:hasMusicTimeDuration    <http://vivoweb.org/ontology/core#MusicTimeDuration/TextFragment/9ce62c0669eadebf518aa975fc13f0c2d49e7a08> ;
+        core:hasStartMusicTimeIndex  <http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/start/9ce62c0669eadebf518aa975fc13f0c2d49e7a08> .
+
+<http://vivoweb.org/ontology/core#MusicTimeDuration/TextFragment/de15646af271d9a7a2c04a98906c601341e0f4b3>
+        rdf:type       core:MusicTimeDuration ;
+        core:hasValue  "3.10546875"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/start/073a46f2771a7c40e04544ffd8c1ca3e9f65350b>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/start/073a46f2771a7c40e04544ffd8c1ca3e9f65350b> .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/end/a505a761a7a5b30747f75459bcb953ec137ff509>
+        rdf:type       core:MusicTimeIndexComponent ;
+        core:hasValue  "147.048125"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeDuration/TextFragment/182953f0dc762773038721509a4c2e90ab8a6cca>
+        rdf:type       core:MusicTimeDuration ;
+        core:hasValue  "2.51953125"^^xsd:float , "2.578125"^^xsd:float , "2.4609375"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/start/a505a761a7a5b30747f75459bcb953ec137ff509>
+        rdf:type       core:MusicTimeIndexComponent ;
+        core:hasValue  "144.29421875"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeDuration/TextFragment/4db9d572f00b84c616c72afd3d6d01e0a3671d56>
+        rdf:type       core:MusicTimeDuration ;
+        core:hasValue  "2.16796875"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/end/c351fe2ec125a65540fb7c05eb253bf01c076d9d>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/end/c351fe2ec125a65540fb7c05eb253bf01c076d9d> .
+
+<http://vivoweb.org/ontology/core#MusicTimeDuration/TextFragment/fc34555bd5aaa306a0896c845c4701f8f3e2660d>
+        rdf:type       core:MusicTimeDuration ;
+        core:hasValue  "2.75390625"^^xsd:float , "2.63671875"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/end/b8a4a16ac66d1d8b4ca2a2c77719e10f5b9bf4a5>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/end/b8a4a16ac66d1d8b4ca2a2c77719e10f5b9bf4a5> .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/end/77bc4758cb46e07ba0468b4fb0c10ded06015d61>
+        rdf:type       core:MusicTimeIndexComponent ;
+        core:hasValue  "155.30984375"^^xsd:float , "78.78640625"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndexComponent/Chorus2/start/e7f304f060525b6a874855035e67a9e6d97e819c>
+        rdf:type       core:MusicTimeIndexComponent ;
+        core:hasValue  "178.454375"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/end/2929bf72651d1e8f6cca2228e82b91b1420793ce>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/end/2929bf72651d1e8f6cca2228e82b91b1420793ce> .
+
+<http://w3id.org/polifonia/ontology/music-lyrics/1.0/TextFragment/4c1503c42c346befa32d7d2b3cd1898d2190b1a6>
+        rdf:type                 mm:TextFragment ;
+        ml:hasMusicTimeInterval  <http://vivoweb.org/ontology/core#MusicTimeInterval/TextFragment/4c1503c42c346befa32d7d2b3cd1898d2190b1a6> ;
+        ml:hasValue              "don't need to play" .
+
+<http://w3id.org/polifonia/ontology/music-lyrics/1.0/TextFragment/ae5d85e680feb527cf9882884c9967401ffa76a8>
+        rdf:type                 mm:TextFragment ;
+        ml:hasMusicTimeInterval  <http://vivoweb.org/ontology/core#MusicTimeInterval/TextFragment/ae5d85e680feb527cf9882884c9967401ffa76a8> ;
+        ml:hasValue              "but i won't give you my heart" .
+
+<http://w3id.org/polifonia/ontology/music-lyrics/1.0/TextFragment/4c8b0b1f925ec26b6a0d4e2c3b7389c3329af339>
+        rdf:type                 mm:TextFragment ;
+        ml:hasMusicTimeInterval  <http://vivoweb.org/ontology/core#MusicTimeInterval/TextFragment/4c8b0b1f925ec26b6a0d4e2c3b7389c3329af339> ;
+        ml:hasValue              "well do you get, do you get what i need" .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/start/f7a06a79162477836aac7264378f197ae33aaf10>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/start/f7a06a79162477836aac7264378f197ae33aaf10> .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/end/d847d510346ceb442ae85fb796ebd3b929e71293>
+        rdf:type       core:MusicTimeIndexComponent ;
+        core:hasValue  "61.50125"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeDuration/Chorus2/e7f304f060525b6a874855035e67a9e6d97e819c>
+        rdf:type       core:MusicTimeDuration ;
+        core:hasValue  "20.68359375"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeInterval/TextFragment/a505a761a7a5b30747f75459bcb953ec137ff509>
+        rdf:type                     core:MusicTimeInterval ;
+        core:hasEndMusicTimeIndex    <http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/end/a505a761a7a5b30747f75459bcb953ec137ff509> ;
+        core:hasMusicTimeDuration    <http://vivoweb.org/ontology/core#MusicTimeDuration/TextFragment/a505a761a7a5b30747f75459bcb953ec137ff509> ;
+        core:hasStartMusicTimeIndex  <http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/start/a505a761a7a5b30747f75459bcb953ec137ff509> .
+
+<http://w3id.org/polifonia/ontology/music-lyrics/1.0/TextFragment/aaa262cc553c550070ddacf7ea4062ab79825448>
+        rdf:type                 mm:TextFragment ;
+        ml:hasMusicTimeInterval  <http://vivoweb.org/ontology/core#MusicTimeInterval/TextFragment/aaa262cc553c550070ddacf7ea4062ab79825448> ;
+        ml:hasValue              "and if you play the part and play it real nice" .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/start/06d62f4ee5b91509bfff82c53d8f8ff22b3d77d1>
+        rdf:type       core:MusicTimeIndexComponent ;
+        core:hasValue  "216.0715625"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/end/7c5802bdd0184a36cfc81921fc9920425b44a93e>
+        rdf:type       core:MusicTimeIndexComponent ;
+        core:hasValue  "237.2825"^^xsd:float , "193.39578125"^^xsd:float , "116.9309375"^^xsd:float .
+
+<https://w3id.org/polifonia/ontology/music-meta/1.0/MusicArtist/4d68592382a10cfbb38c81cd74b4252a614b884a>
+        rdf:type   mm:Musician ;
+        core:name  "Cheryl Cole" .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/end/b0db5bc7ac04ea2f21add696ef0419a4dce75905>
+        rdf:type       core:MusicTimeIndexComponent ;
+        core:hasValue  "58.8059375"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndex/Verse1/start/e7f304f060525b6a874855035e67a9e6d97e819c>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <http://vivoweb.org/ontology/core#MusicTimeIndexComponent/Verse1/start/e7f304f060525b6a874855035e67a9e6d97e819c> .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/start/b0db5bc7ac04ea2f21add696ef0419a4dce75905>
+        rdf:type       core:MusicTimeIndexComponent ;
+        core:hasValue  "56.345"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/start/ae870d370ffa711cc853f0e1d008cfd8093659e4>
+        rdf:type       core:MusicTimeIndexComponent ;
+        core:hasValue  "220.173125"^^xsd:float .
+
+<http://w3id.org/polifonia/ontology/music-lyrics/1.0/TextFragment/4db9d572f00b84c616c72afd3d6d01e0a3671d56>
+        rdf:type                 mm:TextFragment ;
+        ml:hasMusicTimeInterval  <http://vivoweb.org/ontology/core#MusicTimeInterval/TextFragment/4db9d572f00b84c616c72afd3d6d01e0a3671d56> ;
+        ml:hasValue              "is this really my life" .
+
+<http://vivoweb.org/ontology/core#MusicTimeInterval/TextFragment/df159a38f90f2848e11d5668211c45219371fed3>
+        rdf:type                     core:MusicTimeInterval ;
+        core:hasEndMusicTimeIndex    <http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/end/df159a38f90f2848e11d5668211c45219371fed3> ;
+        core:hasMusicTimeDuration    <http://vivoweb.org/ontology/core#MusicTimeDuration/TextFragment/df159a38f90f2848e11d5668211c45219371fed3> ;
+        core:hasStartMusicTimeIndex  <http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/start/df159a38f90f2848e11d5668211c45219371fed3> .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/start/247e8226ef929666d90fb232878a846427224891>
+        rdf:type       core:MusicTimeIndexComponent ;
+        core:hasValue  "89.860625"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/start/58b5aa329f5d1fe7be7386ba4cd5305d5038a28c>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/start/58b5aa329f5d1fe7be7386ba4cd5305d5038a28c> .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/end/eda0d79c3a7e542d54870f13e5a09dea763c8921>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/end/eda0d79c3a7e542d54870f13e5a09dea763c8921> .
+
+<http://vivoweb.org/ontology/core#MusicTimeInterval/TextFragment/06d62f4ee5b91509bfff82c53d8f8ff22b3d77d1>
+        rdf:type                     core:MusicTimeInterval ;
+        core:hasEndMusicTimeIndex    <http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/end/06d62f4ee5b91509bfff82c53d8f8ff22b3d77d1> ;
+        core:hasMusicTimeDuration    <http://vivoweb.org/ontology/core#MusicTimeDuration/TextFragment/06d62f4ee5b91509bfff82c53d8f8ff22b3d77d1> ;
+        core:hasStartMusicTimeIndex  <http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/start/06d62f4ee5b91509bfff82c53d8f8ff22b3d77d1> .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/end/67e17e401a7117375f85ab0356f2abf854c18d04>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/end/67e17e401a7117375f85ab0356f2abf854c18d04> .
+
+<http://vivoweb.org/ontology/core#MusicTimeInterval/TextFragment/ae870d370ffa711cc853f0e1d008cfd8093659e4>
+        rdf:type                     core:MusicTimeInterval ;
+        core:hasEndMusicTimeIndex    <http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/end/ae870d370ffa711cc853f0e1d008cfd8093659e4> ;
+        core:hasMusicTimeDuration    <http://vivoweb.org/ontology/core#MusicTimeDuration/TextFragment/ae870d370ffa711cc853f0e1d008cfd8093659e4> ;
+        core:hasStartMusicTimeIndex  <http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/start/ae870d370ffa711cc853f0e1d008cfd8093659e4> .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/end/a83715a31cb018a53b673826db6b51eb90ee8ee0>
+        rdf:type       core:MusicTimeIndexComponent ;
+        core:hasValue  "69.52859375"^^xsd:float .
+
+<http://w3id.org/polifonia/ontology/music-lyrics/1.0/TextFragment/366e875c4dcfae545d3fa9f59477880b58ab0662>
+        rdf:type                 mm:TextFragment ;
+        ml:hasMusicTimeInterval  <http://vivoweb.org/ontology/core#MusicTimeInterval/TextFragment/366e875c4dcfae545d3fa9f59477880b58ab0662> ;
+        ml:hasValue              "and maybe you could get underneath" .
+
+<http://vivoweb.org/ontology/core#MusicTimeInterval/TextFragment/247e8226ef929666d90fb232878a846427224891>
+        rdf:type                     core:MusicTimeInterval ;
+        core:hasEndMusicTimeIndex    <http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/end/247e8226ef929666d90fb232878a846427224891> ;
+        core:hasMusicTimeDuration    <http://vivoweb.org/ontology/core#MusicTimeDuration/TextFragment/247e8226ef929666d90fb232878a846427224891> ;
+        core:hasStartMusicTimeIndex  <http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/start/247e8226ef929666d90fb232878a846427224891> .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/start/77bc4758cb46e07ba0468b4fb0c10ded06015d61>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/start/77bc4758cb46e07ba0468b4fb0c10ded06015d61> .
+
+<http://vivoweb.org/ontology/core#MusicTimeDuration/TextFragment/a505a761a7a5b30747f75459bcb953ec137ff509>
+        rdf:type       core:MusicTimeDuration ;
+        core:hasValue  "2.75390625"^^xsd:float .
+
+<http://w3id.org/polifonia/ontology/music-lyrics/1.0/TextFragment/9ce62c0669eadebf518aa975fc13f0c2d49e7a08>
+        rdf:type                 mm:TextFragment ;
+        ml:hasMusicTimeInterval  <http://vivoweb.org/ontology/core#MusicTimeInterval/TextFragment/9ce62c0669eadebf518aa975fc13f0c2d49e7a08> ;
+        ml:hasValue              "and play it real nice" .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/start/e0199650cc2e731d99b2502600f365cce99647be>
+        rdf:type       core:MusicTimeIndexComponent ;
+        core:hasValue  "230.1340625"^^xsd:float , "186.3059375"^^xsd:float , "109.7825"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndex/Bridge1/start/e7f304f060525b6a874855035e67a9e6d97e819c>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <http://vivoweb.org/ontology/core#MusicTimeIndexComponent/Bridge1/start/e7f304f060525b6a874855035e67a9e6d97e819c> .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/start/d847d510346ceb442ae85fb796ebd3b929e71293>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/start/d847d510346ceb442ae85fb796ebd3b929e71293> .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/start/182953f0dc762773038721509a4c2e90ab8a6cca>
+        rdf:type       core:MusicTimeIndexComponent ;
+        core:hasValue  "238.454375"^^xsd:float , "194.68484375"^^xsd:float , "118.16140625"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeDuration/TextFragment/77bc4758cb46e07ba0468b4fb0c10ded06015d61>
+        rdf:type       core:MusicTimeDuration ;
+        core:hasValue  "2.109375"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/start/c58d5c75ffa7247efcf104bbcea50a9df5160ffa>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/start/c58d5c75ffa7247efcf104bbcea50a9df5160ffa> .
+
+<http://w3id.org/polifonia/ontology/music-lyrics/1.0/AbstractScore/Bridge1/e7f304f060525b6a874855035e67a9e6d97e819c>
+        rdf:type                 ml:Bridge ;
+        ml:hasMusicTimeInterval  <http://vivoweb.org/ontology/core#MusicTimeInterval/Bridge1/e7f304f060525b6a874855035e67a9e6d97e819c> ;
+        ml:hasTextPart           <http://w3id.org/polifonia/ontology/music-lyrics/1.0/TextFragment/ae870d370ffa711cc853f0e1d008cfd8093659e4> , <http://w3id.org/polifonia/ontology/music-lyrics/1.0/TextFragment/06d62f4ee5b91509bfff82c53d8f8ff22b3d77d1> , <http://w3id.org/polifonia/ontology/music-lyrics/1.0/TextFragment/366e875c4dcfae545d3fa9f59477880b58ab0662> , <http://w3id.org/polifonia/ontology/music-lyrics/1.0/TextFragment/2929bf72651d1e8f6cca2228e82b91b1420793ce> , <http://w3id.org/polifonia/ontology/music-lyrics/1.0/TextFragment/1ad6a8d36a8e00317fe4d6ebb0e349f0e3c849f2> , <http://w3id.org/polifonia/ontology/music-lyrics/1.0/TextFragment/4c8b0b1f925ec26b6a0d4e2c3b7389c3329af339> ;
+        ml:sungBy                <https://w3id.org/polifonia/ontology/music-meta/1.0/MusicArtist/4d68592382a10cfbb38c81cd74b4252a614b884a> .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/start/7c5802bdd0184a36cfc81921fc9920425b44a93e>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/start/7c5802bdd0184a36cfc81921fc9920425b44a93e> .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/end/073a46f2771a7c40e04544ffd8c1ca3e9f65350b>
+        rdf:type       core:MusicTimeIndexComponent ;
+        core:hasValue  "153.141875"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/end/e4ac4655cf3f4d869e80e8b79b6da37892548da1>
+        rdf:type       core:MusicTimeIndexComponent ;
+        core:hasValue  "76.6184375"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/end/ae5d85e680feb527cf9882884c9967401ffa76a8>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/end/ae5d85e680feb527cf9882884c9967401ffa76a8> .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/start/073a46f2771a7c40e04544ffd8c1ca3e9f65350b>
+        rdf:type       core:MusicTimeIndexComponent ;
+        core:hasValue  "149.80203125"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/start/e4ac4655cf3f4d869e80e8b79b6da37892548da1>
+        rdf:type       core:MusicTimeIndexComponent ;
+        core:hasValue  "73.22"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeInterval/TextFragment/e0199650cc2e731d99b2502600f365cce99647be>
+        rdf:type                     core:MusicTimeInterval ;
+        core:hasEndMusicTimeIndex    <http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/end/e0199650cc2e731d99b2502600f365cce99647be> ;
+        core:hasMusicTimeDuration    <http://vivoweb.org/ontology/core#MusicTimeDuration/TextFragment/e0199650cc2e731d99b2502600f365cce99647be> ;
+        core:hasStartMusicTimeIndex  <http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/start/e0199650cc2e731d99b2502600f365cce99647be> .
+
+<http://vivoweb.org/ontology/core#MusicTimeDuration/TextFragment/06d62f4ee5b91509bfff82c53d8f8ff22b3d77d1>
+        rdf:type       core:MusicTimeDuration ;
+        core:hasValue  "2.87109375"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeInterval/TextFragment/de15646af271d9a7a2c04a98906c601341e0f4b3>
+        rdf:type                     core:MusicTimeInterval ;
+        core:hasEndMusicTimeIndex    <http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/end/de15646af271d9a7a2c04a98906c601341e0f4b3> ;
+        core:hasMusicTimeDuration    <http://vivoweb.org/ontology/core#MusicTimeDuration/TextFragment/de15646af271d9a7a2c04a98906c601341e0f4b3> ;
+        core:hasStartMusicTimeIndex  <http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/start/de15646af271d9a7a2c04a98906c601341e0f4b3> .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndex/Verse2/start/e7f304f060525b6a874855035e67a9e6d97e819c>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <http://vivoweb.org/ontology/core#MusicTimeIndexComponent/Verse2/start/e7f304f060525b6a874855035e67a9e6d97e819c> .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/end/aaa262cc553c550070ddacf7ea4062ab79825448>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/end/aaa262cc553c550070ddacf7ea4062ab79825448> .
+
+<http://vivoweb.org/ontology/core#MusicTimeInterval/TextFragment/182953f0dc762773038721509a4c2e90ab8a6cca>
+        rdf:type                     core:MusicTimeInterval ;
+        core:hasEndMusicTimeIndex    <http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/end/182953f0dc762773038721509a4c2e90ab8a6cca> ;
+        core:hasMusicTimeDuration    <http://vivoweb.org/ontology/core#MusicTimeDuration/TextFragment/182953f0dc762773038721509a4c2e90ab8a6cca> ;
+        core:hasStartMusicTimeIndex  <http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/start/182953f0dc762773038721509a4c2e90ab8a6cca> .
+
+<http://vivoweb.org/ontology/core#MusicTimeDuration/TextFragment/b0db5bc7ac04ea2f21add696ef0419a4dce75905>
+        rdf:type       core:MusicTimeDuration ;
+        core:hasValue  "2.4609375"^^xsd:float .
+
+<http://w3id.org/polifonia/ontology/music-lyrics/1.0/TextFragment/a505a761a7a5b30747f75459bcb953ec137ff509>
+        rdf:type                 mm:TextFragment ;
+        ml:hasMusicTimeInterval  <http://vivoweb.org/ontology/core#MusicTimeInterval/TextFragment/a505a761a7a5b30747f75459bcb953ec137ff509> ;
+        ml:hasValue              "and i got paid today" .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/start/c4da80bb873e32909284aca78c8598740a0d12a7>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/start/c4da80bb873e32909284aca78c8598740a0d12a7> .
+
+<http://vivoweb.org/ontology/core#MusicTimeInterval/TextFragment/fc34555bd5aaa306a0896c845c4701f8f3e2660d>
+        rdf:type                     core:MusicTimeInterval ;
+        core:hasEndMusicTimeIndex    <http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/end/fc34555bd5aaa306a0896c845c4701f8f3e2660d> ;
+        core:hasMusicTimeDuration    <http://vivoweb.org/ontology/core#MusicTimeDuration/TextFragment/fc34555bd5aaa306a0896c845c4701f8f3e2660d> ;
+        core:hasStartMusicTimeIndex  <http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/start/fc34555bd5aaa306a0896c845c4701f8f3e2660d> .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/end/f7a06a79162477836aac7264378f197ae33aaf10>
+        rdf:type       core:MusicTimeIndexComponent ;
+        core:hasValue  "166.20828125"^^xsd:float , "89.56765625"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/start/f7a06a79162477836aac7264378f197ae33aaf10>
+        rdf:type       core:MusicTimeIndexComponent ;
+        core:hasValue  "163.8059375"^^xsd:float , "87.22390625"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/end/f7c96037645b0a47fd4ac15a8d707bafb75fd644>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/end/f7c96037645b0a47fd4ac15a8d707bafb75fd644> .
+
+<http://vivoweb.org/ontology/core#MusicTimeDuration/TextFragment/247e8226ef929666d90fb232878a846427224891>
+        rdf:type       core:MusicTimeDuration ;
+        core:hasValue  "2.16796875"^^xsd:float .
+
+<http://w3id.org/polifonia/ontology/music-lyrics/1.0/AbstractScore/Chorus2/e7f304f060525b6a874855035e67a9e6d97e819c>
+        rdf:type                 ml:Chorus ;
+        ml:hasMusicTimeInterval  <http://vivoweb.org/ontology/core#MusicTimeInterval/Chorus2/e7f304f060525b6a874855035e67a9e6d97e819c> ;
+        ml:hasTextPart           <http://w3id.org/polifonia/ontology/music-lyrics/1.0/TextFragment/182953f0dc762773038721509a4c2e90ab8a6cca> , <http://w3id.org/polifonia/ontology/music-lyrics/1.0/TextFragment/58b5aa329f5d1fe7be7386ba4cd5305d5038a28c> , <http://w3id.org/polifonia/ontology/music-lyrics/1.0/TextFragment/c351fe2ec125a65540fb7c05eb253bf01c076d9d> , <http://w3id.org/polifonia/ontology/music-lyrics/1.0/TextFragment/b8a4a16ac66d1d8b4ca2a2c77719e10f5b9bf4a5> , <http://w3id.org/polifonia/ontology/music-lyrics/1.0/TextFragment/f7c96037645b0a47fd4ac15a8d707bafb75fd644> , <http://w3id.org/polifonia/ontology/music-lyrics/1.0/TextFragment/7c5802bdd0184a36cfc81921fc9920425b44a93e> , <http://w3id.org/polifonia/ontology/music-lyrics/1.0/TextFragment/e0199650cc2e731d99b2502600f365cce99647be> ;
+        ml:sungBy                <https://w3id.org/polifonia/ontology/music-meta/1.0/MusicArtist/4d68592382a10cfbb38c81cd74b4252a614b884a> .
+
+<http://w3id.org/polifonia/ontology/music-lyrics/1.0/TextFragment/df159a38f90f2848e11d5668211c45219371fed3>
+        rdf:type                 mm:TextFragment ;
+        ml:hasMusicTimeInterval  <http://vivoweb.org/ontology/core#MusicTimeInterval/TextFragment/df159a38f90f2848e11d5668211c45219371fed3> ;
+        ml:hasValue              "are we on the same page" .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/start/a83715a31cb018a53b673826db6b51eb90ee8ee0>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/start/a83715a31cb018a53b673826db6b51eb90ee8ee0> .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndexComponent/Verse1/end/e7f304f060525b6a874855035e67a9e6d97e819c>
+        rdf:type       core:MusicTimeIndexComponent ;
+        core:hasValue  "78.78640625"^^xsd:float .
+
+<http://w3id.org/polifonia/ontology/music-lyrics/1.0/TextFragment/06d62f4ee5b91509bfff82c53d8f8ff22b3d77d1>
+        rdf:type                 mm:TextFragment ;
+        ml:hasMusicTimeInterval  <http://vivoweb.org/ontology/core#MusicTimeInterval/TextFragment/06d62f4ee5b91509bfff82c53d8f8ff22b3d77d1> ;
+        ml:hasValue              "if you watch the sun go down on me" .
+
+<http://vivoweb.org/ontology/core#MusicTimeDuration/TextFragment/a83715a31cb018a53b673826db6b51eb90ee8ee0>
+        rdf:type       core:MusicTimeDuration ;
+        core:hasValue  "1.7578125"^^xsd:float .
+
+<http://w3id.org/polifonia/ontology/music-lyrics/1.0/TextFragment/ae870d370ffa711cc853f0e1d008cfd8093659e4>
+        rdf:type                 mm:TextFragment ;
+        ml:hasMusicTimeInterval  <http://vivoweb.org/ontology/core#MusicTimeInterval/TextFragment/ae870d370ffa711cc853f0e1d008cfd8093659e4> ;
+        ml:hasValue              "go down on me" .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/end/366e875c4dcfae545d3fa9f59477880b58ab0662>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/end/366e875c4dcfae545d3fa9f59477880b58ab0662> .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/end/1ad6a8d36a8e00317fe4d6ebb0e349f0e3c849f2>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/end/1ad6a8d36a8e00317fe4d6ebb0e349f0e3c849f2> .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/end/2929bf72651d1e8f6cca2228e82b91b1420793ce>
+        rdf:type       core:MusicTimeIndexComponent ;
+        core:hasValue  "207.92703125"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/start/58b5aa329f5d1fe7be7386ba4cd5305d5038a28c>
+        rdf:type       core:MusicTimeIndexComponent ;
+        core:hasValue  "241.09109375"^^xsd:float , "224.68484375"^^xsd:float , "197.3215625"^^xsd:float , "180.85671875"^^xsd:float , "127.595"^^xsd:float , "120.73953125"^^xsd:float , "104.33328125"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeDuration/TextFragment/e0199650cc2e731d99b2502600f365cce99647be>
+        rdf:type       core:MusicTimeDuration ;
+        core:hasValue  "1.7578125"^^xsd:float , "1.69921875"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeDuration/Bridge1/e7f304f060525b6a874855035e67a9e6d97e819c>
+        rdf:type       core:MusicTimeDuration ;
+        core:hasValue  "21.9140625"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndex/Pre-Chorus1/start/e7f304f060525b6a874855035e67a9e6d97e819c>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <http://vivoweb.org/ontology/core#MusicTimeIndexComponent/Pre-Chorus1/start/e7f304f060525b6a874855035e67a9e6d97e819c> .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/start/e4ac4655cf3f4d869e80e8b79b6da37892548da1>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/start/e4ac4655cf3f4d869e80e8b79b6da37892548da1> .
+
+<http://w3id.org/polifonia/ontology/music-lyrics/1.0/TextFragment/247e8226ef929666d90fb232878a846427224891>
+        rdf:type                 mm:TextFragment ;
+        ml:hasMusicTimeInterval  <http://vivoweb.org/ontology/core#MusicTimeInterval/TextFragment/247e8226ef929666d90fb232878a846427224891> ;
+        ml:hasValue              "and if you play the part" .
+
+<http://vivoweb.org/ontology/core#MusicTimeDuration/TextFragment/073a46f2771a7c40e04544ffd8c1ca3e9f65350b>
+        rdf:type       core:MusicTimeDuration ;
+        core:hasValue  "3.33984375"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeDuration/TextFragment/e4ac4655cf3f4d869e80e8b79b6da37892548da1>
+        rdf:type       core:MusicTimeDuration ;
+        core:hasValue  "3.3984375"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/start/77bc4758cb46e07ba0468b4fb0c10ded06015d61>
+        rdf:type       core:MusicTimeIndexComponent ;
+        core:hasValue  "153.20046875"^^xsd:float , "76.67703125"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeInterval/TextFragment/58b5aa329f5d1fe7be7386ba4cd5305d5038a28c>
+        rdf:type                     core:MusicTimeInterval ;
+        core:hasEndMusicTimeIndex    <http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/end/58b5aa329f5d1fe7be7386ba4cd5305d5038a28c> ;
+        core:hasMusicTimeDuration    <http://vivoweb.org/ontology/core#MusicTimeDuration/TextFragment/58b5aa329f5d1fe7be7386ba4cd5305d5038a28c> ;
+        core:hasStartMusicTimeIndex  <http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/start/58b5aa329f5d1fe7be7386ba4cd5305d5038a28c> .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/end/fcb0b1f860b66deedc702d5f963d67c87295eaf0>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/end/fcb0b1f860b66deedc702d5f963d67c87295eaf0> .
+
+<http://vivoweb.org/ontology/core#MusicTimeInterval/Pre-Chorus2/e7f304f060525b6a874855035e67a9e6d97e819c>
+        rdf:type                     core:MusicTimeInterval ;
+        core:hasEndMusicTimeIndex    <http://vivoweb.org/ontology/core#MusicTimeIndex/Pre-Chorus2/end/e7f304f060525b6a874855035e67a9e6d97e819c> ;
+        core:hasMusicTimeDuration    <http://vivoweb.org/ontology/core#MusicTimeDuration/Pre-Chorus2/e7f304f060525b6a874855035e67a9e6d97e819c> ;
+        core:hasStartMusicTimeIndex  <http://vivoweb.org/ontology/core#MusicTimeIndex/Pre-Chorus2/start/e7f304f060525b6a874855035e67a9e6d97e819c> .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/start/d847d510346ceb442ae85fb796ebd3b929e71293>
+        rdf:type       core:MusicTimeIndexComponent ;
+        core:hasValue  "59.62625"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/end/c58d5c75ffa7247efcf104bbcea50a9df5160ffa>
+        rdf:type       core:MusicTimeIndexComponent ;
+        core:hasValue  "65.72"^^xsd:float .
+
+<http://w3id.org/polifonia/ontology/music-lyrics/1.0/TextFragment/e0199650cc2e731d99b2502600f365cce99647be>
+        rdf:type                 mm:TextFragment ;
+        ml:hasMusicTimeInterval  <http://vivoweb.org/ontology/core#MusicTimeInterval/TextFragment/e0199650cc2e731d99b2502600f365cce99647be> ;
+        ml:hasValue              "the only one" .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/start/c58d5c75ffa7247efcf104bbcea50a9df5160ffa>
+        rdf:type       core:MusicTimeIndexComponent ;
+        core:hasValue  "62.61453125"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndex/Chorus2/start/e7f304f060525b6a874855035e67a9e6d97e819c>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <http://vivoweb.org/ontology/core#MusicTimeIndexComponent/Chorus2/start/e7f304f060525b6a874855035e67a9e6d97e819c> .
+
+<http://w3id.org/polifonia/ontology/music-lyrics/1.0/TextFragment/de15646af271d9a7a2c04a98906c601341e0f4b3>
+        rdf:type                 mm:TextFragment ;
+        ml:hasMusicTimeInterval  <http://vivoweb.org/ontology/core#MusicTimeInterval/TextFragment/de15646af271d9a7a2c04a98906c601341e0f4b3> ;
+        ml:hasValue              "all these games just to get a little feel" .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/start/7c5802bdd0184a36cfc81921fc9920425b44a93e>
+        rdf:type       core:MusicTimeIndexComponent ;
+        core:hasValue  "235.58328125"^^xsd:float , "191.81375"^^xsd:float , "115.2903125"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeDuration/TextFragment/f7a06a79162477836aac7264378f197ae33aaf10>
+        rdf:type       core:MusicTimeDuration ;
+        core:hasValue  "2.40234375"^^xsd:float , "2.34375"^^xsd:float .
+
+<http://w3id.org/polifonia/ontology/music-lyrics/1.0/TextFragment/182953f0dc762773038721509a4c2e90ab8a6cca>
+        rdf:type                 mm:TextFragment ;
+        ml:hasMusicTimeInterval  <http://vivoweb.org/ontology/core#MusicTimeInterval/TextFragment/182953f0dc762773038721509a4c2e90ab8a6cca> ;
+        ml:hasValue              "but you looking so damn good to me" .
+
+<http://vivoweb.org/ontology/core#MusicTimeInterval/TextFragment/77bc4758cb46e07ba0468b4fb0c10ded06015d61>
+        rdf:type                     core:MusicTimeInterval ;
+        core:hasEndMusicTimeIndex    <http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/end/77bc4758cb46e07ba0468b4fb0c10ded06015d61> ;
+        core:hasMusicTimeDuration    <http://vivoweb.org/ontology/core#MusicTimeDuration/TextFragment/77bc4758cb46e07ba0468b4fb0c10ded06015d61> ;
+        core:hasStartMusicTimeIndex  <http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/start/77bc4758cb46e07ba0468b4fb0c10ded06015d61> .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/start/c351fe2ec125a65540fb7c05eb253bf01c076d9d>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/start/c351fe2ec125a65540fb7c05eb253bf01c076d9d> .
+
+<http://w3id.org/polifonia/ontology/music-lyrics/1.0/TextFragment/fc34555bd5aaa306a0896c845c4701f8f3e2660d>
+        rdf:type                 mm:TextFragment ;
+        ml:hasMusicTimeInterval  <http://vivoweb.org/ontology/core#MusicTimeInterval/TextFragment/fc34555bd5aaa306a0896c845c4701f8f3e2660d> ;
+        ml:hasValue              "baby i'll let go    " .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/start/b8a4a16ac66d1d8b4ca2a2c77719e10f5b9bf4a5>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/start/b8a4a16ac66d1d8b4ca2a2c77719e10f5b9bf4a5> .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/end/df159a38f90f2848e11d5668211c45219371fed3>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/end/df159a38f90f2848e11d5668211c45219371fed3> .
+
+<http://w3id.org/polifonia/ontology/music-lyrics/1.0/TextFragment/073a46f2771a7c40e04544ffd8c1ca3e9f65350b>
+        rdf:type                 mm:TextFragment ;
+        ml:hasMusicTimeInterval  <http://vivoweb.org/ontology/core#MusicTimeInterval/TextFragment/073a46f2771a7c40e04544ffd8c1ca3e9f65350b> ;
+        ml:hasValue              "now that i'm over you and i'm sober too" .
+
+<http://vivoweb.org/ontology/core#MusicTimeInterval/TextFragment/d847d510346ceb442ae85fb796ebd3b929e71293>
+        rdf:type                     core:MusicTimeInterval ;
+        core:hasEndMusicTimeIndex    <http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/end/d847d510346ceb442ae85fb796ebd3b929e71293> ;
+        core:hasMusicTimeDuration    <http://vivoweb.org/ontology/core#MusicTimeDuration/TextFragment/d847d510346ceb442ae85fb796ebd3b929e71293> ;
+        core:hasStartMusicTimeIndex  <http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/start/d847d510346ceb442ae85fb796ebd3b929e71293> .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/start/2929bf72651d1e8f6cca2228e82b91b1420793ce>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/start/2929bf72651d1e8f6cca2228e82b91b1420793ce> .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/end/c4da80bb873e32909284aca78c8598740a0d12a7>
+        rdf:type       core:MusicTimeIndexComponent ;
+        core:hasValue  "67.65359375"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/end/986073dda0f421baf0f25d5475c7c5824640d412>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/end/986073dda0f421baf0f25d5475c7c5824640d412> .
+
+<http://vivoweb.org/ontology/core#MusicTimeInterval/Verse2/e7f304f060525b6a874855035e67a9e6d97e819c>
+        rdf:type                     core:MusicTimeInterval ;
+        core:hasEndMusicTimeIndex    <http://vivoweb.org/ontology/core#MusicTimeIndex/Verse2/end/e7f304f060525b6a874855035e67a9e6d97e819c> ;
+        core:hasMusicTimeDuration    <http://vivoweb.org/ontology/core#MusicTimeDuration/Verse2/e7f304f060525b6a874855035e67a9e6d97e819c> ;
+        core:hasStartMusicTimeIndex  <http://vivoweb.org/ontology/core#MusicTimeIndex/Verse2/start/e7f304f060525b6a874855035e67a9e6d97e819c> .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/start/c4da80bb873e32909284aca78c8598740a0d12a7>
+        rdf:type       core:MusicTimeIndexComponent ;
+        core:hasValue  "66.01296875"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeInterval/TextFragment/7c5802bdd0184a36cfc81921fc9920425b44a93e>
+        rdf:type                     core:MusicTimeInterval ;
+        core:hasEndMusicTimeIndex    <http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/end/7c5802bdd0184a36cfc81921fc9920425b44a93e> ;
+        core:hasMusicTimeDuration    <http://vivoweb.org/ontology/core#MusicTimeDuration/TextFragment/7c5802bdd0184a36cfc81921fc9920425b44a93e> ;
+        core:hasStartMusicTimeIndex  <http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/start/7c5802bdd0184a36cfc81921fc9920425b44a93e> .
+
+<http://vivoweb.org/ontology/core#MusicTimeInterval/TextFragment/b0db5bc7ac04ea2f21add696ef0419a4dce75905>
+        rdf:type                     core:MusicTimeInterval ;
+        core:hasEndMusicTimeIndex    <http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/end/b0db5bc7ac04ea2f21add696ef0419a4dce75905> ;
+        core:hasMusicTimeDuration    <http://vivoweb.org/ontology/core#MusicTimeDuration/TextFragment/b0db5bc7ac04ea2f21add696ef0419a4dce75905> ;
+        core:hasStartMusicTimeIndex  <http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/start/b0db5bc7ac04ea2f21add696ef0419a4dce75905> .
+
+<http://vivoweb.org/ontology/core#MusicTimeDuration/TextFragment/58b5aa329f5d1fe7be7386ba4cd5305d5038a28c>
+        rdf:type       core:MusicTimeDuration ;
+        core:hasValue  "1.81640625"^^xsd:float , "1.58203125"^^xsd:float , "1.7578125"^^xsd:float , "1.875"^^xsd:float , "1.69921875"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndex/Pre-Chorus2/start/e7f304f060525b6a874855035e67a9e6d97e819c>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <http://vivoweb.org/ontology/core#MusicTimeIndexComponent/Pre-Chorus2/start/e7f304f060525b6a874855035e67a9e6d97e819c> .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/start/a83715a31cb018a53b673826db6b51eb90ee8ee0>
+        rdf:type       core:MusicTimeIndexComponent ;
+        core:hasValue  "67.77078125"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndex/Chorus1/end/e7f304f060525b6a874855035e67a9e6d97e819c>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <http://vivoweb.org/ontology/core#MusicTimeIndexComponent/Chorus1/end/e7f304f060525b6a874855035e67a9e6d97e819c> .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndex/Chorus3/end/e7f304f060525b6a874855035e67a9e6d97e819c>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <http://vivoweb.org/ontology/core#MusicTimeIndexComponent/Chorus3/end/e7f304f060525b6a874855035e67a9e6d97e819c> .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndex/Verse2/end/e7f304f060525b6a874855035e67a9e6d97e819c>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <http://vivoweb.org/ontology/core#MusicTimeIndexComponent/Verse2/end/e7f304f060525b6a874855035e67a9e6d97e819c> .
+
+<https://w3id.org/polifonia/ontology/music-meta/1.0/AbstractScore/e7f304f060525b6a874855035e67a9e6d97e819c>
+        rdf:type    mm:AbstractScore ;
+        mm:hasText  <https://w3id.org/polifonia/ontology/music-meta/1.0/Lyrics/e7f304f060525b6a874855035e67a9e6d97e819c> .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/start/eda0d79c3a7e542d54870f13e5a09dea763c8921>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/start/eda0d79c3a7e542d54870f13e5a09dea763c8921> .
+
+<http://vivoweb.org/ontology/core#MusicTimeInterval/TextFragment/a83715a31cb018a53b673826db6b51eb90ee8ee0>
+        rdf:type                     core:MusicTimeInterval ;
+        core:hasEndMusicTimeIndex    <http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/end/a83715a31cb018a53b673826db6b51eb90ee8ee0> ;
+        core:hasMusicTimeDuration    <http://vivoweb.org/ontology/core#MusicTimeDuration/TextFragment/a83715a31cb018a53b673826db6b51eb90ee8ee0> ;
+        core:hasStartMusicTimeIndex  <http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/start/a83715a31cb018a53b673826db6b51eb90ee8ee0> .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/end/f7c96037645b0a47fd4ac15a8d707bafb75fd644>
+        rdf:type       core:MusicTimeIndexComponent ;
+        core:hasValue  "230.016875"^^xsd:float , "186.24734375"^^xsd:float , "109.72390625"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/start/67e17e401a7117375f85ab0356f2abf854c18d04>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/start/67e17e401a7117375f85ab0356f2abf854c18d04> .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/end/4c8b0b1f925ec26b6a0d4e2c3b7389c3329af339>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/end/4c8b0b1f925ec26b6a0d4e2c3b7389c3329af339> .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/end/4c1503c42c346befa32d7d2b3cd1898d2190b1a6>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/end/4c1503c42c346befa32d7d2b3cd1898d2190b1a6> .
+
+<http://vivoweb.org/ontology/core#MusicTimeDuration/TextFragment/d847d510346ceb442ae85fb796ebd3b929e71293>
+        rdf:type       core:MusicTimeDuration ;
+        core:hasValue  "1.875"^^xsd:float .
+
+<http://w3id.org/polifonia/ontology/music-lyrics/1.0/AbstractScore/Verse1/e7f304f060525b6a874855035e67a9e6d97e819c>
+        rdf:type                 ml:Verse ;
+        ml:hasMusicTimeInterval  <http://vivoweb.org/ontology/core#MusicTimeInterval/Verse1/e7f304f060525b6a874855035e67a9e6d97e819c> ;
+        ml:hasTextPart           <http://w3id.org/polifonia/ontology/music-lyrics/1.0/TextFragment/c58d5c75ffa7247efcf104bbcea50a9df5160ffa> , <http://w3id.org/polifonia/ontology/music-lyrics/1.0/TextFragment/c4da80bb873e32909284aca78c8598740a0d12a7> , <http://w3id.org/polifonia/ontology/music-lyrics/1.0/TextFragment/a83715a31cb018a53b673826db6b51eb90ee8ee0> , <http://w3id.org/polifonia/ontology/music-lyrics/1.0/TextFragment/77bc4758cb46e07ba0468b4fb0c10ded06015d61> , <http://w3id.org/polifonia/ontology/music-lyrics/1.0/TextFragment/4db9d572f00b84c616c72afd3d6d01e0a3671d56> , <http://w3id.org/polifonia/ontology/music-lyrics/1.0/TextFragment/b0db5bc7ac04ea2f21add696ef0419a4dce75905> , <http://w3id.org/polifonia/ontology/music-lyrics/1.0/TextFragment/e4ac4655cf3f4d869e80e8b79b6da37892548da1> , <http://w3id.org/polifonia/ontology/music-lyrics/1.0/TextFragment/d847d510346ceb442ae85fb796ebd3b929e71293> ;
+        ml:sungBy                <https://w3id.org/polifonia/ontology/music-meta/1.0/MusicArtist/4d68592382a10cfbb38c81cd74b4252a614b884a> .
+
+<http://w3id.org/polifonia/ontology/music-lyrics/1.0/TextFragment/58b5aa329f5d1fe7be7386ba4cd5305d5038a28c>
+        rdf:type                 mm:TextFragment ;
+        ml:hasMusicTimeInterval  <http://vivoweb.org/ontology/core#MusicTimeInterval/TextFragment/58b5aa329f5d1fe7be7386ba4cd5305d5038a28c> ;
+        ml:hasValue              "under the sun" .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndex/Chorus3/start/e7f304f060525b6a874855035e67a9e6d97e819c>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <http://vivoweb.org/ontology/core#MusicTimeIndexComponent/Chorus3/start/e7f304f060525b6a874855035e67a9e6d97e819c> .
+
+<http://vivoweb.org/ontology/core#MusicTimeDuration/TextFragment/c58d5c75ffa7247efcf104bbcea50a9df5160ffa>
+        rdf:type       core:MusicTimeDuration ;
+        core:hasValue  "3.10546875"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeDuration/TextFragment/7c5802bdd0184a36cfc81921fc9920425b44a93e>
+        rdf:type       core:MusicTimeDuration ;
+        core:hasValue  "1.69921875"^^xsd:float , "1.58203125"^^xsd:float , "1.640625"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/end/de15646af271d9a7a2c04a98906c601341e0f4b3>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/end/de15646af271d9a7a2c04a98906c601341e0f4b3> .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/end/4db9d572f00b84c616c72afd3d6d01e0a3671d56>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/end/4db9d572f00b84c616c72afd3d6d01e0a3671d56> .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndex/Chorus1/start/e7f304f060525b6a874855035e67a9e6d97e819c>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <http://vivoweb.org/ontology/core#MusicTimeIndexComponent/Chorus1/start/e7f304f060525b6a874855035e67a9e6d97e819c> .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/end/fc34555bd5aaa306a0896c845c4701f8f3e2660d>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/end/fc34555bd5aaa306a0896c845c4701f8f3e2660d> .
+
+<http://vivoweb.org/ontology/core#MusicTimeInterval/TextFragment/073a46f2771a7c40e04544ffd8c1ca3e9f65350b>
+        rdf:type                     core:MusicTimeInterval ;
+        core:hasEndMusicTimeIndex    <http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/end/073a46f2771a7c40e04544ffd8c1ca3e9f65350b> ;
+        core:hasMusicTimeDuration    <http://vivoweb.org/ontology/core#MusicTimeDuration/TextFragment/073a46f2771a7c40e04544ffd8c1ca3e9f65350b> ;
+        core:hasStartMusicTimeIndex  <http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/start/073a46f2771a7c40e04544ffd8c1ca3e9f65350b> .
+
+<http://vivoweb.org/ontology/core#MusicTimeInterval/TextFragment/e4ac4655cf3f4d869e80e8b79b6da37892548da1>
+        rdf:type                     core:MusicTimeInterval ;
+        core:hasEndMusicTimeIndex    <http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/end/e4ac4655cf3f4d869e80e8b79b6da37892548da1> ;
+        core:hasMusicTimeDuration    <http://vivoweb.org/ontology/core#MusicTimeDuration/TextFragment/e4ac4655cf3f4d869e80e8b79b6da37892548da1> ;
+        core:hasStartMusicTimeIndex  <http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/start/e4ac4655cf3f4d869e80e8b79b6da37892548da1> .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/end/1ad6a8d36a8e00317fe4d6ebb0e349f0e3c849f2>
+        rdf:type       core:MusicTimeIndexComponent ;
+        core:hasValue  "215.30984375"^^xsd:float , "209.860625"^^xsd:float , "204.47"^^xsd:float .
+
+<http://w3id.org/polifonia/ontology/music-lyrics/1.0/TextFragment/77bc4758cb46e07ba0468b4fb0c10ded06015d61>
+        rdf:type                 mm:TextFragment ;
+        ml:hasMusicTimeInterval  <http://vivoweb.org/ontology/core#MusicTimeInterval/TextFragment/77bc4758cb46e07ba0468b4fb0c10ded06015d61> ;
+        ml:hasValue              "i can finally feel alive" .
+
+<http://vivoweb.org/ontology/core#MusicTimeDuration/TextFragment/c4da80bb873e32909284aca78c8598740a0d12a7>
+        rdf:type       core:MusicTimeDuration ;
+        core:hasValue  "1.640625"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeInterval/Bridge1/e7f304f060525b6a874855035e67a9e6d97e819c>
+        rdf:type                     core:MusicTimeInterval ;
+        core:hasEndMusicTimeIndex    <http://vivoweb.org/ontology/core#MusicTimeIndex/Bridge1/end/e7f304f060525b6a874855035e67a9e6d97e819c> ;
+        core:hasMusicTimeDuration    <http://vivoweb.org/ontology/core#MusicTimeDuration/Bridge1/e7f304f060525b6a874855035e67a9e6d97e819c> ;
+        core:hasStartMusicTimeIndex  <http://vivoweb.org/ontology/core#MusicTimeIndex/Bridge1/start/e7f304f060525b6a874855035e67a9e6d97e819c> .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/start/ae5d85e680feb527cf9882884c9967401ffa76a8>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/start/ae5d85e680feb527cf9882884c9967401ffa76a8> .
+
+<http://w3id.org/polifonia/ontology/music-lyrics/1.0/TextFragment/d847d510346ceb442ae85fb796ebd3b929e71293>
+        rdf:type                 mm:TextFragment ;
+        ml:hasMusicTimeInterval  <http://vivoweb.org/ontology/core#MusicTimeInterval/TextFragment/d847d510346ceb442ae85fb796ebd3b929e71293> ;
+        ml:hasValue              "get stuck in a phase" .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/end/c351fe2ec125a65540fb7c05eb253bf01c076d9d>
+        rdf:type       core:MusicTimeIndexComponent ;
+        core:hasValue  "235.5246875"^^xsd:float , "191.6965625"^^xsd:float , "115.173125"^^xsd:float .
+
+<http://w3id.org/polifonia/ontology/music-lyrics/1.0/TextFragment/c58d5c75ffa7247efcf104bbcea50a9df5160ffa>
+        rdf:type                 mm:TextFragment ;
+        ml:hasMusicTimeInterval  <http://vivoweb.org/ontology/core#MusicTimeInterval/TextFragment/c58d5c75ffa7247efcf104bbcea50a9df5160ffa> ;
+        ml:hasValue              "i can see the sun is shining bright" .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/start/c351fe2ec125a65540fb7c05eb253bf01c076d9d>
+        rdf:type       core:MusicTimeIndexComponent ;
+        core:hasValue  "233.1809375"^^xsd:float , "189.3528125"^^xsd:float , "112.829375"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/end/b8a4a16ac66d1d8b4ca2a2c77719e10f5b9bf4a5>
+        rdf:type       core:MusicTimeIndexComponent ;
+        core:hasValue  "224.56765625"^^xsd:float , "180.798125"^^xsd:float , "104.2746875"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/start/aaa262cc553c550070ddacf7ea4062ab79825448>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/start/aaa262cc553c550070ddacf7ea4062ab79825448> .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/start/b8a4a16ac66d1d8b4ca2a2c77719e10f5b9bf4a5>
+        rdf:type       core:MusicTimeIndexComponent ;
+        core:hasValue  "222.22390625"^^xsd:float , "178.454375"^^xsd:float , "101.87234375"^^xsd:float .
+
+<http://w3id.org/polifonia/ontology/music-lyrics/1.0/TextFragment/7c5802bdd0184a36cfc81921fc9920425b44a93e>
+        rdf:type                 mm:TextFragment ;
+        ml:hasMusicTimeInterval  <http://vivoweb.org/ontology/core#MusicTimeInterval/TextFragment/7c5802bdd0184a36cfc81921fc9920425b44a93e> ;
+        ml:hasValue              "get up and run" .
+
+<http://vivoweb.org/ontology/core#MusicTimeInterval/TextFragment/f7a06a79162477836aac7264378f197ae33aaf10>
+        rdf:type                     core:MusicTimeInterval ;
+        core:hasEndMusicTimeIndex    <http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/end/f7a06a79162477836aac7264378f197ae33aaf10> ;
+        core:hasMusicTimeDuration    <http://vivoweb.org/ontology/core#MusicTimeDuration/TextFragment/f7a06a79162477836aac7264378f197ae33aaf10> ;
+        core:hasStartMusicTimeIndex  <http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/start/f7a06a79162477836aac7264378f197ae33aaf10> .
+
+<http://w3id.org/polifonia/ontology/music-lyrics/1.0/TextFragment/b0db5bc7ac04ea2f21add696ef0419a4dce75905>
+        rdf:type                 mm:TextFragment ;
+        ml:hasMusicTimeInterval  <http://vivoweb.org/ontology/core#MusicTimeInterval/TextFragment/b0db5bc7ac04ea2f21add696ef0419a4dce75905> ;
+        ml:hasValue              "we all got lonely days" .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndex/Pre-Chorus1/end/e7f304f060525b6a874855035e67a9e6d97e819c>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <http://vivoweb.org/ontology/core#MusicTimeIndexComponent/Pre-Chorus1/end/e7f304f060525b6a874855035e67a9e6d97e819c> .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/start/2929bf72651d1e8f6cca2228e82b91b1420793ce>
+        rdf:type       core:MusicTimeIndexComponent ;
+        core:hasValue  "205.11453125"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/end/fcb0b1f860b66deedc702d5f963d67c87295eaf0>
+        rdf:type       core:MusicTimeIndexComponent ;
+        core:hasValue  "144.235625"^^xsd:float .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/end/9ce62c0669eadebf518aa975fc13f0c2d49e7a08>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/end/9ce62c0669eadebf518aa975fc13f0c2d49e7a08> .
+
+<http://vivoweb.org/ontology/core#MusicTimeIndex/TextFragment/start/f7c96037645b0a47fd4ac15a8d707bafb75fd644>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <http://vivoweb.org/ontology/core#MusicTimeIndexComponent/TextFragment/start/f7c96037645b0a47fd4ac15a8d707bafb75fd644> .
+
+<http://vivoweb.org/ontology/core#MusicTimeInterval/Chorus2/e7f304f060525b6a874855035e67a9e6d97e819c>
+        rdf:type                     core:MusicTimeInterval ;
+        core:hasEndMusicTimeIndex    <http://vivoweb.org/ontology/core#MusicTimeIndex/Chorus2/end/e7f304f060525b6a874855035e67a9e6d97e819c> ;
+        core:hasMusicTimeDuration    <http://vivoweb.org/ontology/core#MusicTimeDuration/Chorus2/e7f304f060525b6a874855035e67a9e6d97e819c> ;
+        core:hasStartMusicTimeIndex  <http://vivoweb.org/ontology/core#MusicTimeIndex/Chorus2/start/e7f304f060525b6a874855035e67a9e6d97e819c> .
+
+<http://vivoweb.org/ontology/core#MusicTimeDuration/Pre-Chorus2/e7f304f060525b6a874855035e67a9e6d97e819c>
+        rdf:type       core:MusicTimeDuration ;
+        core:hasValue  "21.85546875"^^xsd:float .

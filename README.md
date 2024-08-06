@@ -32,6 +32,8 @@ because of asian characters being written the occidental way while the real asia
 ## Knowledge Graph Construction
 Once the all our data was standardize into proper JSON files, we develop a SparQL construct query which allowed us to create the triples following the previously shown ontology. The whole model was build into this SparQL query and then binded the variables of each JSON datafile in order to triplify our data. The SparQL query file can be seen [here](https://github.com/Duam9/ke_final_project-july24/blob/main/sparql/populateOntology.sparql).
 
+Generated triples can be checked [here](https://github.com/Duam9/ke_final_project-july24/tree/main/sparql/triples).
+
 ## Faced Problems
 - Lack of information about the song writers (need for API)
 - Lack of accessibility of interesting functions in API without commercial plans
