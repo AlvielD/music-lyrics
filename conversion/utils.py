@@ -316,6 +316,8 @@ def delete_dict_entries(files_dict, dict_path):
 
 # Function to recompute IDs and rename files
 def delete_wrong_converted_songs(files_dict, files_directory):
+    length = len(files_dict)
+    count = 1
     for key in list(files_dict.keys()):
         # Find the matching file and delete it
         for file in os.listdir(files_directory):
@@ -323,6 +325,8 @@ def delete_wrong_converted_songs(files_dict, files_directory):
             if filename == key:
                 path_to_delete = os.path.join(files_directory, file)
                 os.remove(path_to_delete)
+                print(f"Song {count}/{length} successfully deleted!")
+                count += 1
                 break
         
 # Function to recompute IDs and rename files
@@ -391,7 +395,7 @@ def merge_damp_ids_to_dali(damp_path, dali_path, id_file_path, starting_id):
         file_path = os.path.join(damp_path, filename)
         with open(file_path, 'r') as file:
             data = json.load(file)
-        test_key = f"{data['meta']['title']}"+" - "+ f"{data['meta']['artist']}"
+        test_key = f"{data['meta']['title'].title()}"+" - "+ f"{data['meta']['artist'].title()}"
         if test_key not in id_list : # First time a song gets converted
             # Construct full file path
             file_path = os.path.join(damp_path, filename)
@@ -420,23 +424,19 @@ def merge_damp_ids_to_dali(damp_path, dali_path, id_file_path, starting_id):
                 json.dump(dic, file, indent=4)
 
             # Append the new entry
-            new_id = {test_key : [f"{current_id:08X}", "DAMP"]}
+            new_id = {test_key : [f"{current_id:08X}", ["DAMP"]]}
             id_list.update(new_id)
 
             # Save the updated dictionary back to the file
             with open(id_file_path, 'w') as id_file:
                 json.dump(id_list, id_file, indent=4)
-            
-            # Increment ID for the next file
-            current_id += 1
 
         else : # song already converted
             os.remove(file_path)
-            source = id_list[test_key][1]
-            source.append("DAMP")
-            with open(id_file_path, 'w') as id_file:
-                json.dump(id_list, id_file, indent=4)
-
+            if "DAMP" not in id_list[test_key][1]:
+                id_list[test_key][1].append("DAMP")
+                with open(id_file_path, 'w') as id_file:
+                    json.dump(id_list, id_file, indent=4)
 
 
 #---------------FUNCTIONS FOR STATISTICS---------------
