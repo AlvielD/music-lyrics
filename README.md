@@ -107,6 +107,17 @@ Once all of our data was standardized into proper JSON files, we develop a SparQ
 
 Generated triples can be checked [here](https://github.com/Duam9/ke_final_project-july24/tree/main/sparql/triples).
 
+## SparQL endpoint
+The SparQL endpoint is available to be build locally through a Fuseki server. To do so, follow the steps below
+
+1. First, create a new dataset by clicking on `new dataset`. It will take some time, so we suggest to store it in a persistent format ( $\approx$ 15Gb).
+2. Then, click on `add data`.
+3. Select the `.ttl` files on the **triples** folder and `upload all`.
+
+Once the process is done you can query the Knowledge Graph on http://localhost:3030/#/dataset/<dataset_name>/query.
+
+Keep in mind you need Java 17 or more to execute the version of Fuseki present on this repository. There shouldn't be any problems if you try downloading an older version of Fuseki server, but we haven't tested them.
+
 
 ## Conclusion
 We are very happy to have been able to concretely use what we had studied in class in such an ambitious project, despite the short time we had to complete it.<br>
