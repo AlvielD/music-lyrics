@@ -1,4 +1,4 @@
-PREFIX co: <http://purl.org/ontology/co/core#>
+PREFIX co:		<http://purl.org/ontology/co/core#>
 PREFIX xsd:		<http://www.w3.org/2001/XMLSchema#>
 PREFIX core:	<http://vivoweb.org/ontology/core#>
 PREFIX rdf:		<http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -134,7 +134,8 @@ CONSTRUCT {
     BIND(IRI(CONCAT(STR(ml:AbstractScore), "/", CONCAT(STR(?paragraphVar), STR(?occurrenceVar)), "/", SHA1(?songID))) AS ?paragraphURI)
     
     BIND(IRI(CONCAT(STR(ml:), STR(?paragraphVar))) AS ?paragraphClass)
-    BIND(IRI(CONCAT(STR(ml:TextFragment), "/", SHA1(STR(?lineTextVar)))) AS ?linesURI)
+    BIND(IRI(CONCAT(STR(ml:TextFragment), "/", CONCAT(STR(?paragraphVar), STR(?occurrenceVar)), "/", 
+          SHA1(CONCAT(STR(?songID), STR(?startLineTimeIndexComponentVar))))) AS ?linesURI)
     
     BIND(IRI(
         CONCAT(STR(core:MusicTimeInterval), "/", CONCAT(STR(?paragraphVar), STR(?occurrenceVar)), "/", SHA1(?songID))
@@ -160,24 +161,30 @@ CONSTRUCT {
     # LINE TIME DIMENSION
     
     BIND(IRI(
-        CONCAT(STR(core:MusicTimeInterval), "/TextFragment/", SHA1(?lineTextVar))
+        CONCAT(STR(core:MusicTimeInterval), "/", CONCAT(STR(?paragraphVar), STR(?occurrenceVar)), "/TextFragment/", 
+          SHA1(CONCAT(STR(?songID), STR(?startLineTimeIndexComponentVar))))
       ) AS ?lineTimeIntervalURI)
     BIND(IRI(
-        CONCAT(STR(core:MusicTimeIndex), "/TextFragment/start/", SHA1(STR(?lineTextVar)))
+        CONCAT(STR(core:MusicTimeIndex), "/", CONCAT(STR(?paragraphVar), STR(?occurrenceVar)), "/TextFragment/start/", 
+          SHA1(CONCAT(STR(?songID), STR(?startLineTimeIndexComponentVar))))
       ) AS ?startLineTimeIndexURI)
     BIND(IRI(
-        CONCAT(STR(core:MusicTimeIndex), "/TextFragment/end/", SHA1(STR(?lineTextVar)))
+        CONCAT(STR(core:MusicTimeIndex), "/", CONCAT(STR(?paragraphVar), STR(?occurrenceVar)), "/TextFragment/end/", 
+          SHA1(CONCAT(STR(?songID), STR(?startLineTimeIndexComponentVar))))
       ) AS ?endLineTimeIndexURI)
     
     BIND(IRI(
-        CONCAT(STR(core:MusicTimeIndexComponent), "/TextFragment/start/", SHA1(STR(?lineTextVar)))
+        CONCAT(STR(core:MusicTimeIndexComponent), "/", CONCAT(STR(?paragraphVar), STR(?occurrenceVar)), "/TextFragment/start/", 
+          SHA1(CONCAT(STR(?songID), STR(?startLineTimeIndexComponentVar))))
       ) AS ?startLineTimeIndexComponentURI)
     BIND(IRI(
-        CONCAT(STR(core:MusicTimeIndexComponent), "/TextFragment/end/", SHA1(STR(?lineTextVar)))
+        CONCAT(STR(core:MusicTimeIndexComponent), "/", CONCAT(STR(?paragraphVar), STR(?occurrenceVar)), "/TextFragment/end/", 
+          SHA1(CONCAT(STR(?songID), STR(?startLineTimeIndexComponentVar))))
       ) AS ?endLineTimeIndexComponentURI)
     
     BIND(IRI(
-        CONCAT(STR(core:MusicTimeDuration), "/TextFragment/", SHA1(STR(?lineTextVar)))
+        CONCAT(STR(core:MusicTimeDuration), "/", CONCAT(STR(?paragraphVar), STR(?occurrenceVar)), "/TextFragment/", 
+          SHA1(CONCAT(STR(?songID), STR(?startLineTimeIndexComponentVar))))
       ) AS ?lineTimeDurationURI)
     
   }
