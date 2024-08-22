@@ -172,7 +172,6 @@ class LyricsAnnot:
                 'artist': self.artist,
                 'language': self.language,
                 'writer_artirsts': self.writer_artists,
-                'duration': self.song_duration
             },
             'annotations': self.annotations
         }
