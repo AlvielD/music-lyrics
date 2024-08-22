@@ -170,7 +170,9 @@ class LyricsAnnot:
                 'song_id': self.song_id,
                 'title': self.title,
                 'artist': self.artist,
-                'language': self.language
+                'language': self.language,
+                'writer_artirsts': self.writer_artists,
+                'duration': self.song_duration
             },
             'annotations': self.annotations
         }
@@ -322,8 +324,9 @@ class LyricsAnnot:
 if __name__ == '__main__':
     
     # Read the data from a JSON file
-    file_path = './data/toy_DAMP/FR/FRLyrics/728723_68818.json'
+    file_path = './data/DAMP_MVP/sing_300x30x2/FR/FRLyrics/728723_68818.json'
     save_path = './conversion/saved'
+    id_file_path = './conversion/id.txt'
 
     with open(file_path, encoding='utf-8') as file:
         data = json.load(file)
@@ -337,4 +340,4 @@ if __name__ == '__main__':
     success = annot.add_section_info()
 
     if success:
-        annot.save_to_json(save_path)
+        annot.save_to_json(save_path, id_file_path, 'DAMP')
