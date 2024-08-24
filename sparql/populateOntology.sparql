@@ -1,32 +1,54 @@
-PREFIX co:		<http://purl.org/ontology/co/core#>
-PREFIX xsd:		<http://www.w3.org/2001/XMLSchema#>
-PREFIX core:	<http://vivoweb.org/ontology/core#>
+PREFIX xs: <http://www.w3.org/2001/XMLSchema#>
 PREFIX rdf:		<http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs:	<http://www.w3.org/2000/01/rdf-schema#>
-PREFIX mm:		<https://w3id.org/polifonia/ontology/music-meta/1.0/>
-PREFIX src:		<https://w3id.org/polifonia/ontology/source/1.0/>
-PREFIX ml: 		<http://w3id.org/polifonia/ontology/music-lyrics/1.0/>
+PREFIX co:		<http://purl.org/ontology/co/core#>
+PREFIX xsd:		<http://www.w3.org/2001/XMLSchema#>
+PREFIX prov:	<http://www.w3.org/ns/prov#>
+
+PREFIX core:	<https://w3id.org/polifonia/ontology/core/>
+PREFIX src:		<https://w3id.org/polifonia/ontology/source/>
+PREFIX mm:		<https://w3id.org/polifonia/ontology/music-meta/>
+PREFIX ml: 		<http://w3id.org/polifonia/ontology/music-lyrics/>
+
 PREFIX xyz:		<http://sparql.xyz/facade-x/data/>
 PREFIX fx:		<http://sparql.xyz/facade-x/ns/>
 
 CONSTRUCT {
   # Metadata
   ?songURI a mm:MusicEntity ;
-    core:hasTitle ?title ;
-    core:hasLanguage ?lang ;
+    core:title ?title ;
     mm:isCreatedBy ?creativeProcessURI ;
   	core:hasPart ?abstractScoreURI .
-  ?creativeProcessURI a mm:MusicEntity ;
-    core:involvesAgent ?MusicArtistURI .
-  ?MusicArtistURI a mm:Musician ;
-    core:name ?name .
+  ?creativeProcessURI a mm:CreativeProcess ;
+    mm:involvesCreativeAction ?artistCreativeActionURI ;
+    mm:involvesCreativeAction ?writerCreativeActionURI .
   
+  ?artistCreativeActionURI a mm:CreativeAction ;
+    mm:involvesAgent ?artistURI ;
+    core:executesTask ?artistCreativeTaskURI .
+  ?artistURI a mm:MusicArtist ;
+    core:name ?artistName .
+  ?artistCreativeTaskURI a mm:Instrumentation .
+  
+  ?writerCreativeActionURI a mm:CreativeAction ;
+    mm:involvesAgent ?writerURI ;
+    core:executesTask ?writerCreativeTaskURI .
+  ?writerURI a mm:MusicArtist ;
+    core:name ?writerName .
+  ?writerCreativeTaskURI a mm:LyricsWriting .
   
   # Annotations
   ?abstractScoreURI a mm:AbstractScore ;
-    mm:hasText ?lyricsURI .
+    mm:hasText ?lyricsURI ;
+    prov:wasDerivedFrom ?jsonFileURI .
   ?lyricsURI a mm:Lyrics ;
-    mm:hasTextPart ?paragraphURI .
+    mm:hasTextPart ?paragraphURI ;
+    core:hasLanguage ?lang .
+   ?jsonFileURI a ml:JSONFile ;
+    ml:hasIdentifier ?songID ;
+    prov:wasDerivedFrom ?datasetURI .
+   ?datasetURI a ml:Dataset ;
+    core:name ?datasetName .
   
   
   # Time dimension
@@ -42,13 +64,13 @@ CONSTRUCT {
   ?startMusicTimeIndexURI a core:MusicTimeIndex ;
     core:hasMusicTimeIndexComponent ?startMusicTimeIndexComponentURI .
   ?startMusicTimeIndexComponentURI a core:MusicTimeIndexComponent ;
-    core:hasValue ?startMusicTimeIndexComponent .
+    core:value ?startMusicTimeIndexComponent .
   ?endMusicTimeIndexURI a core:MusicTimeIndex ;
     core:hasMusicTimeIndexComponent ?endMusicTimeIndexComponentURI .
   ?endMusicTimeIndexComponentURI a core:MusicTimeIndexComponent ;
-    core:hasValue ?endMusicTimeIndexComponent .
+    core:value ?endMusicTimeIndexComponent .
   ?musicTimeDurationURI a core:MusicTimeDuration ;
-    core:hasValue ?musicTimeDuration .
+    core:value ?musicTimeDuration .
   
   # Singers
   ?singerURI a mm:Musician ;
@@ -57,7 +79,7 @@ CONSTRUCT {
   # Lines
   ?linesURI a mm:TextFragment ;
     ml:hasMusicTimeInterval ?lineTimeIntervalURI ;
-    ml:hasValue ?line .
+    ml:value ?line .
   ?lineTimeIntervalURI a core:MusicTimeInterval ;
     core:hasStartMusicTimeIndex ?startLineTimeIndexURI ;
     core:hasEndMusicTimeIndex ?endLineTimeIndexURI ;
@@ -65,24 +87,27 @@ CONSTRUCT {
   ?startLineTimeIndexURI a core:MusicTimeIndex ;
     core:hasMusicTimeIndexComponent ?startLineTimeIndexComponentURI .
   ?startLineTimeIndexComponentURI a core:MusicTimeIndexComponent ;
-    core:hasValue ?startLineTimeIndexComponent .
+    core:value ?startLineTimeIndexComponent .
   ?endLineTimeIndexURI a core:MusicTimeIndex ;
     core:hasMusicTimeIndexComponent ?endLineTimeIndexComponentURI .
   ?endLineTimeIndexComponentURI a core:MusicTimeIndexComponent ;
-    core:hasValue ?endLineTimeIndexComponent .
+    core:value ?endLineTimeIndexComponent .
   ?lineTimeDurationURI a core:MusicTimeDuration ;
-    core:hasValue ?lineTimeDuration .
+    core:value ?lineTimeDuration .
     
 
 } WHERE {
-  SERVICE <x-sparql-anything:annotations/00000CC0.json> {
+  SERVICE <x-sparql-anything:00000000.json> {
     # Metadata
     ?songURI xyz:meta ?metadata ;
              xyz:annotations ?annotationsContainer .
-    ?metadata xyz:song_id ?songID ;
+    ?metadata xyz:song_id ?songIDVar ;
+              xyz:dataset ?datasetVar ;
               xyz:title ?titleVar ;
               xyz:language ?langvar ;
-              xyz:artist ?artistVar .
+              xyz:artist ?artistVar ;
+              xyz:writer_artists ?writersContainer .
+    ?writersContainer fx:anySlot ?writerVar .
 
     
     # Annotations
@@ -109,9 +134,12 @@ CONSTRUCT {
     # BINDING VARIABLES
     
     # VALUES
+    BIND(xsd:string(?songIDVar) AS ?songID)
+    BIND(xsd:string(?datasetVar) AS ?datasetName)
     BIND(xsd:string(?titleVar) AS ?title)
     BIND(xsd:string(?langvar) AS ?lang)
-    BIND(xsd:string(?artistVar) AS ?name)
+    BIND(xsd:string(?artistVar) AS ?artistName)
+    BIND(xsd:string(?writerVar) as ?writerName)
     
     BIND(xsd:string(?singerVar) AS ?singerName)
     BIND(xsd:float(?startMusicTimeIndexComponentVar) AS ?startMusicTimeIndexComponent)
@@ -125,66 +153,74 @@ CONSTRUCT {
     
     
     # URIs
-    BIND(IRI(CONCAT(STR(mm:MusicArtist), "/", SHA1(STR(?artistVar)))) AS ?MusicArtistURI)
+    BIND(IRI(CONCAT(STR(mm:MusicArtist), "/", SHA1(STR(?artistVar)))) AS ?artistURI)
+    BIND(IRI(CONCAT(STR(mm:MusicArtist), "/", SHA1(STR(?writerVar)))) AS ?writerURI)
     BIND(IRI(CONCAT(STR(mm:MusicArtist), "/", SHA1(STR(?singerVar)))) AS ?singerURI)
     BIND(IRI(CONCAT(STR(mm:CreativeProcess), "/", SHA1(STR(?titleVar)))) AS ?creativeProcessURI)
+    BIND(IRI(CONCAT(STR(mm:CreativeAction), "/Instrumentation/", CONCAT(SHA1(STR(?titleVar)), SHA1(?artistName)))) AS ?artistCreativeActionURI)
+    BIND(IRI(CONCAT(STR(mm:CreativeAction), "/LyricsWriting/", CONCAT(SHA1(STR(?titleVar)), SHA1(?writerName)))) AS ?writerCreativeActionURI)
+    BIND(IRI(CONCAT(STR(mm:CreativeTask), "/Instrumentation/", CONCAT(SHA1(STR(?titleVar)), SHA1(?artistName)))) AS ?artistCreativeTaskURI)
+    BIND(IRI(CONCAT(STR(mm:CreativeTask), "/LyricsWriting/", CONCAT(SHA1(STR(?titleVar)), SHA1(?writerName)))) AS ?writerCreativeTaskURI)
     
-    BIND(IRI(CONCAT(STR(mm:AbstractScore), "/", SHA1(?songID))) AS ?abstractScoreURI)
-    BIND(IRI(CONCAT(STR(mm:Lyrics), "/", SHA1(?songID))) AS ?lyricsURI)
-    BIND(IRI(CONCAT(STR(ml:AbstractScore), "/", CONCAT(STR(?paragraphVar), STR(?occurrenceVar)), "/", SHA1(?songID))) AS ?paragraphURI)
+    
+    BIND(IRI(CONCAT(STR(mm:AbstractScore), "/", SHA1(?songIDVar))) AS ?abstractScoreURI)
+    BIND(IRI(CONCAT(STR(mm:Lyrics), "/", SHA1(?songIDVar))) AS ?lyricsURI)
+    BIND(IRI(CONCAT(STR(ml:AbstractScore), "/", CONCAT(STR(?paragraphVar), STR(?occurrenceVar)), "/", SHA1(?songIDVar))) AS ?paragraphURI)
+    BIND(IRI(CONCAT(STR(ml:JSONFile), "/", SHA1(?songID))) AS ?jsonFileURI)
+    BIND(IRI(CONCAT(STR(ml:Dataset), "/", SHA1(?datasetName))) AS ?datasetURI)
     
     BIND(IRI(CONCAT(STR(ml:), STR(?paragraphVar))) AS ?paragraphClass)
     BIND(IRI(CONCAT(STR(ml:TextFragment), "/", CONCAT(STR(?paragraphVar), STR(?occurrenceVar)), "/", 
-          SHA1(CONCAT(STR(?songID), STR(?startLineTimeIndexComponentVar))))) AS ?linesURI)
+          SHA1(CONCAT(STR(?songIDVar), STR(?startLineTimeIndexComponentVar))))) AS ?linesURI)
     
     BIND(IRI(
-        CONCAT(STR(core:MusicTimeInterval), "/", CONCAT(STR(?paragraphVar), STR(?occurrenceVar)), "/", SHA1(?songID))
+        CONCAT(STR(core:MusicTimeInterval), "/", CONCAT(STR(?paragraphVar), STR(?occurrenceVar)), "/", SHA1(?songIDVar))
       ) AS ?musicTimeIntervalURI)
     BIND(IRI(
-        CONCAT(STR(core:MusicTimeIndex), "/", CONCAT(STR(?paragraphVar), STR(?occurrenceVar)), "/start/", SHA1(STR(?songID)))
+        CONCAT(STR(core:MusicTimeIndex), "/", CONCAT(STR(?paragraphVar), STR(?occurrenceVar)), "/start/", SHA1(STR(?songIDVar)))
       ) AS ?startMusicTimeIndexURI)
     BIND(IRI(
-        CONCAT(STR(core:MusicTimeIndex), "/", CONCAT(STR(?paragraphVar), STR(?occurrenceVar)), "/end/", SHA1(STR(?songID)))
+        CONCAT(STR(core:MusicTimeIndex), "/", CONCAT(STR(?paragraphVar), STR(?occurrenceVar)), "/end/", SHA1(STR(?songIDVar)))
       ) AS ?endMusicTimeIndexURI)
     
     BIND(IRI(
-        CONCAT(STR(core:MusicTimeIndexComponent), "/", CONCAT(STR(?paragraphVar), STR(?occurrenceVar)), "/start/", SHA1(STR(?songID)))
+        CONCAT(STR(core:MusicTimeIndexComponent), "/", CONCAT(STR(?paragraphVar), STR(?occurrenceVar)), "/start/", SHA1(STR(?songIDVar)))
       ) AS ?startMusicTimeIndexComponentURI)
     BIND(IRI(
-        CONCAT(STR(core:MusicTimeIndexComponent), "/", CONCAT(STR(?paragraphVar), STR(?occurrenceVar)), "/end/", SHA1(STR(?songID)))
+        CONCAT(STR(core:MusicTimeIndexComponent), "/", CONCAT(STR(?paragraphVar), STR(?occurrenceVar)), "/end/", SHA1(STR(?songIDVar)))
       ) AS ?endMusicTimeIndexComponentURI)
     
     BIND(IRI(
-        CONCAT(STR(core:MusicTimeDuration), "/", CONCAT(STR(?paragraphVar), STR(?occurrenceVar)), "/", SHA1(STR(?songID)))
+        CONCAT(STR(core:MusicTimeDuration), "/", CONCAT(STR(?paragraphVar), STR(?occurrenceVar)), "/", SHA1(STR(?songIDVar)))
       ) AS ?musicTimeDurationURI)
     
     # LINE TIME DIMENSION
     
     BIND(IRI(
         CONCAT(STR(core:MusicTimeInterval), "/", CONCAT(STR(?paragraphVar), STR(?occurrenceVar)), "/TextFragment/", 
-          SHA1(CONCAT(STR(?songID), STR(?startLineTimeIndexComponentVar))))
+          SHA1(CONCAT(STR(?songIDVar), STR(?startLineTimeIndexComponentVar))))
       ) AS ?lineTimeIntervalURI)
     BIND(IRI(
         CONCAT(STR(core:MusicTimeIndex), "/", CONCAT(STR(?paragraphVar), STR(?occurrenceVar)), "/TextFragment/start/", 
-          SHA1(CONCAT(STR(?songID), STR(?startLineTimeIndexComponentVar))))
+          SHA1(CONCAT(STR(?songIDVar), STR(?startLineTimeIndexComponentVar))))
       ) AS ?startLineTimeIndexURI)
     BIND(IRI(
         CONCAT(STR(core:MusicTimeIndex), "/", CONCAT(STR(?paragraphVar), STR(?occurrenceVar)), "/TextFragment/end/", 
-          SHA1(CONCAT(STR(?songID), STR(?startLineTimeIndexComponentVar))))
+          SHA1(CONCAT(STR(?songIDVar), STR(?startLineTimeIndexComponentVar))))
       ) AS ?endLineTimeIndexURI)
     
     BIND(IRI(
         CONCAT(STR(core:MusicTimeIndexComponent), "/", CONCAT(STR(?paragraphVar), STR(?occurrenceVar)), "/TextFragment/start/", 
-          SHA1(CONCAT(STR(?songID), STR(?startLineTimeIndexComponentVar))))
+          SHA1(CONCAT(STR(?songIDVar), STR(?startLineTimeIndexComponentVar))))
       ) AS ?startLineTimeIndexComponentURI)
     BIND(IRI(
         CONCAT(STR(core:MusicTimeIndexComponent), "/", CONCAT(STR(?paragraphVar), STR(?occurrenceVar)), "/TextFragment/end/", 
-          SHA1(CONCAT(STR(?songID), STR(?startLineTimeIndexComponentVar))))
+          SHA1(CONCAT(STR(?songIDVar), STR(?startLineTimeIndexComponentVar))))
       ) AS ?endLineTimeIndexComponentURI)
     
     BIND(IRI(
         CONCAT(STR(core:MusicTimeDuration), "/", CONCAT(STR(?paragraphVar), STR(?occurrenceVar)), "/TextFragment/", 
-          SHA1(CONCAT(STR(?songID), STR(?startLineTimeIndexComponentVar))))
+          SHA1(CONCAT(STR(?songIDVar), STR(?startLineTimeIndexComponentVar))))
       ) AS ?lineTimeDurationURI)
     
   }
