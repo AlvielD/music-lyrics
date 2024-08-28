@@ -10,3 +10,752 @@
 @prefix xs:   <http://www.w3.org/2001/XMLSchema#> .
 @prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
 @prefix xyz:  <http://sparql.xyz/facade-x/data/> .
+
+[ rdf:type        mm:MusicEntity ;
+  core:hasPart    <https://w3id.org/polifonia/ontology/music-meta/AbstractScore/f06bea1afbcdcea16ba65d9073ab2db205f3ee3c> ;
+  core:title      "Raining Blood" ;
+  mm:isCreatedBy  <https://w3id.org/polifonia/ontology/music-meta/CreativeProcess/dbd88129a2754990216322618934639727fe2f1e>
+] .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeIndexComponent/Bridge1/TextFragment/start/b51cdee7f809b8cd90f1b08036ab7ddc024fbe23>
+        rdf:type    core:MusicTimeIndexComponent ;
+        core:value  "126.4625393258427"^^xs:float .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeIndexComponent/Bridge1/TextFragment/start/3b40fdb565c96578327bf22e6fc0118bc043cfff>
+        rdf:type    core:MusicTimeIndexComponent ;
+        core:value  "111.37826966292135"^^xs:float .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeIndex/Chorus1/start/f06bea1afbcdcea16ba65d9073ab2db205f3ee3c>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <https://w3id.org/polifonia/ontology/core/MusicTimeIndexComponent/Chorus1/start/f06bea1afbcdcea16ba65d9073ab2db205f3ee3c> .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeIndex/Chorus1/TextFragment/start/9d4822a4006a1a7089753fad01fda89a57f53665>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <https://w3id.org/polifonia/ontology/core/MusicTimeIndexComponent/Chorus1/TextFragment/start/9d4822a4006a1a7089753fad01fda89a57f53665> .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeInterval/Verse1/f06bea1afbcdcea16ba65d9073ab2db205f3ee3c>
+        rdf:type                     core:MusicTimeInterval ;
+        core:hasEndMusicTimeIndex    <https://w3id.org/polifonia/ontology/core/MusicTimeIndex/Verse1/end/f06bea1afbcdcea16ba65d9073ab2db205f3ee3c> ;
+        core:hasMusicTimeDuration    <https://w3id.org/polifonia/ontology/core/MusicTimeDuration/Verse1/f06bea1afbcdcea16ba65d9073ab2db205f3ee3c> ;
+        core:hasStartMusicTimeIndex  <https://w3id.org/polifonia/ontology/core/MusicTimeIndex/Verse1/start/f06bea1afbcdcea16ba65d9073ab2db205f3ee3c> .
+
+<http://w3id.org/polifonia/ontology/music-lyrics/AbstractScore/Bridge1/f06bea1afbcdcea16ba65d9073ab2db205f3ee3c>
+        rdf:type                 ml:Bridge ;
+        ml:hasMusicTimeInterval  <https://w3id.org/polifonia/ontology/core/MusicTimeInterval/Bridge1/f06bea1afbcdcea16ba65d9073ab2db205f3ee3c> ;
+        ml:hasTextPart           <http://w3id.org/polifonia/ontology/music-lyrics/TextFragment/Bridge1/a451f32145e215d037be158811430e7a2d8d8b6e> , <http://w3id.org/polifonia/ontology/music-lyrics/TextFragment/Bridge1/b51cdee7f809b8cd90f1b08036ab7ddc024fbe23> , <http://w3id.org/polifonia/ontology/music-lyrics/TextFragment/Bridge1/ab3a5974bdb25f805af4275dcbbe53caa00eea88> , <http://w3id.org/polifonia/ontology/music-lyrics/TextFragment/Bridge1/44bcbc93396a587484cc9ae9482879571a601f4e> , <http://w3id.org/polifonia/ontology/music-lyrics/TextFragment/Bridge1/3b40fdb565c96578327bf22e6fc0118bc043cfff> , <http://w3id.org/polifonia/ontology/music-lyrics/TextFragment/Bridge1/59b437caa97faef5006fa152c39549ee44767aca> ;
+        ml:sungBy                <https://w3id.org/polifonia/ontology/music-meta/MusicArtist/441547750c4a0d45d070e37801e24d9194223070> .
+
+<http://w3id.org/polifonia/ontology/music-lyrics/TextFragment/Verse1/4ed2c100d6c04b5fde3c2c98fa405301d3adf072>
+        rdf:type                 mm:TextFragment ;
+        ml:hasMusicTimeInterval  <https://w3id.org/polifonia/ontology/core/MusicTimeInterval/Verse1/TextFragment/4ed2c100d6c04b5fde3c2c98fa405301d3adf072> ;
+        ml:value                 "abolish the rules made of stone" .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeIndexComponent/Bridge1/TextFragment/end/44bcbc93396a587484cc9ae9482879571a601f4e>
+        rdf:type    core:MusicTimeIndexComponent ;
+        core:value  "116.3501797752809"^^xs:float .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeInterval/Chorus1/f06bea1afbcdcea16ba65d9073ab2db205f3ee3c>
+        rdf:type                     core:MusicTimeInterval ;
+        core:hasEndMusicTimeIndex    <https://w3id.org/polifonia/ontology/core/MusicTimeIndex/Chorus1/end/f06bea1afbcdcea16ba65d9073ab2db205f3ee3c> ;
+        core:hasMusicTimeDuration    <https://w3id.org/polifonia/ontology/core/MusicTimeDuration/Chorus1/f06bea1afbcdcea16ba65d9073ab2db205f3ee3c> ;
+        core:hasStartMusicTimeIndex  <https://w3id.org/polifonia/ontology/core/MusicTimeIndex/Chorus1/start/f06bea1afbcdcea16ba65d9073ab2db205f3ee3c> .
+
+<http://w3id.org/polifonia/ontology/music-lyrics/TextFragment/Verse1/1dc85b4139f044e3a976508018a0db6ad7bf2496>
+        rdf:type                 mm:TextFragment ;
+        ml:hasMusicTimeInterval  <https://w3id.org/polifonia/ontology/core/MusicTimeInterval/Verse1/TextFragment/1dc85b4139f044e3a976508018a0db6ad7bf2496> ;
+        ml:value                 "a lifeless object alive" .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeIndex/Verse1/TextFragment/end/52da0800020c84865c0879bf94ad9ea5cf7f08d0>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <https://w3id.org/polifonia/ontology/core/MusicTimeIndexComponent/Verse1/TextFragment/end/52da0800020c84865c0879bf94ad9ea5cf7f08d0> .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeIndex/Verse1/TextFragment/end/75f7799333143f629526c5f31abe10d0775b6690>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <https://w3id.org/polifonia/ontology/core/MusicTimeIndexComponent/Verse1/TextFragment/end/75f7799333143f629526c5f31abe10d0775b6690> .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeIndex/Chorus1/TextFragment/end/9d4822a4006a1a7089753fad01fda89a57f53665>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <https://w3id.org/polifonia/ontology/core/MusicTimeIndexComponent/Chorus1/TextFragment/end/9d4822a4006a1a7089753fad01fda89a57f53665> .
+
+<http://w3id.org/polifonia/ontology/music-lyrics/TextFragment/Chorus1/a17fa2a683848e8fba7d7b34caa499da65a2dd34>
+        rdf:type                 mm:TextFragment ;
+        ml:hasMusicTimeInterval  <https://w3id.org/polifonia/ontology/core/MusicTimeInterval/Chorus1/TextFragment/a17fa2a683848e8fba7d7b34caa499da65a2dd34> ;
+        ml:value                 "creating my structure" .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeDuration/Bridge1/f06bea1afbcdcea16ba65d9073ab2db205f3ee3c>
+        rdf:type    core:MusicTimeDuration ;
+        core:value  "22.6685393258427"^^xs:float .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeIndexComponent/Bridge1/TextFragment/start/ab3a5974bdb25f805af4275dcbbe53caa00eea88>
+        rdf:type    core:MusicTimeIndexComponent ;
+        core:value  "116.43444943820225"^^xs:float .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeDuration/Bridge1/TextFragment/44bcbc93396a587484cc9ae9482879571a601f4e>
+        rdf:type    core:MusicTimeDuration ;
+        core:value  "1.0112359550561791"^^xs:float .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeIndex/Chorus1/end/f06bea1afbcdcea16ba65d9073ab2db205f3ee3c>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <https://w3id.org/polifonia/ontology/core/MusicTimeIndexComponent/Chorus1/end/f06bea1afbcdcea16ba65d9073ab2db205f3ee3c> .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeInterval/Bridge1/TextFragment/44bcbc93396a587484cc9ae9482879571a601f4e>
+        rdf:type                     core:MusicTimeInterval ;
+        core:hasEndMusicTimeIndex    <https://w3id.org/polifonia/ontology/core/MusicTimeIndex/Bridge1/TextFragment/end/44bcbc93396a587484cc9ae9482879571a601f4e> ;
+        core:hasMusicTimeDuration    <https://w3id.org/polifonia/ontology/core/MusicTimeDuration/Bridge1/TextFragment/44bcbc93396a587484cc9ae9482879571a601f4e> ;
+        core:hasStartMusicTimeIndex  <https://w3id.org/polifonia/ontology/core/MusicTimeIndex/Bridge1/TextFragment/start/44bcbc93396a587484cc9ae9482879571a601f4e> .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeDuration/Chorus1/f06bea1afbcdcea16ba65d9073ab2db205f3ee3c>
+        rdf:type    core:MusicTimeDuration ;
+        core:value  "0"^^xs:float .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeIndexComponent/Bridge1/start/f06bea1afbcdcea16ba65d9073ab2db205f3ee3c>
+        rdf:type    core:MusicTimeIndexComponent ;
+        core:value  "110.28276404494382"^^xs:float .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeInterval/Verse1/TextFragment/4ed2c100d6c04b5fde3c2c98fa405301d3adf072>
+        rdf:type                     core:MusicTimeInterval ;
+        core:hasEndMusicTimeIndex    <https://w3id.org/polifonia/ontology/core/MusicTimeIndex/Verse1/TextFragment/end/4ed2c100d6c04b5fde3c2c98fa405301d3adf072> ;
+        core:hasMusicTimeDuration    <https://w3id.org/polifonia/ontology/core/MusicTimeDuration/Verse1/TextFragment/4ed2c100d6c04b5fde3c2c98fa405301d3adf072> ;
+        core:hasStartMusicTimeIndex  <https://w3id.org/polifonia/ontology/core/MusicTimeIndex/Verse1/TextFragment/start/4ed2c100d6c04b5fde3c2c98fa405301d3adf072> .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeInterval/Verse1/TextFragment/1dc85b4139f044e3a976508018a0db6ad7bf2496>
+        rdf:type                     core:MusicTimeInterval ;
+        core:hasEndMusicTimeIndex    <https://w3id.org/polifonia/ontology/core/MusicTimeIndex/Verse1/TextFragment/end/1dc85b4139f044e3a976508018a0db6ad7bf2496> ;
+        core:hasMusicTimeDuration    <https://w3id.org/polifonia/ontology/core/MusicTimeDuration/Verse1/TextFragment/1dc85b4139f044e3a976508018a0db6ad7bf2496> ;
+        core:hasStartMusicTimeIndex  <https://w3id.org/polifonia/ontology/core/MusicTimeIndex/Verse1/TextFragment/start/1dc85b4139f044e3a976508018a0db6ad7bf2496> .
+
+<http://w3id.org/polifonia/ontology/music-lyrics/TextFragment/Chorus1/2dfe972cca06d13f8e32f653a0352cc274291b9f>
+        rdf:type                 mm:TextFragment ;
+        ml:hasMusicTimeInterval  <https://w3id.org/polifonia/ontology/core/MusicTimeInterval/Chorus1/TextFragment/2dfe972cca06d13f8e32f653a0352cc274291b9f> ;
+        ml:value                 "bleeding its horror" .
+
+<http://w3id.org/polifonia/ontology/music-lyrics/TextFragment/Verse1/a0db533531cc8bfebc8e7fd665f48e9e1b0e33d0>
+        rdf:type                 mm:TextFragment ;
+        ml:hasMusicTimeInterval  <https://w3id.org/polifonia/ontology/core/MusicTimeInterval/Verse1/TextFragment/a0db533531cc8bfebc8e7fd665f48e9e1b0e33d0> ;
+        ml:value                 "awaiting reprisal" .
+
+<https://w3id.org/polifonia/ontology/music-meta/CreativeProcess/dbd88129a2754990216322618934639727fe2f1e>
+        rdf:type                   mm:CreativeProcess ;
+        mm:involvesCreativeAction  <https://w3id.org/polifonia/ontology/music-meta/CreativeAction/LyricsWriting/dbd88129a2754990216322618934639727fe2f1ee840c9f0cf1d34ea339b768bdb79127b590cb3ec> , <https://w3id.org/polifonia/ontology/music-meta/CreativeAction/Instrumentation/dbd88129a2754990216322618934639727fe2f1e441547750c4a0d45d070e37801e24d9194223070> .
+
+<http://w3id.org/polifonia/ontology/music-lyrics/TextFragment/Verse1/1c1018bcc44f5a0044e82ca130859682c5cfaa7c>
+        rdf:type                 mm:TextFragment ;
+        ml:hasMusicTimeInterval  <https://w3id.org/polifonia/ontology/core/MusicTimeInterval/Verse1/TextFragment/1c1018bcc44f5a0044e82ca130859682c5cfaa7c> ;
+        ml:value                 "fall into me, the sky's crimson tears" .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeDuration/Verse1/f06bea1afbcdcea16ba65d9073ab2db205f3ee3c>
+        rdf:type    core:MusicTimeDuration ;
+        core:value  "17.275280898876403"^^xs:float .
+
+<http://w3id.org/polifonia/ontology/music-lyrics/TextFragment/Bridge1/b51cdee7f809b8cd90f1b08036ab7ddc024fbe23>
+        rdf:type                 mm:TextFragment ;
+        ml:hasMusicTimeInterval  <https://w3id.org/polifonia/ontology/core/MusicTimeInterval/Bridge1/TextFragment/b51cdee7f809b8cd90f1b08036ab7ddc024fbe23> ;
+        ml:value                 "awaiting the hour of reprisal" .
+
+<http://w3id.org/polifonia/ontology/music-lyrics/TextFragment/Bridge1/3b40fdb565c96578327bf22e6fc0118bc043cfff>
+        rdf:type                 mm:TextFragment ;
+        ml:hasMusicTimeInterval  <https://w3id.org/polifonia/ontology/core/MusicTimeInterval/Bridge1/TextFragment/3b40fdb565c96578327bf22e6fc0118bc043cfff> ;
+        ml:value                 "souls of my treacherous past" .
+
+<http://w3id.org/polifonia/ontology/music-lyrics/TextFragment/Verse1/7d49f1d19f96504be88b7500bc8f2f61021ba7b6>
+        rdf:type                 mm:TextFragment ;
+        ml:hasMusicTimeInterval  <https://w3id.org/polifonia/ontology/core/MusicTimeInterval/Verse1/TextFragment/7d49f1d19f96504be88b7500bc8f2f61021ba7b6> ;
+        ml:value                 "trapped in purgatory" .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeIndex/Verse1/TextFragment/start/40fcc228caf418e92618dde13ce01c764deaf3fc>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <https://w3id.org/polifonia/ontology/core/MusicTimeIndexComponent/Verse1/TextFragment/start/40fcc228caf418e92618dde13ce01c764deaf3fc> .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeIndexComponent/Verse1/TextFragment/end/52da0800020c84865c0879bf94ad9ea5cf7f08d0>
+        rdf:type    core:MusicTimeIndexComponent ;
+        core:value  "92.67040449438201"^^xs:float .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeIndexComponent/Verse1/TextFragment/end/75f7799333143f629526c5f31abe10d0775b6690>
+        rdf:type    core:MusicTimeIndexComponent ;
+        core:value  "94.94568539325843"^^xs:float .
+
+<http://w3id.org/polifonia/ontology/music-lyrics/TextFragment/Verse1/52da0800020c84865c0879bf94ad9ea5cf7f08d0>
+        rdf:type                 mm:TextFragment ;
+        ml:hasMusicTimeInterval  <https://w3id.org/polifonia/ontology/core/MusicTimeInterval/Verse1/TextFragment/52da0800020c84865c0879bf94ad9ea5cf7f08d0> ;
+        ml:value                 "sky is turning red," .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeDuration/Verse1/TextFragment/4ed2c100d6c04b5fde3c2c98fa405301d3adf072>
+        rdf:type    core:MusicTimeDuration ;
+        core:value  "2.0224719101123583"^^xs:float .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeInterval/Chorus1/TextFragment/a17fa2a683848e8fba7d7b34caa499da65a2dd34>
+        rdf:type                     core:MusicTimeInterval ;
+        core:hasEndMusicTimeIndex    <https://w3id.org/polifonia/ontology/core/MusicTimeIndex/Chorus1/TextFragment/end/a17fa2a683848e8fba7d7b34caa499da65a2dd34> ;
+        core:hasMusicTimeDuration    <https://w3id.org/polifonia/ontology/core/MusicTimeDuration/Chorus1/TextFragment/a17fa2a683848e8fba7d7b34caa499da65a2dd34> ;
+        core:hasStartMusicTimeIndex  <https://w3id.org/polifonia/ontology/core/MusicTimeIndex/Chorus1/TextFragment/start/a17fa2a683848e8fba7d7b34caa499da65a2dd34> .
+
+<http://w3id.org/polifonia/ontology/music-lyrics/TextFragment/Bridge1/ab3a5974bdb25f805af4275dcbbe53caa00eea88>
+        rdf:type                 mm:TextFragment ;
+        ml:hasMusicTimeInterval  <https://w3id.org/polifonia/ontology/core/MusicTimeInterval/Bridge1/TextFragment/ab3a5974bdb25f805af4275dcbbe53caa00eea88> ;
+        ml:value                 "now ornaments dripping above" .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeDuration/Verse1/TextFragment/1dc85b4139f044e3a976508018a0db6ad7bf2496>
+        rdf:type    core:MusicTimeDuration ;
+        core:value  "2.0224719101123583"^^xs:float .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeInterval/Verse1/TextFragment/a0db533531cc8bfebc8e7fd665f48e9e1b0e33d0>
+        rdf:type                     core:MusicTimeInterval ;
+        core:hasEndMusicTimeIndex    <https://w3id.org/polifonia/ontology/core/MusicTimeIndex/Verse1/TextFragment/end/a0db533531cc8bfebc8e7fd665f48e9e1b0e33d0> ;
+        core:hasMusicTimeDuration    <https://w3id.org/polifonia/ontology/core/MusicTimeDuration/Verse1/TextFragment/a0db533531cc8bfebc8e7fd665f48e9e1b0e33d0> ;
+        core:hasStartMusicTimeIndex  <https://w3id.org/polifonia/ontology/core/MusicTimeIndex/Verse1/TextFragment/start/a0db533531cc8bfebc8e7fd665f48e9e1b0e33d0> .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeIndexComponent/Bridge1/TextFragment/end/b51cdee7f809b8cd90f1b08036ab7ddc024fbe23>
+        rdf:type    core:MusicTimeIndexComponent ;
+        core:value  "128.7378202247191"^^xs:float .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeIndexComponent/Verse1/TextFragment/start/40fcc228caf418e92618dde13ce01c764deaf3fc>
+        rdf:type    core:MusicTimeIndexComponent ;
+        core:value  "88.87826966292134"^^xs:float .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeIndexComponent/Chorus1/TextFragment/end/b8d1663b59d355e7ea87ef960171ffede8e9ab1c>
+        rdf:type    core:MusicTimeIndexComponent ;
+        core:value  "163.4569213483146"^^xs:float .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeIndexComponent/Bridge1/TextFragment/end/3b40fdb565c96578327bf22e6fc0118bc043cfff>
+        rdf:type    core:MusicTimeIndexComponent ;
+        core:value  "113.06366292134831"^^xs:float .
+
+<https://w3id.org/polifonia/ontology/music-meta/CreativeAction/LyricsWriting/dbd88129a2754990216322618934639727fe2f1ee840c9f0cf1d34ea339b768bdb79127b590cb3ec>
+        rdf:type           mm:CreativeAction ;
+        core:executesTask  <https://w3id.org/polifonia/ontology/music-meta/CreativeTask/LyricsWriting/dbd88129a2754990216322618934639727fe2f1ee840c9f0cf1d34ea339b768bdb79127b590cb3ec> ;
+        mm:involvesAgent   <https://w3id.org/polifonia/ontology/music-meta/MusicArtist/e840c9f0cf1d34ea339b768bdb79127b590cb3ec> .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeDuration/Chorus1/TextFragment/9d4822a4006a1a7089753fad01fda89a57f53665>
+        rdf:type    core:MusicTimeDuration ;
+        core:value  "2.359550561797761"^^xs:float .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeInterval/Verse1/TextFragment/1c1018bcc44f5a0044e82ca130859682c5cfaa7c>
+        rdf:type                     core:MusicTimeInterval ;
+        core:hasEndMusicTimeIndex    <https://w3id.org/polifonia/ontology/core/MusicTimeIndex/Verse1/TextFragment/end/1c1018bcc44f5a0044e82ca130859682c5cfaa7c> ;
+        core:hasMusicTimeDuration    <https://w3id.org/polifonia/ontology/core/MusicTimeDuration/Verse1/TextFragment/1c1018bcc44f5a0044e82ca130859682c5cfaa7c> ;
+        core:hasStartMusicTimeIndex  <https://w3id.org/polifonia/ontology/core/MusicTimeIndex/Verse1/TextFragment/start/1c1018bcc44f5a0044e82ca130859682c5cfaa7c> .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeInterval/Verse1/TextFragment/7d49f1d19f96504be88b7500bc8f2f61021ba7b6>
+        rdf:type                     core:MusicTimeInterval ;
+        core:hasEndMusicTimeIndex    <https://w3id.org/polifonia/ontology/core/MusicTimeIndex/Verse1/TextFragment/end/7d49f1d19f96504be88b7500bc8f2f61021ba7b6> ;
+        core:hasMusicTimeDuration    <https://w3id.org/polifonia/ontology/core/MusicTimeDuration/Verse1/TextFragment/7d49f1d19f96504be88b7500bc8f2f61021ba7b6> ;
+        core:hasStartMusicTimeIndex  <https://w3id.org/polifonia/ontology/core/MusicTimeIndex/Verse1/TextFragment/start/7d49f1d19f96504be88b7500bc8f2f61021ba7b6> .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeDuration/Chorus1/TextFragment/2dfe972cca06d13f8e32f653a0352cc274291b9f>
+        rdf:type    core:MusicTimeDuration ;
+        core:value  "1.6853932584269558"^^xs:float .
+
+<https://w3id.org/polifonia/ontology/music-meta/AbstractScore/f06bea1afbcdcea16ba65d9073ab2db205f3ee3c>
+        rdf:type             mm:AbstractScore ;
+        prov:wasDerivedFrom  <http://w3id.org/polifonia/ontology/music-lyrics/JSONFile/f06bea1afbcdcea16ba65d9073ab2db205f3ee3c> ;
+        mm:hasText           <https://w3id.org/polifonia/ontology/music-meta/Lyrics/f06bea1afbcdcea16ba65d9073ab2db205f3ee3c> .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeInterval/Bridge1/TextFragment/b51cdee7f809b8cd90f1b08036ab7ddc024fbe23>
+        rdf:type                     core:MusicTimeInterval ;
+        core:hasEndMusicTimeIndex    <https://w3id.org/polifonia/ontology/core/MusicTimeIndex/Bridge1/TextFragment/end/b51cdee7f809b8cd90f1b08036ab7ddc024fbe23> ;
+        core:hasMusicTimeDuration    <https://w3id.org/polifonia/ontology/core/MusicTimeDuration/Bridge1/TextFragment/b51cdee7f809b8cd90f1b08036ab7ddc024fbe23> ;
+        core:hasStartMusicTimeIndex  <https://w3id.org/polifonia/ontology/core/MusicTimeIndex/Bridge1/TextFragment/start/b51cdee7f809b8cd90f1b08036ab7ddc024fbe23> .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeIndex/Verse1/TextFragment/start/75f7799333143f629526c5f31abe10d0775b6690>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <https://w3id.org/polifonia/ontology/core/MusicTimeIndexComponent/Verse1/TextFragment/start/75f7799333143f629526c5f31abe10d0775b6690> .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeInterval/Bridge1/TextFragment/3b40fdb565c96578327bf22e6fc0118bc043cfff>
+        rdf:type                     core:MusicTimeInterval ;
+        core:hasEndMusicTimeIndex    <https://w3id.org/polifonia/ontology/core/MusicTimeIndex/Bridge1/TextFragment/end/3b40fdb565c96578327bf22e6fc0118bc043cfff> ;
+        core:hasMusicTimeDuration    <https://w3id.org/polifonia/ontology/core/MusicTimeDuration/Bridge1/TextFragment/3b40fdb565c96578327bf22e6fc0118bc043cfff> ;
+        core:hasStartMusicTimeIndex  <https://w3id.org/polifonia/ontology/core/MusicTimeIndex/Bridge1/TextFragment/start/3b40fdb565c96578327bf22e6fc0118bc043cfff> .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeInterval/Chorus1/TextFragment/2dfe972cca06d13f8e32f653a0352cc274291b9f>
+        rdf:type                     core:MusicTimeInterval ;
+        core:hasEndMusicTimeIndex    <https://w3id.org/polifonia/ontology/core/MusicTimeIndex/Chorus1/TextFragment/end/2dfe972cca06d13f8e32f653a0352cc274291b9f> ;
+        core:hasMusicTimeDuration    <https://w3id.org/polifonia/ontology/core/MusicTimeDuration/Chorus1/TextFragment/2dfe972cca06d13f8e32f653a0352cc274291b9f> ;
+        core:hasStartMusicTimeIndex  <https://w3id.org/polifonia/ontology/core/MusicTimeIndex/Chorus1/TextFragment/start/2dfe972cca06d13f8e32f653a0352cc274291b9f> .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeIndexComponent/Bridge1/TextFragment/end/a451f32145e215d037be158811430e7a2d8d8b6e>
+        rdf:type    core:MusicTimeIndexComponent ;
+        core:value  "132.95130337078652"^^xs:float .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeInterval/Verse1/TextFragment/52da0800020c84865c0879bf94ad9ea5cf7f08d0>
+        rdf:type                     core:MusicTimeInterval ;
+        core:hasEndMusicTimeIndex    <https://w3id.org/polifonia/ontology/core/MusicTimeIndex/Verse1/TextFragment/end/52da0800020c84865c0879bf94ad9ea5cf7f08d0> ;
+        core:hasMusicTimeDuration    <https://w3id.org/polifonia/ontology/core/MusicTimeDuration/Verse1/TextFragment/52da0800020c84865c0879bf94ad9ea5cf7f08d0> ;
+        core:hasStartMusicTimeIndex  <https://w3id.org/polifonia/ontology/core/MusicTimeIndex/Verse1/TextFragment/start/52da0800020c84865c0879bf94ad9ea5cf7f08d0> .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeIndex/Verse1/TextFragment/end/40fcc228caf418e92618dde13ce01c764deaf3fc>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <https://w3id.org/polifonia/ontology/core/MusicTimeIndexComponent/Verse1/TextFragment/end/40fcc228caf418e92618dde13ce01c764deaf3fc> .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeIndex/Verse1/TextFragment/end/4ed2c100d6c04b5fde3c2c98fa405301d3adf072>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <https://w3id.org/polifonia/ontology/core/MusicTimeIndexComponent/Verse1/TextFragment/end/4ed2c100d6c04b5fde3c2c98fa405301d3adf072> .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeDuration/Verse1/TextFragment/a0db533531cc8bfebc8e7fd665f48e9e1b0e33d0>
+        rdf:type    core:MusicTimeDuration ;
+        core:value  "1.3483146067415674"^^xs:float .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeDuration/Bridge1/TextFragment/59b437caa97faef5006fa152c39549ee44767aca>
+        rdf:type    core:MusicTimeDuration ;
+        core:value  "0.9269662921348356"^^xs:float .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeIndex/Verse1/TextFragment/end/1dc85b4139f044e3a976508018a0db6ad7bf2496>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <https://w3id.org/polifonia/ontology/core/MusicTimeIndexComponent/Verse1/TextFragment/end/1dc85b4139f044e3a976508018a0db6ad7bf2496> .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeDuration/Bridge1/TextFragment/ab3a5974bdb25f805af4275dcbbe53caa00eea88>
+        rdf:type    core:MusicTimeDuration ;
+        core:value  "2.3595505617977466"^^xs:float .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeIndex/Chorus1/TextFragment/start/a17fa2a683848e8fba7d7b34caa499da65a2dd34>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <https://w3id.org/polifonia/ontology/core/MusicTimeIndexComponent/Chorus1/TextFragment/start/a17fa2a683848e8fba7d7b34caa499da65a2dd34> .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeIndexComponent/Verse1/TextFragment/start/75f7799333143f629526c5f31abe10d0775b6690>
+        rdf:type    core:MusicTimeIndexComponent ;
+        core:value  "93.09175280898876"^^xs:float .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeIndex/Bridge1/end/f06bea1afbcdcea16ba65d9073ab2db205f3ee3c>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <https://w3id.org/polifonia/ontology/core/MusicTimeIndexComponent/Bridge1/end/f06bea1afbcdcea16ba65d9073ab2db205f3ee3c> .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeDuration/Verse1/TextFragment/1c1018bcc44f5a0044e82ca130859682c5cfaa7c>
+        rdf:type    core:MusicTimeDuration ;
+        core:value  "2.0224719101123583"^^xs:float .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeInterval/Bridge1/TextFragment/ab3a5974bdb25f805af4275dcbbe53caa00eea88>
+        rdf:type                     core:MusicTimeInterval ;
+        core:hasEndMusicTimeIndex    <https://w3id.org/polifonia/ontology/core/MusicTimeIndex/Bridge1/TextFragment/end/ab3a5974bdb25f805af4275dcbbe53caa00eea88> ;
+        core:hasMusicTimeDuration    <https://w3id.org/polifonia/ontology/core/MusicTimeDuration/Bridge1/TextFragment/ab3a5974bdb25f805af4275dcbbe53caa00eea88> ;
+        core:hasStartMusicTimeIndex  <https://w3id.org/polifonia/ontology/core/MusicTimeIndex/Bridge1/TextFragment/start/ab3a5974bdb25f805af4275dcbbe53caa00eea88> .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeIndexComponent/Chorus1/TextFragment/end/9d4822a4006a1a7089753fad01fda89a57f53665>
+        rdf:type    core:MusicTimeIndexComponent ;
+        core:value  "170.36703370786518"^^xs:float .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeInterval/Bridge1/f06bea1afbcdcea16ba65d9073ab2db205f3ee3c>
+        rdf:type                     core:MusicTimeInterval ;
+        core:hasEndMusicTimeIndex    <https://w3id.org/polifonia/ontology/core/MusicTimeIndex/Bridge1/end/f06bea1afbcdcea16ba65d9073ab2db205f3ee3c> ;
+        core:hasMusicTimeDuration    <https://w3id.org/polifonia/ontology/core/MusicTimeDuration/Bridge1/f06bea1afbcdcea16ba65d9073ab2db205f3ee3c> ;
+        core:hasStartMusicTimeIndex  <https://w3id.org/polifonia/ontology/core/MusicTimeIndex/Bridge1/start/f06bea1afbcdcea16ba65d9073ab2db205f3ee3c> .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeDuration/Verse1/TextFragment/7d49f1d19f96504be88b7500bc8f2f61021ba7b6>
+        rdf:type    core:MusicTimeDuration ;
+        core:value  "1.6011235955056122"^^xs:float .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeIndex/Chorus1/TextFragment/end/a17fa2a683848e8fba7d7b34caa499da65a2dd34>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <https://w3id.org/polifonia/ontology/core/MusicTimeIndexComponent/Chorus1/TextFragment/end/a17fa2a683848e8fba7d7b34caa499da65a2dd34> .
+
+<https://w3id.org/polifonia/ontology/music-meta/CreativeAction/Instrumentation/dbd88129a2754990216322618934639727fe2f1e441547750c4a0d45d070e37801e24d9194223070>
+        rdf:type           mm:CreativeAction ;
+        core:executesTask  <https://w3id.org/polifonia/ontology/music-meta/CreativeTask/Instrumentation/dbd88129a2754990216322618934639727fe2f1e441547750c4a0d45d070e37801e24d9194223070> ;
+        mm:involvesAgent   <https://w3id.org/polifonia/ontology/music-meta/MusicArtist/441547750c4a0d45d070e37801e24d9194223070> .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeInterval/Bridge1/TextFragment/a451f32145e215d037be158811430e7a2d8d8b6e>
+        rdf:type                     core:MusicTimeInterval ;
+        core:hasEndMusicTimeIndex    <https://w3id.org/polifonia/ontology/core/MusicTimeIndex/Bridge1/TextFragment/end/a451f32145e215d037be158811430e7a2d8d8b6e> ;
+        core:hasMusicTimeDuration    <https://w3id.org/polifonia/ontology/core/MusicTimeDuration/Bridge1/TextFragment/a451f32145e215d037be158811430e7a2d8d8b6e> ;
+        core:hasStartMusicTimeIndex  <https://w3id.org/polifonia/ontology/core/MusicTimeIndex/Bridge1/TextFragment/start/a451f32145e215d037be158811430e7a2d8d8b6e> .
+
+<https://w3id.org/polifonia/ontology/music-meta/CreativeTask/LyricsWriting/dbd88129a2754990216322618934639727fe2f1ee840c9f0cf1d34ea339b768bdb79127b590cb3ec>
+        rdf:type  mm:LyricsWriting .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeDuration/Verse1/TextFragment/52da0800020c84865c0879bf94ad9ea5cf7f08d0>
+        rdf:type    core:MusicTimeDuration ;
+        core:value  "1.5168539325842687"^^xs:float .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeIndex/Chorus1/TextFragment/start/2dfe972cca06d13f8e32f653a0352cc274291b9f>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <https://w3id.org/polifonia/ontology/core/MusicTimeIndexComponent/Chorus1/TextFragment/start/2dfe972cca06d13f8e32f653a0352cc274291b9f> .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeIndex/Verse1/TextFragment/end/a0db533531cc8bfebc8e7fd665f48e9e1b0e33d0>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <https://w3id.org/polifonia/ontology/core/MusicTimeIndexComponent/Verse1/TextFragment/end/a0db533531cc8bfebc8e7fd665f48e9e1b0e33d0> .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeIndexComponent/Chorus1/TextFragment/start/a17fa2a683848e8fba7d7b34caa499da65a2dd34>
+        rdf:type    core:MusicTimeIndexComponent ;
+        core:value  "166.57489887640452"^^xs:float .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeIndex/Bridge1/TextFragment/start/59b437caa97faef5006fa152c39549ee44767aca>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <https://w3id.org/polifonia/ontology/core/MusicTimeIndexComponent/Bridge1/TextFragment/start/59b437caa97faef5006fa152c39549ee44767aca> .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeIndex/Bridge1/TextFragment/start/ab3a5974bdb25f805af4275dcbbe53caa00eea88>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <https://w3id.org/polifonia/ontology/core/MusicTimeIndexComponent/Bridge1/TextFragment/start/ab3a5974bdb25f805af4275dcbbe53caa00eea88> .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeIndex/Bridge1/TextFragment/end/59b437caa97faef5006fa152c39549ee44767aca>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <https://w3id.org/polifonia/ontology/core/MusicTimeIndexComponent/Bridge1/TextFragment/end/59b437caa97faef5006fa152c39549ee44767aca> .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeIndex/Bridge1/TextFragment/end/ab3a5974bdb25f805af4275dcbbe53caa00eea88>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <https://w3id.org/polifonia/ontology/core/MusicTimeIndexComponent/Bridge1/TextFragment/end/ab3a5974bdb25f805af4275dcbbe53caa00eea88> .
+
+<http://w3id.org/polifonia/ontology/music-lyrics/TextFragment/Chorus1/b8d1663b59d355e7ea87ef960171ffede8e9ab1c>
+        rdf:type                 mm:TextFragment ;
+        ml:hasMusicTimeInterval  <https://w3id.org/polifonia/ontology/core/MusicTimeInterval/Chorus1/TextFragment/b8d1663b59d355e7ea87ef960171ffede8e9ab1c> ;
+        ml:value                 "raining blood from a lacerated sky" .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeIndexComponent/Verse1/end/f06bea1afbcdcea16ba65d9073ab2db205f3ee3c>
+        rdf:type    core:MusicTimeIndexComponent ;
+        core:value  "99.58051685393258"^^xs:float .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeIndex/Verse1/TextFragment/end/1c1018bcc44f5a0044e82ca130859682c5cfaa7c>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <https://w3id.org/polifonia/ontology/core/MusicTimeIndexComponent/Verse1/TextFragment/end/1c1018bcc44f5a0044e82ca130859682c5cfaa7c> .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeIndex/Chorus1/TextFragment/end/2dfe972cca06d13f8e32f653a0352cc274291b9f>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <https://w3id.org/polifonia/ontology/core/MusicTimeIndexComponent/Chorus1/TextFragment/end/2dfe972cca06d13f8e32f653a0352cc274291b9f> .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeIndexComponent/Bridge1/TextFragment/start/a451f32145e215d037be158811430e7a2d8d8b6e>
+        rdf:type    core:MusicTimeIndexComponent ;
+        core:value  "128.9063595505618"^^xs:float .
+
+<https://w3id.org/polifonia/ontology/music-meta/CreativeTask/Instrumentation/dbd88129a2754990216322618934639727fe2f1e441547750c4a0d45d070e37801e24d9194223070>
+        rdf:type  mm:Instrumentation .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeIndex/Verse1/TextFragment/end/7d49f1d19f96504be88b7500bc8f2f61021ba7b6>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <https://w3id.org/polifonia/ontology/core/MusicTimeIndexComponent/Verse1/TextFragment/end/7d49f1d19f96504be88b7500bc8f2f61021ba7b6> .
+
+<http://w3id.org/polifonia/ontology/music-lyrics/JSONFile/f06bea1afbcdcea16ba65d9073ab2db205f3ee3c>
+        rdf:type             ml:JSONFile ;
+        ml:hasIdentifier     "000006CA" ;
+        prov:wasDerivedFrom  <http://w3id.org/polifonia/ontology/music-lyrics/Dataset/7798283b3b0029f0428177482415b8f6163030b9> .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeIndexComponent/Verse1/TextFragment/end/40fcc228caf418e92618dde13ce01c764deaf3fc>
+        rdf:type    core:MusicTimeIndexComponent ;
+        core:value  "90.39512359550561"^^xs:float .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeIndex/Bridge1/start/f06bea1afbcdcea16ba65d9073ab2db205f3ee3c>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <https://w3id.org/polifonia/ontology/core/MusicTimeIndexComponent/Bridge1/start/f06bea1afbcdcea16ba65d9073ab2db205f3ee3c> .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeIndexComponent/Verse1/TextFragment/end/4ed2c100d6c04b5fde3c2c98fa405301d3adf072>
+        rdf:type    core:MusicTimeIndexComponent ;
+        core:value  "99.58051685393258"^^xs:float .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeIndexComponent/Chorus1/start/f06bea1afbcdcea16ba65d9073ab2db205f3ee3c>
+        rdf:type    core:MusicTimeIndexComponent ;
+        core:value  "158.65355056179777"^^xs:float .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeIndexComponent/Chorus1/TextFragment/start/9d4822a4006a1a7089753fad01fda89a57f53665>
+        rdf:type    core:MusicTimeIndexComponent ;
+        core:value  "168.00748314606741"^^xs:float .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeIndexComponent/Verse1/TextFragment/end/1dc85b4139f044e3a976508018a0db6ad7bf2496>
+        rdf:type    core:MusicTimeIndexComponent ;
+        core:value  "86.35017977528089"^^xs:float .
+
+<http://w3id.org/polifonia/ontology/music-lyrics/TextFragment/Verse1/40fcc228caf418e92618dde13ce01c764deaf3fc>
+        rdf:type                 mm:TextFragment ;
+        ml:hasMusicTimeInterval  <https://w3id.org/polifonia/ontology/core/MusicTimeInterval/Verse1/TextFragment/40fcc228caf418e92618dde13ce01c764deaf3fc> ;
+        ml:value                 "death will be their acquittance" .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeIndexComponent/Chorus1/TextFragment/start/2dfe972cca06d13f8e32f653a0352cc274291b9f>
+        rdf:type    core:MusicTimeIndexComponent ;
+        core:value  "163.70973033707867"^^xs:float .
+
+<https://w3id.org/polifonia/ontology/music-meta/Lyrics/f06bea1afbcdcea16ba65d9073ab2db205f3ee3c>
+        rdf:type          mm:Lyrics ;
+        core:hasLanguage  "en" ;
+        mm:hasTextPart    <http://w3id.org/polifonia/ontology/music-lyrics/AbstractScore/Chorus1/f06bea1afbcdcea16ba65d9073ab2db205f3ee3c> , <http://w3id.org/polifonia/ontology/music-lyrics/AbstractScore/Bridge1/f06bea1afbcdcea16ba65d9073ab2db205f3ee3c> , <http://w3id.org/polifonia/ontology/music-lyrics/AbstractScore/Verse1/f06bea1afbcdcea16ba65d9073ab2db205f3ee3c> .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeIndexComponent/Bridge1/TextFragment/start/59b437caa97faef5006fa152c39549ee44767aca>
+        rdf:type    core:MusicTimeIndexComponent ;
+        core:value  "110.28276404494382"^^xs:float .
+
+<http://w3id.org/polifonia/ontology/music-lyrics/AbstractScore/Chorus1/f06bea1afbcdcea16ba65d9073ab2db205f3ee3c>
+        rdf:type                 ml:Chorus ;
+        ml:hasMusicTimeInterval  <https://w3id.org/polifonia/ontology/core/MusicTimeInterval/Chorus1/f06bea1afbcdcea16ba65d9073ab2db205f3ee3c> ;
+        ml:hasTextPart           <http://w3id.org/polifonia/ontology/music-lyrics/TextFragment/Chorus1/9d4822a4006a1a7089753fad01fda89a57f53665> , <http://w3id.org/polifonia/ontology/music-lyrics/TextFragment/Chorus1/a17fa2a683848e8fba7d7b34caa499da65a2dd34> , <http://w3id.org/polifonia/ontology/music-lyrics/TextFragment/Chorus1/2dfe972cca06d13f8e32f653a0352cc274291b9f> , <http://w3id.org/polifonia/ontology/music-lyrics/TextFragment/Chorus1/b8d1663b59d355e7ea87ef960171ffede8e9ab1c> ;
+        ml:sungBy                <https://w3id.org/polifonia/ontology/music-meta/MusicArtist/441547750c4a0d45d070e37801e24d9194223070> .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeIndex/Bridge1/TextFragment/start/44bcbc93396a587484cc9ae9482879571a601f4e>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <https://w3id.org/polifonia/ontology/core/MusicTimeIndexComponent/Bridge1/TextFragment/start/44bcbc93396a587484cc9ae9482879571a601f4e> .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeIndex/Bridge1/TextFragment/end/44bcbc93396a587484cc9ae9482879571a601f4e>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <https://w3id.org/polifonia/ontology/core/MusicTimeIndexComponent/Bridge1/TextFragment/end/44bcbc93396a587484cc9ae9482879571a601f4e> .
+
+<http://w3id.org/polifonia/ontology/music-lyrics/TextFragment/Chorus1/9d4822a4006a1a7089753fad01fda89a57f53665>
+        rdf:type                 mm:TextFragment ;
+        ml:hasMusicTimeInterval  <https://w3id.org/polifonia/ontology/core/MusicTimeInterval/Chorus1/TextFragment/9d4822a4006a1a7089753fad01fda89a57f53665> ;
+        ml:value                 "now i shall reign in blood!" .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeIndex/Verse1/TextFragment/start/4ed2c100d6c04b5fde3c2c98fa405301d3adf072>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <https://w3id.org/polifonia/ontology/core/MusicTimeIndexComponent/Verse1/TextFragment/start/4ed2c100d6c04b5fde3c2c98fa405301d3adf072> .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeDuration/Chorus1/TextFragment/a17fa2a683848e8fba7d7b34caa499da65a2dd34>
+        rdf:type    core:MusicTimeDuration ;
+        core:value  "1.3483146067415532"^^xs:float .
+
+<https://w3id.org/polifonia/ontology/music-meta/MusicArtist/441547750c4a0d45d070e37801e24d9194223070>
+        rdf:type   mm:Musician , mm:MusicArtist ;
+        core:name  "Slayer" .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeIndexComponent/Verse1/start/f06bea1afbcdcea16ba65d9073ab2db205f3ee3c>
+        rdf:type    core:MusicTimeIndexComponent ;
+        core:value  "82.30523595505618"^^xs:float .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeIndex/Verse1/TextFragment/start/1dc85b4139f044e3a976508018a0db6ad7bf2496>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <https://w3id.org/polifonia/ontology/core/MusicTimeIndexComponent/Verse1/TextFragment/start/1dc85b4139f044e3a976508018a0db6ad7bf2496> .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeIndexComponent/Verse1/TextFragment/end/a0db533531cc8bfebc8e7fd665f48e9e1b0e33d0>
+        rdf:type    core:MusicTimeIndexComponent ;
+        core:value  "88.03557303370786"^^xs:float .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeInterval/Verse1/TextFragment/40fcc228caf418e92618dde13ce01c764deaf3fc>
+        rdf:type                     core:MusicTimeInterval ;
+        core:hasEndMusicTimeIndex    <https://w3id.org/polifonia/ontology/core/MusicTimeIndex/Verse1/TextFragment/end/40fcc228caf418e92618dde13ce01c764deaf3fc> ;
+        core:hasMusicTimeDuration    <https://w3id.org/polifonia/ontology/core/MusicTimeDuration/Verse1/TextFragment/40fcc228caf418e92618dde13ce01c764deaf3fc> ;
+        core:hasStartMusicTimeIndex  <https://w3id.org/polifonia/ontology/core/MusicTimeIndex/Verse1/TextFragment/start/40fcc228caf418e92618dde13ce01c764deaf3fc> .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeDuration/Chorus1/TextFragment/b8d1663b59d355e7ea87ef960171ffede8e9ab1c>
+        rdf:type    core:MusicTimeDuration ;
+        core:value  "4.803370786516837"^^xs:float .
+
+<http://w3id.org/polifonia/ontology/music-lyrics/TextFragment/Verse1/75f7799333143f629526c5f31abe10d0775b6690>
+        rdf:type                 mm:TextFragment ;
+        ml:hasMusicTimeInterval  <https://w3id.org/polifonia/ontology/core/MusicTimeInterval/Verse1/TextFragment/75f7799333143f629526c5f31abe10d0775b6690> ;
+        ml:value                 "return to power draws near" .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeIndexComponent/Verse1/TextFragment/end/1c1018bcc44f5a0044e82ca130859682c5cfaa7c>
+        rdf:type    core:MusicTimeIndexComponent ;
+        core:value  "97.55804494382022"^^xs:float .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeIndexComponent/Verse1/TextFragment/start/4ed2c100d6c04b5fde3c2c98fa405301d3adf072>
+        rdf:type    core:MusicTimeIndexComponent ;
+        core:value  "97.55804494382022"^^xs:float .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeInterval/Chorus1/TextFragment/b8d1663b59d355e7ea87ef960171ffede8e9ab1c>
+        rdf:type                     core:MusicTimeInterval ;
+        core:hasEndMusicTimeIndex    <https://w3id.org/polifonia/ontology/core/MusicTimeIndex/Chorus1/TextFragment/end/b8d1663b59d355e7ea87ef960171ffede8e9ab1c> ;
+        core:hasMusicTimeDuration    <https://w3id.org/polifonia/ontology/core/MusicTimeDuration/Chorus1/TextFragment/b8d1663b59d355e7ea87ef960171ffede8e9ab1c> ;
+        core:hasStartMusicTimeIndex  <https://w3id.org/polifonia/ontology/core/MusicTimeIndex/Chorus1/TextFragment/start/b8d1663b59d355e7ea87ef960171ffede8e9ab1c> .
+
+<http://w3id.org/polifonia/ontology/music-lyrics/TextFragment/Bridge1/a451f32145e215d037be158811430e7a2d8d8b6e>
+        rdf:type                 mm:TextFragment ;
+        ml:hasMusicTimeInterval  <https://w3id.org/polifonia/ontology/core/MusicTimeInterval/Bridge1/TextFragment/a451f32145e215d037be158811430e7a2d8d8b6e> ;
+        ml:value                 "your time slips away" .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeIndex/Verse1/end/f06bea1afbcdcea16ba65d9073ab2db205f3ee3c>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <https://w3id.org/polifonia/ontology/core/MusicTimeIndexComponent/Verse1/end/f06bea1afbcdcea16ba65d9073ab2db205f3ee3c> .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeIndexComponent/Verse1/TextFragment/start/1dc85b4139f044e3a976508018a0db6ad7bf2496>
+        rdf:type    core:MusicTimeIndexComponent ;
+        core:value  "84.32770786516853"^^xs:float .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeIndexComponent/Verse1/TextFragment/end/7d49f1d19f96504be88b7500bc8f2f61021ba7b6>
+        rdf:type    core:MusicTimeIndexComponent ;
+        core:value  "83.90635955056179"^^xs:float .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeIndexComponent/Bridge1/TextFragment/start/44bcbc93396a587484cc9ae9482879571a601f4e>
+        rdf:type    core:MusicTimeIndexComponent ;
+        core:value  "115.33894382022473"^^xs:float .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeDuration/Bridge1/TextFragment/b51cdee7f809b8cd90f1b08036ab7ddc024fbe23>
+        rdf:type    core:MusicTimeDuration ;
+        core:value  "2.275280898876389"^^xs:float .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeDuration/Bridge1/TextFragment/3b40fdb565c96578327bf22e6fc0118bc043cfff>
+        rdf:type    core:MusicTimeDuration ;
+        core:value  "1.6853932584269558"^^xs:float .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeIndex/Verse1/start/f06bea1afbcdcea16ba65d9073ab2db205f3ee3c>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <https://w3id.org/polifonia/ontology/core/MusicTimeIndexComponent/Verse1/start/f06bea1afbcdcea16ba65d9073ab2db205f3ee3c> .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeIndex/Verse1/TextFragment/start/a0db533531cc8bfebc8e7fd665f48e9e1b0e33d0>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <https://w3id.org/polifonia/ontology/core/MusicTimeIndexComponent/Verse1/TextFragment/start/a0db533531cc8bfebc8e7fd665f48e9e1b0e33d0> .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeDuration/Verse1/TextFragment/40fcc228caf418e92618dde13ce01c764deaf3fc>
+        rdf:type    core:MusicTimeDuration ;
+        core:value  "1.5168539325842687"^^xs:float .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeIndexComponent/Bridge1/end/f06bea1afbcdcea16ba65d9073ab2db205f3ee3c>
+        rdf:type    core:MusicTimeIndexComponent ;
+        core:value  "132.95130337078652"^^xs:float .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeIndexComponent/Chorus1/TextFragment/end/a17fa2a683848e8fba7d7b34caa499da65a2dd34>
+        rdf:type    core:MusicTimeIndexComponent ;
+        core:value  "167.92321348314607"^^xs:float .
+
+<http://w3id.org/polifonia/ontology/music-lyrics/TextFragment/Bridge1/59b437caa97faef5006fa152c39549ee44767aca>
+        rdf:type                 mm:TextFragment ;
+        ml:hasMusicTimeInterval  <https://w3id.org/polifonia/ontology/core/MusicTimeInterval/Bridge1/TextFragment/59b437caa97faef5006fa152c39549ee44767aca> ;
+        ml:value                 "pierced from below," .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeInterval/Verse1/TextFragment/75f7799333143f629526c5f31abe10d0775b6690>
+        rdf:type                     core:MusicTimeInterval ;
+        core:hasEndMusicTimeIndex    <https://w3id.org/polifonia/ontology/core/MusicTimeIndex/Verse1/TextFragment/end/75f7799333143f629526c5f31abe10d0775b6690> ;
+        core:hasMusicTimeDuration    <https://w3id.org/polifonia/ontology/core/MusicTimeDuration/Verse1/TextFragment/75f7799333143f629526c5f31abe10d0775b6690> ;
+        core:hasStartMusicTimeIndex  <https://w3id.org/polifonia/ontology/core/MusicTimeIndex/Verse1/TextFragment/start/75f7799333143f629526c5f31abe10d0775b6690> .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeIndex/Verse1/TextFragment/start/1c1018bcc44f5a0044e82ca130859682c5cfaa7c>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <https://w3id.org/polifonia/ontology/core/MusicTimeIndexComponent/Verse1/TextFragment/start/1c1018bcc44f5a0044e82ca130859682c5cfaa7c> .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeIndex/Verse1/TextFragment/start/7d49f1d19f96504be88b7500bc8f2f61021ba7b6>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <https://w3id.org/polifonia/ontology/core/MusicTimeIndexComponent/Verse1/TextFragment/start/7d49f1d19f96504be88b7500bc8f2f61021ba7b6> .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeIndexComponent/Verse1/TextFragment/start/a0db533531cc8bfebc8e7fd665f48e9e1b0e33d0>
+        rdf:type    core:MusicTimeIndexComponent ;
+        core:value  "86.6872584269663"^^xs:float .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeDuration/Bridge1/TextFragment/a451f32145e215d037be158811430e7a2d8d8b6e>
+        rdf:type    core:MusicTimeDuration ;
+        core:value  "4.0449438202247165"^^xs:float .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeIndex/Chorus1/TextFragment/start/b8d1663b59d355e7ea87ef960171ffede8e9ab1c>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <https://w3id.org/polifonia/ontology/core/MusicTimeIndexComponent/Chorus1/TextFragment/start/b8d1663b59d355e7ea87ef960171ffede8e9ab1c> .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeInterval/Chorus1/TextFragment/9d4822a4006a1a7089753fad01fda89a57f53665>
+        rdf:type                     core:MusicTimeInterval ;
+        core:hasEndMusicTimeIndex    <https://w3id.org/polifonia/ontology/core/MusicTimeIndex/Chorus1/TextFragment/end/9d4822a4006a1a7089753fad01fda89a57f53665> ;
+        core:hasMusicTimeDuration    <https://w3id.org/polifonia/ontology/core/MusicTimeDuration/Chorus1/TextFragment/9d4822a4006a1a7089753fad01fda89a57f53665> ;
+        core:hasStartMusicTimeIndex  <https://w3id.org/polifonia/ontology/core/MusicTimeIndex/Chorus1/TextFragment/start/9d4822a4006a1a7089753fad01fda89a57f53665> .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeIndexComponent/Verse1/TextFragment/start/1c1018bcc44f5a0044e82ca130859682c5cfaa7c>
+        rdf:type    core:MusicTimeIndexComponent ;
+        core:value  "95.53557303370786"^^xs:float .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeIndex/Bridge1/TextFragment/start/b51cdee7f809b8cd90f1b08036ab7ddc024fbe23>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <https://w3id.org/polifonia/ontology/core/MusicTimeIndexComponent/Bridge1/TextFragment/start/b51cdee7f809b8cd90f1b08036ab7ddc024fbe23> .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeIndexComponent/Bridge1/TextFragment/end/59b437caa97faef5006fa152c39549ee44767aca>
+        rdf:type    core:MusicTimeIndexComponent ;
+        core:value  "111.20973033707865"^^xs:float .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeIndex/Bridge1/TextFragment/end/b51cdee7f809b8cd90f1b08036ab7ddc024fbe23>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <https://w3id.org/polifonia/ontology/core/MusicTimeIndexComponent/Bridge1/TextFragment/end/b51cdee7f809b8cd90f1b08036ab7ddc024fbe23> .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeIndexComponent/Bridge1/TextFragment/end/ab3a5974bdb25f805af4275dcbbe53caa00eea88>
+        rdf:type    core:MusicTimeIndexComponent ;
+        core:value  "118.794"^^xs:float .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeIndex/Verse1/TextFragment/start/52da0800020c84865c0879bf94ad9ea5cf7f08d0>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <https://w3id.org/polifonia/ontology/core/MusicTimeIndexComponent/Verse1/TextFragment/start/52da0800020c84865c0879bf94ad9ea5cf7f08d0> .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeIndex/Chorus1/TextFragment/end/b8d1663b59d355e7ea87ef960171ffede8e9ab1c>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <https://w3id.org/polifonia/ontology/core/MusicTimeIndexComponent/Chorus1/TextFragment/end/b8d1663b59d355e7ea87ef960171ffede8e9ab1c> .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeIndex/Bridge1/TextFragment/start/3b40fdb565c96578327bf22e6fc0118bc043cfff>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <https://w3id.org/polifonia/ontology/core/MusicTimeIndexComponent/Bridge1/TextFragment/start/3b40fdb565c96578327bf22e6fc0118bc043cfff> .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeIndexComponent/Verse1/TextFragment/start/7d49f1d19f96504be88b7500bc8f2f61021ba7b6>
+        rdf:type    core:MusicTimeIndexComponent ;
+        core:value  "82.30523595505618"^^xs:float .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeIndex/Bridge1/TextFragment/end/3b40fdb565c96578327bf22e6fc0118bc043cfff>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <https://w3id.org/polifonia/ontology/core/MusicTimeIndexComponent/Bridge1/TextFragment/end/3b40fdb565c96578327bf22e6fc0118bc043cfff> .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeIndexComponent/Chorus1/TextFragment/end/2dfe972cca06d13f8e32f653a0352cc274291b9f>
+        rdf:type    core:MusicTimeIndexComponent ;
+        core:value  "165.39512359550562"^^xs:float .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeDuration/Verse1/TextFragment/75f7799333143f629526c5f31abe10d0775b6690>
+        rdf:type    core:MusicTimeDuration ;
+        core:value  "1.8539325842696712"^^xs:float .
+
+<https://w3id.org/polifonia/ontology/music-meta/MusicArtist/e840c9f0cf1d34ea339b768bdb79127b590cb3ec>
+        rdf:type   mm:MusicArtist ;
+        core:name  "Kerry King" .
+
+<http://w3id.org/polifonia/ontology/music-lyrics/AbstractScore/Verse1/f06bea1afbcdcea16ba65d9073ab2db205f3ee3c>
+        rdf:type                 ml:Verse ;
+        ml:hasMusicTimeInterval  <https://w3id.org/polifonia/ontology/core/MusicTimeInterval/Verse1/f06bea1afbcdcea16ba65d9073ab2db205f3ee3c> ;
+        ml:hasTextPart           <http://w3id.org/polifonia/ontology/music-lyrics/TextFragment/Verse1/75f7799333143f629526c5f31abe10d0775b6690> , <http://w3id.org/polifonia/ontology/music-lyrics/TextFragment/Verse1/40fcc228caf418e92618dde13ce01c764deaf3fc> , <http://w3id.org/polifonia/ontology/music-lyrics/TextFragment/Verse1/7d49f1d19f96504be88b7500bc8f2f61021ba7b6> , <http://w3id.org/polifonia/ontology/music-lyrics/TextFragment/Verse1/1dc85b4139f044e3a976508018a0db6ad7bf2496> , <http://w3id.org/polifonia/ontology/music-lyrics/TextFragment/Verse1/4ed2c100d6c04b5fde3c2c98fa405301d3adf072> , <http://w3id.org/polifonia/ontology/music-lyrics/TextFragment/Verse1/a0db533531cc8bfebc8e7fd665f48e9e1b0e33d0> , <http://w3id.org/polifonia/ontology/music-lyrics/TextFragment/Verse1/52da0800020c84865c0879bf94ad9ea5cf7f08d0> , <http://w3id.org/polifonia/ontology/music-lyrics/TextFragment/Verse1/1c1018bcc44f5a0044e82ca130859682c5cfaa7c> ;
+        ml:sungBy                <https://w3id.org/polifonia/ontology/music-meta/MusicArtist/441547750c4a0d45d070e37801e24d9194223070> .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeIndexComponent/Verse1/TextFragment/start/52da0800020c84865c0879bf94ad9ea5cf7f08d0>
+        rdf:type    core:MusicTimeIndexComponent ;
+        core:value  "91.15355056179774"^^xs:float .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeIndexComponent/Chorus1/end/f06bea1afbcdcea16ba65d9073ab2db205f3ee3c>
+        rdf:type    core:MusicTimeIndexComponent ;
+        core:value  "170.36703370786518"^^xs:float .
+
+<http://w3id.org/polifonia/ontology/music-lyrics/TextFragment/Bridge1/44bcbc93396a587484cc9ae9482879571a601f4e>
+        rdf:type                 mm:TextFragment ;
+        ml:hasMusicTimeInterval  <https://w3id.org/polifonia/ontology/core/MusicTimeInterval/Bridge1/TextFragment/44bcbc93396a587484cc9ae9482879571a601f4e> ;
+        ml:value                 "betrayedby many" .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeInterval/Bridge1/TextFragment/59b437caa97faef5006fa152c39549ee44767aca>
+        rdf:type                     core:MusicTimeInterval ;
+        core:hasEndMusicTimeIndex    <https://w3id.org/polifonia/ontology/core/MusicTimeIndex/Bridge1/TextFragment/end/59b437caa97faef5006fa152c39549ee44767aca> ;
+        core:hasMusicTimeDuration    <https://w3id.org/polifonia/ontology/core/MusicTimeDuration/Bridge1/TextFragment/59b437caa97faef5006fa152c39549ee44767aca> ;
+        core:hasStartMusicTimeIndex  <https://w3id.org/polifonia/ontology/core/MusicTimeIndex/Bridge1/TextFragment/start/59b437caa97faef5006fa152c39549ee44767aca> .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeIndexComponent/Chorus1/TextFragment/start/b8d1663b59d355e7ea87ef960171ffede8e9ab1c>
+        rdf:type    core:MusicTimeIndexComponent ;
+        core:value  "158.65355056179777"^^xs:float .
+
+<http://w3id.org/polifonia/ontology/music-lyrics/Dataset/7798283b3b0029f0428177482415b8f6163030b9>
+        rdf:type   ml:Dataset ;
+        core:name  "DALI" .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeIndex/Bridge1/TextFragment/start/a451f32145e215d037be158811430e7a2d8d8b6e>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <https://w3id.org/polifonia/ontology/core/MusicTimeIndexComponent/Bridge1/TextFragment/start/a451f32145e215d037be158811430e7a2d8d8b6e> .
+
+<https://w3id.org/polifonia/ontology/core/MusicTimeIndex/Bridge1/TextFragment/end/a451f32145e215d037be158811430e7a2d8d8b6e>
+        rdf:type  core:MusicTimeIndex ;
+        core:hasMusicTimeIndexComponent
+                <https://w3id.org/polifonia/ontology/core/MusicTimeIndexComponent/Bridge1/TextFragment/end/a451f32145e215d037be158811430e7a2d8d8b6e> .
