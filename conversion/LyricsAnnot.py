@@ -168,6 +168,7 @@ class LyricsAnnot:
         data = {
             'meta': {
                 'song_id': self.song_id,
+                'dataset': dataset,
                 'title': self.title,
                 'artist': self.artist,
                 'language': self.language,
@@ -323,7 +324,7 @@ class LyricsAnnot:
 if __name__ == '__main__':
     
     # Read the data from a JSON file
-    file_path = './data/DAMP_MVP/sing_300x30x2/FR/FRLyrics/728723_68818.json'
+    file_path = './data/DAMP_MVP/sing_300x30x2/AU/AULyrics/409146418_113102.json'
     save_path = './conversion/saved'
     id_file_path = './conversion/id.txt'
 
@@ -331,8 +332,8 @@ if __name__ == '__main__':
         data = json.load(file)
 
     # Create the instance of lyrics annotations
-    title = 'Ziggy Un Garçon Pas Comme'
-    artist = 'Celine Dion'
+    title = 'We Found Love'
+    artist = 'Rihanna'
 
     annot = LyricsAnnot(title, artist)
     annot.build_annotations(data, 'DAMP')

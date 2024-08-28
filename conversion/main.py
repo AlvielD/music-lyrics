@@ -228,6 +228,7 @@ def process_dali_file(metadata_file, DALI_dir, save_path, already_converted_path
         return f"Error processing {metadata_file}: {ex}"
     
 
+
 def create_damp_notations(DAMP_dir, save_path, already_converted_path, id_file_path, avoided_songs_file_path, batch_size=10, pause_interval=30, pause_duration=60):
     contents = os.listdir(save_path)
     if not contents : # the folder is empty, no song has been converted yet
@@ -240,23 +241,19 @@ def create_damp_notations(DAMP_dir, save_path, already_converted_path, id_file_p
         print(f"Creating notations for {dir} language")
         metadata_files = os.listdir(f"{DAMP_dir}{dir}/{dir}ArrangementMeta/")
         
-        with ThreadPoolExecutor(max_workers=batch_size) as executor:
-            futures = []
-            processed_count = 0
+        processed_count = 0
             
-            for metadata_file in metadata_files:
-                futures.append(executor.submit(process_damp_metadata_file, metadata_file, dir, DAMP_dir, save_path, already_converted_path, id_file_path, avoided_songs_file_path))
-                processed_count += 1
+        for metadata_file, i in zip(metadata_files, tqdm(range(len(metadata_files)))):
+            process_damp_metadata_file(metadata_file, dir, DAMP_dir, save_path, already_converted_path, id_file_path, avoided_songs_file_path)
+            processed_count += 1
 
-                # If the number of processed futures is a multiple of the pause interval, pause the execution
-                if processed_count % pause_interval == 0:
-                    print(f"Processed {processed_count} files, pausing for {pause_duration} seconds...")
-                    time.sleep(pause_duration)
-            
-            for future in tqdm(as_completed(futures), total=len(metadata_files)):
-                result = future.result()
-                print(result)
-    
+            # If the number of processed futures is a multiple of the pause interval, pause the execution
+            if processed_count % pause_interval == 0:
+                print(f"Processed {processed_count} files, pausing for {pause_duration} seconds...")
+                time.sleep(pause_duration)
+
+
+
 def create_dali_notations(DALI_dir, save_path, already_converted_path, id_file_path, avoided_songs_file_path, batch_size=10, pause_interval=30, pause_duration=60):
     contents = os.listdir(save_path)
     if not contents : # the folder is empty, no song has been converted yet
@@ -265,30 +262,24 @@ def create_dali_notations(DALI_dir, save_path, already_converted_path, id_file_p
         if not(utils.check_id_list(save_path, id_file_path)):
             return "The number of IDs of songs successfully converted listed in id.txt is different from the number of files in the folder of the converted songs (./saved). Please fill in id.txt with the songs missing before proceeding with the conversion."
     lan_files = os.listdir(DALI_dir)
-    for file in lan_files:
+    for file, i in zip(lan_files, tqdm(range(len(lan_files)))):
         print(f"Creating notations for the file {file}")
-        
-        with ThreadPoolExecutor(max_workers=batch_size) as executor:
-            futures = []
-            processed_count = 0
+    
+        processed_count = 0
             
-            futures.append(executor.submit(process_dali_file, file, DALI_dir, save_path, already_converted_path, id_file_path, avoided_songs_file_path))
-            processed_count += 1
+        process_dali_file(file, DALI_dir, save_path, already_converted_path, id_file_path, avoided_songs_file_path)
+        processed_count += 1
 
-            # If the number of processed futures is a multiple of the pause interval, pause the execution
-            if processed_count % pause_interval == 0:
-                print(f"Processed {processed_count} files, pausing for {pause_duration} seconds...")
-                time.sleep(pause_duration)
-            
-            for future in tqdm(as_completed(futures), total=len(lan_files)):
-                result = future.result()
-                print(result)
+        # If the number of processed futures is a multiple of the pause interval, pause the execution
+        if processed_count % pause_interval == 0:
+            print(f"Processed {processed_count} files, pausing for {pause_duration} seconds...")
+            time.sleep(pause_duration)
     
 
 def main():
     # Adapt it to your use case
     DAMP_dir = "./data/DAMP_MVP/sing_300x30x2/"
-    DALI_dir = "./dali/dali_json/"
+    DALI_dir = "./data/dali_json/"
     save_path = "./conversion/saved"
     dali_already_converted_path = "./dali/dali_already_converted/"
     damp_already_converted_path = "./data/DAMP_MVP/damp_already_converted/"
@@ -297,7 +288,7 @@ def main():
     # DALI NOTATIONS
     create_dali_notations(DALI_dir, save_path, dali_already_converted_path, id_file_path, avoided_songs_file_path, batch_size=10, pause_interval=30, pause_duration=60)
     # DAMP NOTATIONS
-    create_damp_notations(DAMP_dir, save_path, damp_already_converted_path, id_file_path, avoided_songs_file_path, batch_size=10, pause_interval=30, pause_duration=60)
+    #create_damp_notations(DAMP_dir, save_path, damp_already_converted_path, id_file_path, avoided_songs_file_path, batch_size=10, pause_interval=30, pause_duration=60)
             
 
 if __name__ == '__main__':

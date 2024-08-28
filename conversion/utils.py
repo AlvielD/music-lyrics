@@ -482,14 +482,14 @@ def count_files(folder_path):
 
 
 
-def dali_count_avoided_songs(dali_avoided_songs_file_path):
+def count_avoided_songs(avoided_songs_file_path):
     try:
         # Load the JSON content from the file
-        with open(dali_avoided_songs_file_path, 'r', encoding='utf-8') as file:
+        with open(avoided_songs_file_path, 'r', encoding='utf-8') as file:
             data = json.load(file)
         
         # Initialize counters
-        dali_counts = {
+        avoided_counts = {
             "no_language_information": 0,
             "wrongly_encoded_asian_song": 0,
             "no_paragraphs": 0,
@@ -502,17 +502,17 @@ def dali_count_avoided_songs(dali_avoided_songs_file_path):
             song_id = value[0]
             reason = value[1]
             if reason == "no_language_information":
-                dali_counts["no_language_information"] += 1
+                avoided_counts["no_language_information"] += 1
             elif reason == "wrongly_encoded_asian_song":
-                dali_counts["wrongly_encoded_asian_song"] += 1
+                avoided_counts["wrongly_encoded_asian_song"] += 1
             elif reason == "no_paragraphs":
-                dali_counts["no_paragraphs"] += 1
+                avoided_counts["no_paragraphs"] += 1
             elif reason == "not_found_on_Genius":
-                dali_counts["not_found_on_Genius"] += 1
-            dali_counts["total"] = dali_counts["no_language_information"]+dali_counts["wrongly_encoded_asian_song"]+dali_counts["no_paragraphs"]+dali_counts["not_found_on_Genius"]
+                avoided_counts["not_found_on_Genius"] += 1
+            avoided_counts["total"] = avoided_counts["no_language_information"]+avoided_counts["wrongly_encoded_asian_song"]+avoided_counts["no_paragraphs"]+avoided_counts["not_found_on_Genius"]
 
         
-        return {"dali_counts": dali_counts}
+        return {"avoided_counts": avoided_counts}
 
     except Exception as ex:
         return f"Error processing the file: {ex}"
