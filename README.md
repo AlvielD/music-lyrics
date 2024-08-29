@@ -125,5 +125,3 @@ Here are some improvement axis:
 - Improve the cleaning in order to get more songs from the DAMP dataset;
 - Perform the entity linking on the Polifonia knowledge graph;
 - Enhance the granularity to syllable level.
-- Extend the artist field to all artists involved in the writing process;
-- Add the dataset source information in the ontology and complete the knowledge graph accordingly.
