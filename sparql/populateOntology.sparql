@@ -54,7 +54,7 @@ CONSTRUCT {
   # Time dimension
   ?paragraphURI a ?paragraphClass ;
     ml:hasMusicTimeInterval ?musicTimeIntervalURI ;
-  	ml:hasTextPart ?linesURI ;
+  	mm:hasTextPart ?linesURI ;
     ml:sungBy ?singerURI .
   
   ?musicTimeIntervalURI a core:MusicTimeInterval ;
@@ -79,7 +79,7 @@ CONSTRUCT {
   # Lines
   ?linesURI a mm:TextFragment ;
     ml:hasMusicTimeInterval ?lineTimeIntervalURI ;
-    ml:value ?line .
+    core:value ?line .
   ?lineTimeIntervalURI a core:MusicTimeInterval ;
     core:hasStartMusicTimeIndex ?startLineTimeIndexURI ;
     core:hasEndMusicTimeIndex ?endLineTimeIndexURI ;
