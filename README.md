@@ -38,7 +38,26 @@ We designed our ontology so that the data created according to it can answer the
 
 If you want to take try to query through our knowledge graph to retrieve these answers, you can find [here](https://github.com/AlvielD/music-lyrics/blob/PW_KE/sparql/queries.ipynb) a notebook that will guide you step by step to perform this.
 
+### Music Time Interval ODP
+In order to model the time dimension of the different annotations, we have reused the Music Time Interval ODP.
+![](assets/core_music_time.png)
 
+### Creative Tasks ODP
+To differ those artists in charge of singing the song (instrumentation) and those in charge of writing the lyrics of the song, we have reused the Creative Tasks ODP. In this way each artist is involved in a different Creative Task.
+![](assets/creativeTaskODP.png)
+
+### Corpus ODP
+We have reused the Corpus ODP present in the [JAMS Ontology](https://w3id.org/polifonia/ontology/music-annotation/) so to represent the source where the data was taken from.
+![](assets/dataset_source_ODP.png). We have added some more information like the identifier of the source file and the name of the dataset where the file belongs to.
+
+### Imported ontologies
+#### Direct Imports
+- [Music-meta Ontology](https://w3id.org/polifonia/ontology/music-meta/)
+- [Source Ontology](https://w3id.org/polifonia/ontology/source/)
+- [The PROV Ontology](https://www.w3.org/TR/prov-o/)
+
+#### Indirect Imports
+- [Core Ontology](https://w3id.org/polifonia/ontology/core/)
 
 ## Data preparation
 ### Choice of the datasets
