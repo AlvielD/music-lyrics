@@ -40,15 +40,18 @@ If you want to take try to query through our knowledge graph to retrieve these a
 
 ### Music Time Interval ODP
 In order to model the time dimension of the different annotations, we have reused the Music Time Interval ODP.
+
 ![](assets/core_music_time.png)
 
 ### Creative Tasks ODP
 To differ those artists in charge of singing the song (instrumentation) and those in charge of writing the lyrics of the song, we have reused the Creative Tasks ODP. In this way each artist is involved in a different Creative Task.
+
 ![](assets/creativeTaskODP.png)
 
 ### Corpus ODP
-We have reused the Corpus ODP present in the [JAMS Ontology](https://w3id.org/polifonia/ontology/music-annotation/) so to represent the source where the data was taken from.
-![](assets/dataset_source_ODP.png). We have added some more information like the identifier of the source file and the name of the dataset where the file belongs to.
+We have reused the Corpus ODP present in the [JAMS Ontology](https://w3id.org/polifonia/ontology/music-annotation/) so to represent the source where the data was taken from. We have added some more information like the identifier of the source file and the name of the dataset where the file belongs to.
+
+![](assets/dataset_source_ODP.png)
 
 ### Imported ontologies
 #### Direct Imports
