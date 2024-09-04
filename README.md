@@ -32,20 +32,24 @@ The structure of our ontology was developed based on the list of **competency qu
 | 11     | What is the dataset where the annotations were taken from?               | Music Lyrics  |
 | 12     | From which dataset was extracted each JSON data file?                    | Music Lyrics  |
 
-## Music Time Interval ODP
+## Reused Ontology Design Patterns
+### Music Time Interval ODP
 In order to model the time dimension of the different annotations, we have reused the Music Time Interval ODP.
 
 ![](assets/core_music_time.png)
 
-## Creative Tasks ODP
+### Creative Tasks ODP
 To differ those artists in charge of singing the song (instrumentation) and those in charge of writing the lyrics of the song, we have reused the Creative Tasks ODP. In this way each artist is involved in a different Creative Task.
 
 ![](assets/creativeTaskODP.png)
 
-## Corpus ODP
+### Corpus ODP
 We have reused the Corpus ODP present in the [JAMS Ontology](https://w3id.org/polifonia/ontology/music-annotation/) so to represent the source where the data was taken from. We have added some more information like the identifier of the source file and the name of the dataset where the file belongs to.
 
 ![](assets/dataset_source_ODP.png)
+
+## Aligned Ontologies
+- [Music-meta Ontology](https://w3id.org/polifonia/ontology/music-meta/) 
 
 ## Imported ontologies
 ### Direct Imports
