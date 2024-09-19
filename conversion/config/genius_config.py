@@ -1,5 +1,5 @@
 BASE_URL = 'https://api.genius.com'
-ACCESS_TOKEN = 'J2DHTeK-hL6KNGQr2mqNLfym23ABKHWr_grvzZ0vjX1hEVj3p7zyieM_MQgQck2l'
+ACCESS_TOKEN = None
 
 HEADERS = {
     'Authorization': f'Bearer {ACCESS_TOKEN}'
